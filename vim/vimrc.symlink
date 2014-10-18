@@ -1,0 +1,201 @@
+" Max's .vimrc
+" Honourary mention to Gary Bernhardt
+
+""""""""""""""""""""""""""""""""""""""
+" Vundle, for all my beautiful plugins
+""""""""""""""""""""""""""""""""""""""
+
+set nocompatible
+filetype off
+
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+
+Bundle 'gmarik/vundle'
+Bundle 'wincent/command-t'
+Bundle 'tpope/vim-rsi'
+Bundle 'tpope/vim-surround'
+
+""""""""""""""""""""""
+" Basic editing config
+""""""""""""""""""""""
+
+colorscheme maxbucknell
+
+" Tab config options
+" I will probably want to change these for different projects.
+set expandtab
+set tabstop=2
+set shiftwidth=2
+set softtabstop=2
+set autoindent
+
+" I am lazy and I don't like holding shift.
+map ; :
+noremap ;; ;
+
+" Show me when my lines are too long
+call matchadd('ColorColumn', '\%81v', 100)
+
+" Search options
+" Show partial matches while searching
+set incsearch
+" Highlight other matches in the file
+set hlsearch
+
+" Show the next search result.
+" By Damian Conway.
+"
+" This rewires n and N to do the highlighing...
+nnoremap <silent> n   n:call HLNext(0.2)<cr>
+nnoremap <silent> N   N:call HLNext(0.2)<cr>
+
+" Blink the next match
+function! HLNext (blinktime)
+    let [bufnum, lnum, col, off] = getpos('.')
+    let matchlen = strlen(matchstr(strpart(getline('.'),col-1),@/))
+    let target_pat = '\c\%#'.@/
+    let ring = matchadd('MBSearchNext', target_pat, 101)
+    redraw
+    exec 'sleep ' . float2nr(a:blinktime * 1000) . 'm'
+    call matchdelete(ring)
+    redraw
+endfunction
+
+" Make searches case sensitive only if an upper case character has been typed
+set ignorecase smartcase
+
+" Prevent Vim from clobbering the scrollback buffer. See
+" http://www.shallowsky.com/linux/noaltscreen.html
+set t_ti= t_te=
+
+" Highlight current line
+set cursorline
+
+" Ensure that the cursor never touches top or bottom of screen
+set scrolloff=10
+
+" Allow backspacing over everything in insert mode
+set backspace=indent,eol,start
+
+" display incomplete commands
+set showcmd
+
+" Allow hidden buffers
+set hidden
+
+" Enable highlighting for syntax
+syntax on
+
+" Enable file type detection.
+" Use the default filetype settings, so that mail gets 'tw' set to 72,
+" 'cindent' is on in C files, etc.
+" Also load indent files, to automatically do language-dependent indenting.
+filetype plugin indent on
+
+" Change leader to , rather than \
+let mapleader=","
+
+" Insert only one space when joining lines that contain sentence-terminating
+" punctuation like `.`.
+set nojoinspaces
+
+" If a file is changed outside of vim, automatically reload it without asking
+set autoread
+
+" Show trailing whitespace, since it's a crime
+set list
+set listchars=trail:·,tab:‣\ 
+
+" Turn off code folding
+set nofoldenable
+let g:vim_markdown_folding_disabled=1
+
+" Always show status bar
+set laststatus=2
+
+" Swap v and ctrl-v because visual block mode rules
+nnoremap    v   <C-V>
+nnoremap <C-V>     v
+vnoremap    v   <C-V>
+vnoremap <C-V>     v
+
+" Dragvisuals key mappings
+vmap  <expr>  <LEFT>   DVB_Drag('left')
+vmap  <expr>  <RIGHT>  DVB_Drag('right')
+vmap  <expr>  <DOWN>   DVB_Drag('down')
+vmap  <expr>  <UP>     DVB_Drag('up')
+vmap  <expr>  D        DVB_Duplicate()
+
+" Pastetoggle to let Vim paste things without auto stuff
+set pastetoggle=<F2>
+
+"""""""""""""""""
+" Custom autocmds
+"""""""""""""""""
+
+augroup vimrcEx
+  " Clear all autocmds in the group
+  autocmd!
+  autocmd FileType text setlocal textwidth=78
+  " Jump to last cursor position unless it's invalid or in an event handler
+  autocmd BufReadPost *
+    \ if line("'\"") > 0 && line("'\"") <= line("$") |
+    \   exe "normal g`\"" |
+    \ endif
+
+  " Language whitespace settings
+  autocmd FileType json,c,xml,java,php,python setlocal shiftwidth=4 softtabstop=4
+  autocmd FileType ruby,haml,eruby,yaml,html,javascript,sass,cucumber setlocal ai sw=2 sts=2 et
+  autocmd FileType make setlocal noet sw=8 sts=8 ts=8
+augroup END
+
+
+"""""""""""""
+" STATUS LINE
+"""""""""""""
+:set statusline=%<[%n]:\ %f\ %5l,%3c\ (%{&ft})
+
+
+"""""""""""""""
+" MISC KEY MAPS
+"""""""""""""""
+
+map <leader>y "*y
+nmap <leader>. <c-^>
+
+" Move around splits with <c-hjkl>
+nnoremap <c-j> <c-w>j
+nnoremap <c-k> <c-w>k
+nnoremap <c-h> <c-w>h
+nnoremap <c-l> <c-w>l
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" MULTIPURPOSE TAB KEY
+" Indent if we're at the beginning of a line. Else, do completion.
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! InsertTabWrapper()
+  let col = col('.') - 1
+  if !col || getline('.')[col - 1] !~ '\k'
+    return "\<tab>"
+  else
+    return "\<c-p>"
+  endif
+endfunction
+
+inoremap <tab> <c-r>=InsertTabWrapper()<cr>
+inoremap <s-tab> <c-n>
+
+" I don't like the quote concealing
+let g:vim_json_syntax_conceal = 0
+
+" Show syntax highlighting groups for word under cursor
+nmap <C-S-P> :call <SID>SynStack()<CR>
+function! <SID>SynStack()
+  if !exists("*synstack")
+    return
+  endif
+  echo map(synstack(line('.'), col('.')), 'synIDattr(v:val,"name")')
+endfunc
+
