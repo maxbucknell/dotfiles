@@ -20,6 +20,7 @@
   co = checkout
   current-branch = rev-parse --abbrev-ref HEAD
   cl = clone
+  ll = !max-git-log
 
 [color]
   ui = auto
