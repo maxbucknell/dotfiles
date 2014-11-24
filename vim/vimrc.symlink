@@ -1,12 +1,19 @@
 " Max's .vimrc
 " Honourary mention to Gary Bernhardt
 
-set nocompatible
+
+""""""""""""""""""""""
+" Plugins
+""""""""""""""""""""""
+
+execute pathogen#infect()
+
 
 """"""""""""""""""""""
 " Basic editing config
 """"""""""""""""""""""
 
+set nocompatible
 colorscheme maxbucknell
 
 " Tab config options
