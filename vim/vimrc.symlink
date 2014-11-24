@@ -1,20 +1,7 @@
 " Max's .vimrc
 " Honourary mention to Gary Bernhardt
 
-""""""""""""""""""""""""""""""""""""""
-" Vundle, for all my beautiful plugins
-""""""""""""""""""""""""""""""""""""""
-
 set nocompatible
-filetype off
-
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
-
-Bundle 'gmarik/vundle'
-Bundle 'wincent/command-t'
-Bundle 'tpope/vim-rsi'
-Bundle 'tpope/vim-surround'
 
 """"""""""""""""""""""
 " Basic editing config
