@@ -183,7 +183,7 @@ inoremap <s-tab> <c-n>
 let g:vim_json_syntax_conceal = 0
 
 " Show syntax highlighting groups for word under cursor
-nmap <C-S-P> :call <SID>SynStack()<CR>
+nmap <leader>\ :call <SID>SynStack()<CR>
 function! <SID>SynStack()
   if !exists("*synstack")
     return
