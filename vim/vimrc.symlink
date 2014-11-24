@@ -156,6 +156,13 @@ augroup END
 :set statusline=%<[%n]:\ %f\ %5l,%3c\ (%{&ft})
 
 
+""""""""""""""""""""""""
+" Configure fuzzy finder
+""""""""""""""""""""""""
+
+nmap <leader>t :FufCoverageFile<cr>
+
+
 """""""""""""""
 " MISC KEY MAPS
 """""""""""""""
