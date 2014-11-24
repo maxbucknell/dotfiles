@@ -15,16 +15,81 @@ function __fish_prompt_git_branch
   end
 end
 
+####
+# Fish prompt
+# Looks like: user@host in cwd(branch)
 function fish_prompt
-  if test (whoami) = root; set_color red; else; set_color black; end
-  echo -n  (set_color yellow)(whoami)(set_color black)@(set_color blue)(hostname)(set_color black)
 
-  echo -n ' in' (set_color red)(pwd | rev | cut -d "/" -f 1 | rev)(set_color black)
+  # Reset button
+  set_color normal
 
-  set __prompt_branch (__fish_prompt_git_branch)
-  if not test -z $__prompt_branch; echo -n \((set_color green)$__prompt_branch(set_color black)\); end
+  #
+  # Username
+  #
+
+  # Show root user as red, to remind us of danger.
+  if test (whoami) = root
+    set_color red
+  else
+    set_color yellow
+  end
+
+  echo -n (whoami)
+
+  # Connecting pieces ("@", "in", "(", ")") are black.
+  set_color normal
+  set_color -o black
+
+  echo -n @
+
+  #
+  # Hostname
+  #
+
+  # To remove boldness
+  set_color normal
+  set_color blue
+
+  echo -n (hostname)
+
+  set_color normal
+  set_color -o black
+
+  echo -n " in "
+
+  #
+  # Current working dir
+  #
+
+  set_color normal
+  set_color red
+
+  echo -n (pwd | rev | cut -d "/" -f 1 | rev)
+
+  set_color normal
+  set_color -o black
+
+  #
+  # Git branch
+  #
+
+  set branch (__fish_prompt_git_branch)
+  if not test -z $branch
+    echo -n "("
+
+    set_color normal
+    set_color green
+
+    echo -n "$branch"
+
+    set_color normal
+    set_color -o black
+
+    echo -n ")"
+  end
 
   echo ""
-  echo -n '→' (set_color normal)
+  echo -n "→ "
 
+  set_color normal
 end
