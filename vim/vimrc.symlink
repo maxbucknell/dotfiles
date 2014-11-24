@@ -30,6 +30,9 @@ set shiftwidth=2
 set softtabstop=2
 set autoindent
 
+" So done with this
+set noswapfile
+
 " I am lazy and I don't like holding shift.
 map ; :
 noremap ;; ;
