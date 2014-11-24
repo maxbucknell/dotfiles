@@ -99,6 +99,7 @@ set list
 set listchars=trail:·,tab:‣\ 
 
 " Turn off code folding
+set foldmethod=manual
 set nofoldenable
 let g:vim_markdown_folding_disabled=1
 
