@@ -10,7 +10,6 @@ set nocompatible
 colorscheme maxbucknell
 
 " Tab config options
-" I will probably want to change these for different projects.
 set expandtab
 set tabstop=2
 set shiftwidth=2
