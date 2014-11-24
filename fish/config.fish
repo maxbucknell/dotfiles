@@ -29,3 +29,10 @@ alias mkdir "mkdir -p"
 
 # Make sl run ls afterwards
 alias sl "/usr/local/bin/sl; and ls"
+
+# Fish colour customisations
+set fish_color_autosuggestion "-o" "black"
+set fish_color_command "-o" "cyan"
+set fish_color_param "cyan"
+set fish_color_error "red"
+
