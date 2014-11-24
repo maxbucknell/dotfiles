@@ -1,3 +1,6 @@
 fish/fish_history
 fish/fishd*
+
 hub
+
+vim/vim.symlink/.netrwhist
