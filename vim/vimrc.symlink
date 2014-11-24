@@ -17,6 +17,8 @@ set softtabstop=2
 set autoindent
 
 " So done with this
+set nobackup
+set nowritebackup
 set noswapfile
 
 " I am lazy and I don't like holding shift.
