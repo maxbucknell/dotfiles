@@ -5,22 +5,30 @@ if exists("syntax_on")
   syntax reset
 endif
 
+"""""""""""""""""""""""""""""
+"
 " Terminal colours cheatsheet
 "
 "  0: black
-"  1: red
-"  2: green
-"  3: yellow
+"  1: red (errors)
+"  2: green (comments)
+"  3: yellow (search)
 "  4: blue
-"  5: magenta
+"  5: magenta (current)
 "  6: cyan
-"  7: white
+"  7: white (default)
 "
 " +8 for bright colours.
+"
+"""""""""""""""""""""""""""""
 
 let g:colors_name = "maxbucknell"
 
-" Basic settings
+
+""""""""""""""""""""""""""""""""""
+" Make everything white by default
+""""""""""""""""""""""""""""""""""
+
 hi Normal cterm=NONE ctermfg=7 ctermbg=NONE
 hi Type cterm=NONE ctermfg=7 ctermbg=NONE
 hi Keyword cterm=NONE ctermfg=7 ctermbg=NONE
@@ -35,27 +43,38 @@ hi Constant cterm=NONE ctermfg=7 ctermbg=NONE
 hi Define cterm=NONE ctermfg=7 ctermbg=NONE
 hi Include cterm=NONE ctermfg=7 ctermbg=NONE
 
-" Status Line
-hi StatusLine cterm=bold ctermfg=1 ctermbg=NONE
 
-" Vim settings
+" Residual Vim colors
+
 hi VimSet cterm=NONE ctermfg=7 ctermbg=NONE
 hi VimOption cterm=NONE ctermfg=7 ctermbg=NONE
 hi VimHiAttrib cterm=NONE ctermfg=7 ctermbg=NONE
 
-" Comments are important
+
+" Miscellaneous leftovers
+
+hi helpNote cterm=NONE ctermfg=7 ctermbg=NONE
+hi MatchParens cterm=NONE ctermfg=7 ctermbg=NONE
+
+" Comments are green
 hi Comment cterm=NONE ctermfg=2 ctermbg=NONE
 hi PreProc cterm=NONE ctermfg=2 ctermbg=NONE
 
-" Invisibles are less important
-hi SpecialKey cterm=NONE ctermfg=0 ctermbg=NONE
+" Make current line magenta
+hi CursorLine cterm=NONE ctermfg=5 ctermbg=NONE
 
-" Make current line bold
-hi CursorLine cterm=bold ctermfg=NONE ctermbg=NONE
+" Current search result yellow
+hi Search cterm=NONE ctermfg=3 ctermbg=0
+hi MBSearchNext cterm=NONE ctermfg=3 ctermbg=0
 
-" Current search result
-hi Search cterm=bold ctermfg=7 ctermbg=0
+" Errors are red
+hi SyntasticErrorLine cterm=NONE ctermfg=1 ctermbg=NONE
+hi SyntasticWarningLine cterm=NONE ctermfg=1 ctermbg=NONE
+hi SyntasticError cterm=NONE ctermfg=1 ctermbg=NONE
+hi SyntasticWarning cterm=NONE ctermfg=1 ctermbg=NONE
 
-" Next search result
-hi MBSearchNExt cterm=bold ctermfg=7 ctermbg=5
+"""""""""""""
+" Status Line
+"""""""""""""
 
+hi StatusLine cterm=bold ctermfg=1 ctermbg=NONE

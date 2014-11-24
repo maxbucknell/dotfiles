@@ -60,6 +60,9 @@ function! HLNext (blinktime)
     redraw
 endfunction
 
+" Disable match-paren
+let loaded_matchparen = 1 
+
 " Make searches case sensitive only if an upper case character has been typed
 set ignorecase smartcase
 
@@ -153,7 +156,7 @@ augroup END
 """""""""""""
 " STATUS LINE
 """""""""""""
-:set statusline=%<[%n]:\ %f\ %5l,%3c\ (%{&ft})
+set statusline=%<[%n]:\ %f\ %5l,%3c\ (%{&ft})
 
 
 """"""""""""""""""""""""
@@ -162,6 +165,12 @@ augroup END
 
 nmap <leader>t :FufCoverageFile<cr>
 
+
+"""""""""""""""""""""
+" Configure Syntastic
+"""""""""""""""""""""
+
+let g:syntastic_enable_signs = 0
 
 """""""""""""""
 " MISC KEY MAPS
