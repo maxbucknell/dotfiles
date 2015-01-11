@@ -103,10 +103,12 @@ function! g:SyntasticSignsNotifier._signErrors(loclist) " {{{2
             if i['lnum'] > 0 && !has_key(seen, i['lnum'])
                 let seen[i['lnum']] = 1
 
-                let severity = i['type'] ==? 'W' ? 'Warning' : 'Error'
-                let type = 'Syntastic' . severity
+                let sign_severity = i['type'] ==? 'W' ? 'Warning' : 'Error'
+                let sign_subtype = get(i, 'subtype', '')
+                let sign_type = 'Syntastic' . sign_subtype . sign_severity
 
-                call matchaddpos(type, [i['lnum']], 400000)
+                execute "sign place " . s:next_sign_id . " line=" . i['lnum'] . " name=" . sign_type . " buffer=" . i['bufnr']
+                call add(self._bufSignIds(), s:next_sign_id)
                 let s:next_sign_id += 1
             endif
         endfor
