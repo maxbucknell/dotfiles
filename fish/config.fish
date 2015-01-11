@@ -10,6 +10,9 @@ set PATH /usr/texbin $PATH
 # Local path
 set PATH ~/.config/bin $PATH
 
+# Composer (PHP)
+set PATH ~/.composer/vendor/bin $PATH
+
 # For GitHub integration.
 # See github.com/github/hub
 alias git hub
