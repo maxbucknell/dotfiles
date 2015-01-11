@@ -24,11 +24,7 @@ endif
 
 let g:colors_name = "maxbucknell"
 
-
-""""""""""""""""""""""""""""""""""
 " Make everything white by default
-""""""""""""""""""""""""""""""""""
-
 hi Normal cterm=NONE ctermfg=7 ctermbg=NONE
 hi Type cterm=NONE ctermfg=7 ctermbg=NONE
 hi Keyword cterm=NONE ctermfg=7 ctermbg=NONE
@@ -42,17 +38,19 @@ hi Identifier cterm=NONE ctermfg=7 ctermbg=NONE
 hi Constant cterm=NONE ctermfg=7 ctermbg=NONE
 hi Define cterm=NONE ctermfg=7 ctermbg=NONE
 hi Include cterm=NONE ctermfg=7 ctermbg=NONE
-
+hi Macro cterm=NONE ctermfg=7 ctermbg=NONE
 
 " Residual Vim colors
-
 hi VimSet cterm=NONE ctermfg=7 ctermbg=NONE
 hi VimOption cterm=NONE ctermfg=7 ctermbg=NONE
 hi VimHiAttrib cterm=NONE ctermfg=7 ctermbg=NONE
 
+" Scalars are cyan
+hi String cterm=NONE ctermfg=6 ctermbg=NONE
+hi Number cterm=NONE ctermfg=6 ctermbg=NONE
+hi Boolean cterm=NONE ctermfg=6 ctermbg=NONE
 
 " Miscellaneous leftovers
-
 hi helpNote cterm=NONE ctermfg=7 ctermbg=NONE
 hi MatchParens cterm=NONE ctermfg=7 ctermbg=NONE
 
