@@ -13,6 +13,9 @@ set PATH ~/.config/bin $PATH
 # Composer (PHP)
 set PATH ~/.composer/vendor/bin $PATH
 
+# DYLD_LIBRARY_PATH (Rust asked for this)
+set DYLD_LIBRARY_PATH "/usr/local/lib" "$DYLD_LIBRARY_PATH"
+
 # For GitHub integration.
 # See github.com/github/hub
 alias git hub
