@@ -1,6 +1,6 @@
 fish/fish_history
 fish/fishd*
-
+configstore
 hub
 
 vim/vim.symlink/.netrwhist
