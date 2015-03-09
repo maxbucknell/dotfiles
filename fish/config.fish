@@ -13,6 +13,9 @@ set PATH ~/.config/bin $PATH
 # Composer (PHP)
 set PATH ~/.composer/vendor/bin $PATH
 
+# Atom
+set PATH $PATH /opt/homebrew-cask/Caskroom/atom/latest/Atom.app/Contents/Resources/app/apm/node_modules/atom-package-manager/bin/apm
+
 # DYLD_LIBRARY_PATH (Rust asked for this)
 set DYLD_LIBRARY_PATH "/usr/local/lib" "$DYLD_LIBRARY_PATH"
 
