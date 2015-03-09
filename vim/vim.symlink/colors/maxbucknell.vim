@@ -15,7 +15,7 @@ endif
 "  3: yellow (search)
 "  4: blue
 "  5: magenta (current)
-"  6: cyan
+"  6: cyan (scalars)
 "  7: white (default)
 "
 " +8 for bright colours.
@@ -58,8 +58,8 @@ hi MatchParens cterm=NONE ctermfg=7 ctermbg=NONE
 hi Comment cterm=NONE ctermfg=2 ctermbg=NONE
 hi PreProc cterm=NONE ctermfg=2 ctermbg=NONE
 
-" Make current line magenta
-hi CursorLine cterm=NONE ctermfg=5 ctermbg=NONE
+" Line numbers are grey
+hi LineNr cterm=NONE ctermfg=8 ctermbg=NONE
 
 " Current search result yellow
 hi Search cterm=NONE ctermfg=3 ctermbg=0
@@ -71,8 +71,12 @@ hi SyntasticWarningLine cterm=NONE ctermfg=1 ctermbg=NONE
 hi SyntasticError cterm=NONE ctermfg=1 ctermbg=NONE
 hi SyntasticWarning cterm=NONE ctermfg=1 ctermbg=NONE
 
+" Make current line magenta
+hi CursorLine cterm=NONE ctermfg=5 ctermbg=NONE
+hi CursorLineNr cterm=NONE ctermfg=5 ctermbg=NONE
+
 """""""""""""
 " Status Line
 """""""""""""
 
-hi StatusLine cterm=bold ctermfg=1 ctermbg=NONE
+hi StatusLine cterm=NONE ctermfg=7 ctermbg=5
