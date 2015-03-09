@@ -1,6 +1,4 @@
 " Max's .vimrc
-" Honourary mention to Gary Bernhardt
-
 
 """"""""""""""""""""""
 " Plugins
@@ -16,6 +14,9 @@ set term=xterm-256color
 
 set nocompatible
 colorscheme maxbucknell
+
+" Leader
+let mapleader = "\<space>"
 
 " Line numbering
 set relativenumber
@@ -39,6 +40,7 @@ set noswapfile
 " I am lazy and I don't like holding shift.
 noremap ; :
 noremap ;; ;
+cnoreabbrev qq q!
 
 " Paste!
 noremap <leader>v "+gp
@@ -204,7 +206,6 @@ let g:syntastic_enable_signs = 0
 let g:syntastic_check_on_open = 1
 let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_stl_format='[%t errors, first: %F]'
-nnoremap <space> :SyntasticCheck<cr>
 
 """""""""""""""
 " MISC KEY MAPS
