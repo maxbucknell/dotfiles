@@ -8,13 +8,21 @@
 
 execute pathogen#infect()
 
-
 """"""""""""""""""""""
 " Basic editing config
 """"""""""""""""""""""
 
+set term=xterm-256color
+
 set nocompatible
 colorscheme maxbucknell
+
+" Line numbering
+set relativenumber
+set number
+
+" Set editor shell to bash, for Syntastic compatibility
+set shell=bash
 
 " Tab config options
 set expandtab
@@ -29,15 +37,51 @@ set nowritebackup
 set noswapfile
 
 " I am lazy and I don't like holding shift.
-map ; :
+noremap ; :
 noremap ;; ;
+
+" Paste!
+noremap <leader>v "+gp
+noremap <leader>V "+gP
+noremap <leader>c "+y
+noremap <leader>C "+Y
+
+" Quick exit insert mode
+inoremap hh <esc>
+inoremap <esc> <nop>
+
+" Bad arrow keys
+inoremap <up> <nop>
+inoremap <down> <nop>
+inoremap <left> <nop>
+inoremap <right> <nop>
+noremap <up> <nop>
+noremap <down> <nop>
+noremap <left> <nop>
+noremap <right> <nop>
+
+" Move lines up and down
+noremap - ddp
+noremap _ ddkP
+
+" Uppercase an entire word with <c-u>
+inoremap <c-u> <esc>viwUa
+nnoremap <c-u> viwU
 
 " Show me when my lines are too long
 call matchadd('ColorColumn', '\%81v', 100)
 
+" Prevent K from being annoying
+noremap K <nop>
+
+" Edit and Reload .vimrc files
+nmap <silent> <Leader>ev :e $MYVIMRC<CR>
+nmap <silent> <Leader>es :so $MYVIMRC<CR>
+
 " Search options
 " Show partial matches while searching
 set incsearch
+
 " Highlight other matches in the file
 set hlsearch
 
@@ -61,7 +105,9 @@ function! HLNext (blinktime)
 endfunction
 
 " Disable match-paren
-let loaded_matchparen = 1 
+" Re-enabled for now, to remember why I turned it off
+" let loaded_matchparen = 1
+set showmatch
 
 " Make searches case sensitive only if an upper case character has been typed
 set ignorecase smartcase
@@ -94,9 +140,6 @@ syntax on
 " Also load indent files, to automatically do language-dependent indenting.
 filetype plugin indent on
 
-" Change leader to , rather than \
-let mapleader=","
-
 " Insert only one space when joining lines that contain sentence-terminating
 " punctuation like `.`.
 set nojoinspaces
@@ -115,19 +158,6 @@ let g:vim_markdown_folding_disabled=1
 
 " Always show status bar
 set laststatus=2
-
-" Swap v and ctrl-v because visual block mode rules
-nnoremap    v   <C-V>
-nnoremap <C-V>     v
-vnoremap    v   <C-V>
-vnoremap <C-V>     v
-
-" Dragvisuals key mappings
-vmap  <expr>  <LEFT>   DVB_Drag('left')
-vmap  <expr>  <RIGHT>  DVB_Drag('right')
-vmap  <expr>  <DOWN>   DVB_Drag('down')
-vmap  <expr>  <UP>     DVB_Drag('up')
-vmap  <expr>  D        DVB_Duplicate()
 
 " Pastetoggle to let Vim paste things without auto stuff
 set pastetoggle=<F2>
@@ -150,13 +180,20 @@ augroup vimrcEx
   autocmd FileType json,c,xml,java,php,python setlocal shiftwidth=4 softtabstop=4
   autocmd FileType ruby,haml,eruby,yaml,html,javascript,sass,cucumber setlocal ai sw=2 sts=2 et
   autocmd FileType make setlocal noet sw=8 sts=8 ts=8
+
+  " Create files when opened
+  autocmd BufNewFile * write
 augroup END
 
 
 """""""""""""
 " STATUS LINE
 """""""""""""
-set statusline=%<[%n]:\ %f\ %5l,%3c\ (%{&ft})
+" set statusline=%<[%n]:\ %f\ %5l,%3c\ (%{&ft})
+set statusline=[%f] " filename
+set statusline+=\ [%l,\ %c] "line and column number
+set statusline+=\ %y " filetype
+set statusline+=\ %{SyntasticStatuslineFlag()} " syntastic errors
 
 
 """""""""""""""""""""
@@ -164,13 +201,17 @@ set statusline=%<[%n]:\ %f\ %5l,%3c\ (%{&ft})
 """""""""""""""""""""
 
 let g:syntastic_enable_signs = 0
+let g:syntastic_check_on_open = 1
+let g:syntastic_javascript_checkers = ['eslint']
+let g:syntastic_stl_format='[%t errors, first: %F]'
+nnoremap <space> :SyntasticCheck<cr>
 
 """""""""""""""
 " MISC KEY MAPS
 """""""""""""""
 
-map <leader>y "*y
-nmap <leader>. <c-^>
+noremap <leader>y "*y
+nnoremap <leader>. <c-^>
 
 " Move around splits with <c-hjkl>
 nnoremap <c-j> <c-w>j
