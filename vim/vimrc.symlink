@@ -25,6 +25,9 @@ set number
 " Set editor shell to bash, for Syntastic compatibility
 set shell=bash
 
+" Find files
+nnoremap <leader>t :call PickFile()<cr>
+
 " Tab config options
 set expandtab
 set tabstop=2
@@ -107,9 +110,8 @@ function! HLNext (blinktime)
 endfunction
 
 " Disable match-paren
-" Re-enabled for now, to remember why I turned it off
-" let loaded_matchparen = 1
-set showmatch
+" It has really bad colours and it displays terribly.
+set noshowmatch
 
 " Make searches case sensitive only if an upper case character has been typed
 set ignorecase smartcase
@@ -203,7 +205,6 @@ set statusline+=\ %{SyntasticStatuslineFlag()} " syntastic errors
 """""""""""""""""""""
 
 let g:syntastic_enable_signs = 0
-let g:syntastic_check_on_open = 1
 let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_stl_format='[%t errors, first: %F]'
 
@@ -212,7 +213,7 @@ let g:syntastic_stl_format='[%t errors, first: %F]'
 """""""""""""""
 
 noremap <leader>y "*y
-nnoremap <leader>. <c-^>
+nnoremap <leader><leader> <c-^>
 
 " Move around splits with <c-hjkl>
 nnoremap <c-j> <c-w>j
