@@ -4,9 +4,6 @@
 .AppleDouble
 .LSOverride
 
-# Icon must ends with two \r.
-Icon
-
 # Thumbnails
 ._*
 
@@ -16,3 +13,5 @@ Icon
 
 # Vim Stuff
 *.swp
+GoToFile
+
