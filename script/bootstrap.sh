@@ -114,6 +114,28 @@ install_dotfiles () {
   done
 }
 
+install_vim_plugins () {
+  info "installing vim plugins"
+
+  local PLUGINS=("thoughtbot/pick.vim" "tomtom/tlib_vim" "mxw/vim-jsx" "wting/rust.vim" "marcweber/vim-addon-mw-utils" "scrooloose/syntastic" "mustache/vim-mustache-handlebars" "pangloss/vim-javascript")
+  local BASE_DIR="$DOTFILES_ROOT/vim/vim.symlink/bundle"
+  local GIT_HOST="git@github.com"
+
+  rm -fr "$BASE_DIR"
+  success "remove existing plugins"
+
+  mkdir -p "$BASE_DIR"
+
+  for i in "${PLUGINS[@]}"
+  do
+    info "installing $i"
+    local BASE_NAME="$(basename $i)"
+    git clone "$GIT_HOST:$i" "$BASE_DIR/$BASE_NAME" &> /dev/null
+    success "installed $i"
+  done
+}
+
 install_dotfiles
+install_vim_plugins
 
 echo '  All installed!'
