@@ -13,20 +13,39 @@ execute pathogen#infect()
 set term=xterm-256color
 
 set nocompatible
+
 colorscheme maxbucknell
 
 " Leader
 let mapleader = "\<space>"
 
+" Don't wrap lines
+set nowrap
+
 " Line numbering
 set relativenumber
 set number
+
+" Write before commands
+set autowrite
+
+" Open splits in better places
+set splitbelow
+set splitright
+
+" Quicker window movement
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-h> <C-w>h
+nnoremap <C-l> <C-w>l
 
 " Set editor shell to bash, for Syntastic compatibility
 set shell=bash
 
 " Find files
 nnoremap <leader>t :call PickFile()<cr>
+nnoremap <leader>b :call PickBuffer()<cr>
+nnoremap <leader>n :call PickFileVerticalSplit()<cr>
 
 " Tab config options
 set expandtab
@@ -40,19 +59,31 @@ set nobackup
 set nowritebackup
 set noswapfile
 
+" What the hell is ex mode
+nnoremap Q <nop>
+
+" Faster highlight removal than ;noh
+nnoremap <silent> <leader>/ :noh<cr>
+
 " I am lazy and I don't like holding shift.
 noremap ; :
 noremap ;; ;
-cnoreabbrev qq q!
+
+"Remove caps for dash
+cnoremap dash Dash
+
+" Gain root privs when writing
+cnoremap w!! w !sudo tee % > /dev/null
 
 " Paste!
-noremap <leader>v "+gp
-noremap <leader>V "+gP
-noremap <leader>c "+y
-noremap <leader>C "+Y
+noremap <leader>v "*gp
+noremap <leader>V "*gP
+noremap <leader>c "*y
+noremap <leader>C "*Y
 
 " Quick exit insert mode
 inoremap hh <esc>
+inoremap hhh h<esc>
 inoremap <esc> <nop>
 
 " Bad arrow keys
@@ -70,11 +101,17 @@ noremap - ddp
 noremap _ ddkP
 
 " Uppercase an entire word with <c-u>
-inoremap <c-u> <esc>viwUa
-nnoremap <c-u> viwU
+nnoremap <leader>u viwU
+
+" Add new line below
+nnoremap <cr> i<cr><esc>k
 
 " Show me when my lines are too long
-call matchadd('ColorColumn', '\%81v', 100)
+" I wish to limit my lines to 80 characters long. However, Vim creates
+" the n+1th character when you have n characters in a line. Hence, when
+" my line is 80 characters long, I see the red line. So, this is set to
+" 82, meaning that I only see the line when my lines actually are too long.
+call matchadd('ColorColumn', '\%82v', 100)
 
 " Prevent K from being annoying
 noremap K <nop>
@@ -235,8 +272,8 @@ function! InsertTabWrapper()
   endif
 endfunction
 
-inoremap <tab> <c-r>=InsertTabWrapper()<cr>
-inoremap <s-tab> <c-n>
+" inoremap <tab> <c-r>=InsertTabWrapper()<cr>
+" inoremap <s-tab> <c-n>
 
 " I don't like the quote concealing
 let g:vim_json_syntax_conceal = 0
