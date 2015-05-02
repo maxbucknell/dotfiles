@@ -1,0 +1,4 @@
+#! /usr/bin/env bash
+
+sudo tee "$1" | null
+

@@ -19,6 +19,9 @@ set PATH $PATH /opt/homebrew-cask/Caskroom/atom/latest/Atom.app/Contents/Resourc
 # DYLD_LIBRARY_PATH (Rust asked for this)
 set DYLD_LIBRARY_PATH "/usr/local/lib" "$DYLD_LIBRARY_PATH"
 
+# Mono asked for this:
+source dnvm.sh
+
 # For GitHub integration.
 # See github.com/github/hub
 alias git hub
