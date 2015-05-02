@@ -1,21 +1,3 @@
-set -g __fish_prompt_hostname (hostname|cut -d . -f 1)
-
-function __fish_prompt_git_branch
-  set __git_branch (git current-branch ^ /dev/null)
-
-  if test -z $__git_branch
-    return
-  else if test $__git_branch = HEAD
-    set __rev (git log -1 --oneline ^ /dev/null)
-    if not test -z $__rev
-      echo -n (git log -1 --oneline | cut -d " " -f 1)
-    end
-  else
-    echo -n $__git_branch
-  end
-end
-
-####
 # Fish prompt
 # Looks like: user@host in cwd(branch)
 function fish_prompt
@@ -50,7 +32,7 @@ function fish_prompt
   set_color normal
   set_color blue
 
-  echo -n (hostname)
+  echo -n (nice_hostname)
 
   set_color normal
   set_color -o black
@@ -73,7 +55,7 @@ function fish_prompt
   # Git branch
   #
 
-  set branch (__fish_prompt_git_branch)
+  set branch (git_branch)
   if not test -z $branch
     echo -n "("
 
