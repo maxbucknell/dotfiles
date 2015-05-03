@@ -117,7 +117,17 @@ install_dotfiles () {
 install_vim_plugins () {
   info "installing vim plugins"
 
-  local PLUGINS=("thoughtbot/pick.vim" "tomtom/tlib_vim" "mxw/vim-jsx" "wting/rust.vim" "marcweber/vim-addon-mw-utils" "scrooloose/syntastic" "mustache/vim-mustache-handlebars" "pangloss/vim-javascript")
+  local PLUGINS=(
+    "thoughtbot/pick.vim"
+    "tomtom/tlib_vim"
+    "mxw/vim-jsx"
+    "wting/rust.vim"
+    "marcweber/vim-addon-mw-utils"
+    "scrooloose/syntastic"
+    "mustache/vim-mustache-handlebars"
+    "pangloss/vim-javascript"
+    "lervag/vimtex"
+  )
   local BASE_DIR="$DOTFILES_ROOT/vim/vim.symlink/bundle"
   local GIT_HOST="git@github.com"
 
