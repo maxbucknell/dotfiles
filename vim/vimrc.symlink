@@ -17,23 +17,42 @@ set nocompatible
 colorscheme maxbucknell
 
 " Leader
+"
+" Using space as leader is actually a terrific idea. It's one of the
+" easiest things to hit on the keyboard.
 let mapleader = "\<space>"
 
 " Don't wrap lines
+"
+" I look at a lot of CSV files and logs, which are generally the only
+" times I see long lines. If code is too long, I shorten it. As such,
+" having lines artificially wrapping only gets in my way.
 set nowrap
 
 " Line numbering
+"
+" This shows the real line number of the current line, and relative
+" line numbers on the other lines. Relative line numbers are good to
+" know how many lines to yank, delete, or move.
 set relativenumber
 set number
 
 " Write before commands
+"
+" This means that if I have unsaved changes, they get saved before
+" executing a git commit, or something like that.
 set autowrite
 
 " Open splits in better places
+"
+" This seems to be the most logical way to split, in the direction
+" that we read, and in agreement with Tmux.
 set splitbelow
 set splitright
 
 " Quicker window movement
+"
+" Just remove an extra keystroke
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-h> <C-w>h
@@ -43,50 +62,84 @@ nnoremap <C-l> <C-w>l
 set shell=bash
 
 " Find files
+"
+" My fuzzy file finder has changed, but the commands I use to interact
+" with it have not. These have the advantage of being close together on
+" my keyboard, as well as vaguely mnemonic.
 nnoremap <leader>t :call PickFile()<cr>
 nnoremap <leader>b :call PickBuffer()<cr>
 nnoremap <leader>n :call PickFileVerticalSplit()<cr>
 
 " Tab config options
+"
+" In general, I prefer spaces to tabs, and 2-space indentation. These
+" settings just make that consistent, so I rarely have to think about
+" it.
 set expandtab
 set tabstop=2
 set shiftwidth=2
 set softtabstop=2
 set autoindent
 
-" So done with this
+" Disable creation of swap files.
+"
+" Swap files serve a purpose, but not to me. I write often, and so
+" these just get in the way.
 set nobackup
 set nowritebackup
 set noswapfile
 
 " What the hell is ex mode
+"
+" Whatever it is, I don't like it.
 nnoremap Q <nop>
 
 " Faster highlight removal than ;noh
+"
+" :noh is the command one should run to remove highlighted search
+" terms. I search for things so often, that I got sick of typing it
+" so much. So I made a short cut.
 nnoremap <silent> <leader>/ :noh<cr>
 
-" I am lazy and I don't like holding shift.
+" Remap semi-colon to colon.
+"
+" Colon is the starting point of a lot of actions in Vim. And I
+" shouldn't have to hold a modifier key to access so much
+" essential functionality.
 noremap ; :
 noremap ;; ;
 
-"Remove caps for dash
-cnoremap dash Dash
-
-" Gain root privs when writing
-cnoremap w!! w !sudo tee % > /dev/null
-
-" Paste!
-noremap <leader>v "*gp
-noremap <leader>V "*gP
-noremap <leader>c "*y
-noremap <leader>C "*Y
-
 " Quick exit insert mode
+"
+" Escape is at the far corner of my keyboard, and having it so far away
+" was discouraging my from exiting insert mode. Qwerty users can remap
+" jk to <esc>, which is a far better solution. The keys are next to each
+" other, and it makes exiting insert mode a pleasant rolling motion.
+" Moreover, when in normal mode, jk is a no-op.
+"
+" As a dvorak user, jk was too cumbersome, but there were no other
+" suitable candidates. hh is inferior in that it is not a no-op in
+" normal mode, but it is just as easy to type. The only caveat is when
+" an edit ends with h, which is why hhh will expand to place an h in
+" the buffer before exiting.
+"
+" To encourage me to adopt the new style, I disable escape. That one is
+" sure to mess up someone not familiar with my setup.
 inoremap hh <esc>
 inoremap hhh h<esc>
 inoremap <esc> <nop>
 
 " Bad arrow keys
+"
+" This will disable use of arrow keys in normal and insert modes. This
+" is a good idea to get into the vim way. I don’t really use the arrow
+" keys anymore.
+"
+" That said, I have reservations about the apparently egregious nature
+" of the arrow keys. On my MacBook, they are quite close. Still, I can
+" understand that it is better to rely only on the core keys that you
+" know are within reach, not just the ones that happen to be on one
+" computer.
 inoremap <up> <nop>
 inoremap <down> <nop>
 inoremap <left> <nop>
@@ -97,13 +150,23 @@ noremap <left> <nop>
 noremap <right> <nop>
 
 " Move lines up and down
+"
+" These are very useful commands, especially for re-ordering things. I
+" would like to make it possible to move hunks of code with similar
+" shortcuts, but I haven't thought it through yet. I would also like
+" to have something automated, wherein I could sort a list of things
+" alphabetically.
 noremap - ddp
 noremap _ ddkP
 
-" Uppercase an entire word with <c-u>
+" Uppercase an entire word.
+"
+" This is handy for things like constants. I have no caps lock, and
+" holding shift can be a pain.
 nnoremap <leader>u viwU
 
 " Show me when my lines are too long
+"
 " I wish to limit my lines to 80 characters long. However, Vim creates
 " the n+1th character when you have n characters in a line. Hence, when
 " my line is 80 characters long, I see the red line. So, this is set to
@@ -114,10 +177,16 @@ call matchadd('ColorColumn', '\%82v', 100)
 noremap K <nop>
 
 " Edit and Reload .vimrc files
+"
+" When I hit something that bugs me, I usually think about what I can
+" do to make it better. Then I forget. This keeps happening and I keep
+" getting annoyed. These commands make it simple to quickly edit my
+" vimrc, and then reload it.
 nmap <silent> <Leader>ev :e $MYVIMRC<CR>
 nmap <silent> <Leader>es :so $MYVIMRC<CR>
 
 " Search options
+"
 " Show partial matches while searching
 set incsearch
 
@@ -127,7 +196,9 @@ set hlsearch
 " Show the next search result.
 " By Damian Conway.
 "
-" This rewires n and N to do the highlighing...
+" This rewires n and N to do their normal thing, and then call the
+" HLNext routine. This temporarily adds a new style to the next
+" highlight.
 nnoremap <silent> n   n:call HLNext(0.2)<cr>
 nnoremap <silent> N   N:call HLNext(0.2)<cr>
 
@@ -144,45 +215,66 @@ function! HLNext (blinktime)
 endfunction
 
 " Disable match-paren
+"
 " It has really bad colours and it displays terribly.
-set noshowmatch
+let loaded_matchparen = 1
 
 " Make searches case sensitive only if an upper case character has been typed
 set ignorecase smartcase
 
-" Prevent Vim from clobbering the scrollback buffer. See
+" Prevent Vim from clobbering the scrollback buffer.
+"
+" This means that all of Vim's output is shown in the terminal screen
+" history. This is ugly, but it's saved my bacon a few times. See
 " http://www.shallowsky.com/linux/noaltscreen.html
 set t_ti= t_te=
 
 " Highlight current line
+"
+" It's good to have a sense of place.
 set cursorline
 
 " Ensure that the cursor never touches top or bottom of screen
-set scrolloff=10
+"
+" This controls the distance that the current line must maintain
+" between the top and bottom of the screen. Setting this to a very
+" large number will always keep the cursor vertically centered.
+"
+" I don't do this, because sometimes I wish to see something at the
+" bottom of the buffer, so I can copy it at the top.
+set scrolloff=4
 
 " Allow backspacing over everything in insert mode
+"
+" By default, Vim will stop when it gets to the beginning of a line,
+" throw its arms in the air and give up.
 set backspace=indent,eol,start
 
-" display incomplete commands
+" Display incomplete commands and the lines they apply to.
 set showcmd
 
 " Allow hidden buffers
+"
+" If this is off, buffers are destroyed when they fade out of view. We
+" have the memory to spare to keep them around.
 set hidden
 
 " Enable highlighting for syntax
 syntax on
 
 " Enable file type detection.
+"
 " Use the default filetype settings, so that mail gets 'tw' set to 72,
 " 'cindent' is on in C files, etc.
-" Also load indent files, to automatically do language-dependent indenting.
+" Also load indent files, to automatically do language-dependent
+" indenting.
 filetype plugin indent on
 
-" Insert only one space when joining lines that contain sentence-terminating
-" punctuation like `.`.
+" Insert only one space when joining lines that contain
+" sentence-terminating punctuation like `.`.
 set nojoinspaces
 
-" If a file is changed outside of vim, automatically reload it without asking
+" If a file is changed outside of vim, automatically reload it
 set autoread
 
 " Show trailing whitespace, since it's a crime
@@ -190,9 +282,13 @@ set list
 set listchars=trail:·,tab:‣\ 
 
 " Turn off code folding
+"
+" I hate code folding. It makes me mad. I just want a buffer with all
+" of my text in it, no funny business.
 set foldmethod=manual
 set nofoldenable
 let g:vim_markdown_folding_disabled=1
+let g:vimtex_fold_enabled=0
 
 " Always show status bar
 set laststatus=2
@@ -215,75 +311,75 @@ augroup vimrcEx
     \ endif
 
   " Language whitespace settings
-  autocmd FileType json,c,xml,java,php,python setlocal shiftwidth=4 softtabstop=4
-  autocmd FileType ruby,haml,eruby,yaml,html,javascript,sass,cucumber setlocal ai sw=2 sts=2 et
-  autocmd FileType make setlocal noet sw=8 sts=8 ts=8
+  autocmd FileType
+    \ json,
+    \ c,
+    \ xml,
+    \ java,
+    \ php,
+    \ python
+    \ setl sw=4 stp=4
+  autocmd FileType
+    \ make
+    \ setl noet sw=8 sts=8 ts=8
 
   " Hard wrap prose
-  autocmd FileType markdown setlocal tw=80 fo=t1
+  "
+  " This will automatically insert a new line in insert mode when a
+  " line gets too long (above 80 characters). I can also run gqap
+  " in normal mode to reflow a paragraph.
+  "
+  " I would like to have a customised version of this work with
+  " comments in code, but I haven't gotten that far yet.
+  autocmd FileType
+    \ markdown,
+    \ tex
+    \ setl tw=80 fo=t1
 
   " Create files when opened
   autocmd BufNewFile * write
 augroup END
 
-
-"""""""""""""
-" STATUS LINE
-"""""""""""""
-" set statusline=%<[%n]:\ %f\ %5l,%3c\ (%{&ft})
+" Set the statusline.
+" This shows something like:
+"
+"   [vim/vimrc.symlink] [351,30] [vim]
 set statusline=[%f] " filename
 set statusline+=\ [%l,\ %c] "line and column number
 set statusline+=\ %y " filetype
 set statusline+=\ %{SyntasticStatuslineFlag()} " syntastic errors
 
-
-"""""""""""""""""""""
-" Configure Syntastic
-"""""""""""""""""""""
-
+" Syntastic.
+"
+" I need to for Syntastic, and maybe send them a pull request. I detest
+" signs in my gutter, but having signs on is the only way to add the
+" line styles I need to colour my lines red. I need to split these out.
 let g:syntastic_enable_signs = 0
 let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_stl_format='[%t errors, first: %F]'
 
-"""""""""""""""
-" MISC KEY MAPS
-"""""""""""""""
-
+" Copy visual selection to clipboard.
 noremap <leader>y "*y
+
+" Go to most recently edited file
 nnoremap <leader><leader> <c-^>
 
-" Move around splits with <c-hjkl>
-nnoremap <c-j> <c-w>j
-nnoremap <c-k> <c-w>k
-nnoremap <c-h> <c-w>h
-nnoremap <c-l> <c-w>l
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" MULTIPURPOSE TAB KEY
-" Indent if we're at the beginning of a line. Else, do completion.
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-function! InsertTabWrapper()
-  let col = col('.') - 1
-  if !col || getline('.')[col - 1] !~ '\k'
-    return "\<tab>"
-  else
-    return "\<c-p>"
-  endif
-endfunction
-
-" inoremap <tab> <c-r>=InsertTabWrapper()<cr>
-" inoremap <s-tab> <c-n>
-
-" I don't like the quote concealing
+" Disable syntax hiding in JSON
+"
+" Vim JSON provides a fancy way of viewing, where it hides quotes and
+" just shows you data. I don't want that.
 let g:vim_json_syntax_conceal = 0
 
 " Show syntax highlighting groups for word under cursor
-nmap <leader>\ :call <SID>SynStack()<CR>
+"
+" This is useful for finding rogue elements I forgot in my colour
+" scheme.
+nnoremap <leader>\ :call <SID>SynStack()<CR>
 function! <SID>SynStack()
   if !exists("*synstack")
     return
   endif
   echo map(synstack(line('.'), col('.')), 'synIDattr(v:val,"name")')
 endfunc
+
 
