@@ -5,9 +5,7 @@ function fish_prompt
   # Reset button
   set_color normal
 
-  #
   # Username
-  #
 
   # Show root user as red, to remind us of danger.
   if test (whoami) = root
@@ -24,9 +22,7 @@ function fish_prompt
 
   echo -n @
 
-  #
   # Hostname
-  #
 
   # To remove boldness
   set_color normal
@@ -39,9 +35,7 @@ function fish_prompt
 
   echo -n " in "
 
-  #
   # Current working dir
-  #
 
   set_color normal
   set_color red
@@ -51,9 +45,7 @@ function fish_prompt
   set_color normal
   set_color -o black
 
-  #
   # Git branch
-  #
 
   set branch (git_branch)
   if not test -z $branch

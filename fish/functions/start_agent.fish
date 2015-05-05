@@ -1,3 +1,4 @@
+# Start SSH Agent and set relevant variables
 function start_agent
     echo "Initializing new SSH agent ..."
     ssh-agent -c | sed 's/^echo/#echo/' > $SSH_ENV

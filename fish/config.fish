@@ -1,8 +1,17 @@
 # Default path
-set PATH /usr/local/bin /usr/local/sbin /usr/bin /bin /usr/sbin /sbin /usr/local/MacGPG2/bin
+set PATH /usr/local/bin
+set PATH /usr/local/sbin $PATH
+set PATH /usr/bin $PATH
+set PATH /bin $PATH
+set PATH /usr/sbin $PATH
+set PATH /sbin $PATH
 
-# Ruby support
-set PATH /usr/local/Cellar/ruby/2.1.3/bin $PATH
+# MacGPG
+set PATH /usr/local/MacGPG2/bin $PATH
+
+# Ruby
+set RUBY_VERSION (ruby --version | cut -d " " -f 2 | cut -d "p" -f 1)
+set PATH "/usr/local/Cellar/ruby/$RUBY_VERSION/bin" $PATH
 
 # LaTeX!
 set PATH /usr/texbin $PATH
@@ -19,15 +28,9 @@ set PATH $PATH /opt/homebrew-cask/Caskroom/atom/latest/Atom.app/Contents/Resourc
 # DYLD_LIBRARY_PATH (Rust asked for this)
 set DYLD_LIBRARY_PATH "/usr/local/lib" "$DYLD_LIBRARY_PATH"
 
-# Mono asked for this:
-source dnvm.sh
-
 # For GitHub integration.
 # See github.com/github/hub
 alias git hub
-
-# I don't want to delete things anymore.
-alias rm trash
 
 # Remove the greeting message on startup
 set fish_greeting
@@ -43,6 +46,9 @@ alias mkdir "mkdir -p"
 alias sl "/usr/local/bin/sl; and ls"
 
 # SSH Agent
+#
+# Start SSH Agent if it's not already running, and add the
+# id_(nice_hostname) identity.
 setenv SSH_ENV "$HOME/.ssh/environment"
 if [ -n "$SSH_AGENT_PID" ]
     ps -ef | grep $SSH_AGENT_PID | grep ssh-agent > /dev/null

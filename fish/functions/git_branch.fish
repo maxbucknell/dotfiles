@@ -1,3 +1,6 @@
+# Get the current git branch
+#
+# If we are not in a git repository, we silently ruturn noting.
 function git_branch
   set __git_branch (git current-branch ^ /dev/null)
 
