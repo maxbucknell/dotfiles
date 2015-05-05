@@ -126,7 +126,6 @@ install_vim_plugins () {
     "scrooloose/syntastic"
     "mustache/vim-mustache-handlebars"
     "pangloss/vim-javascript"
-    "lervag/vimtex"
   )
   local BASE_DIR="$DOTFILES_ROOT/vim/vim.symlink/bundle"
   local GIT_HOST="git@github.com"
