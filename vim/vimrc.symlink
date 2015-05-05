@@ -103,9 +103,6 @@ noremap _ ddkP
 " Uppercase an entire word with <c-u>
 nnoremap <leader>u viwU
 
-" Add new line below
-nnoremap <cr> i<cr><esc>k
-
 " Show me when my lines are too long
 " I wish to limit my lines to 80 characters long. However, Vim creates
 " the n+1th character when you have n characters in a line. Hence, when
@@ -221,6 +218,9 @@ augroup vimrcEx
   autocmd FileType json,c,xml,java,php,python setlocal shiftwidth=4 softtabstop=4
   autocmd FileType ruby,haml,eruby,yaml,html,javascript,sass,cucumber setlocal ai sw=2 sts=2 et
   autocmd FileType make setlocal noet sw=8 sts=8 ts=8
+
+  " Hard wrap prose
+  autocmd FileType markdown setlocal tw=80 fo=t1
 
   " Create files when opened
   autocmd BufNewFile * write
