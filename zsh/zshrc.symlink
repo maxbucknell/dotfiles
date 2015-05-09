@@ -32,6 +32,9 @@ fpath=("~/.zsh/zsh-completions/src" $fpath)
 # Ensure we can run the compinit to make them work.
 autoload compinit
 
+# Initialise better autocompletion
+compinit
+
 ## Syntax Highlighting
 
 source "$HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
