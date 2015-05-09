@@ -126,6 +126,8 @@ install_vim_plugins () {
     "scrooloose/syntastic"
     "mustache/vim-mustache-handlebars"
     "pangloss/vim-javascript"
+    "JulesWang/css.vim"
+    "genoma/vim-less"
   )
   local BASE_DIR="$DOTFILES_ROOT/vim/vim.symlink/bundle"
   local GIT_HOST="git@github.com"
@@ -144,7 +146,32 @@ install_vim_plugins () {
   done
 }
 
-install_dotfiles
+install_zsh_plugins () {
+  info "installing bash plugins"
+
+  local PLUGINS=(
+    "zsh-users/zsh-syntax-highlighting"
+    "zsh-users/zsh-completions"
+  )
+  local BASE_DIR="$DOTFILES_ROOT/zsh/zsh.symlink"
+  local GIT_HOST="git@github.com"
+
+  rm -fr "$BASE_DIR"
+  success "remove existing plugins"
+
+  mkdir -p "$BASE_DIR"
+
+  for i in "${PLUGINS[@]}"
+  do
+    info "installing $i"
+    local BASE_NAME="$(basename $i)"
+    git clone "$GIT_HOST:$i" "$BASE_DIR/$BASE_NAME" &> /dev/null
+    success "installed $i"
+  done
+}
+
 install_vim_plugins
+install_zsh_plugins
+install_dotfiles
 
 echo '  All installed!'
