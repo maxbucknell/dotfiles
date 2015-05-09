@@ -235,6 +235,7 @@ setopt pushd_to_home
 # Zsh doesn't do this by default, and I don't know why.
 HISTSIZE=10000
 SAVEHIST=10000
+HISTFILE="$HOME/.zsh_history"
 
 # Don't beep at me when I do something wrong
 setopt no_hist_beep
