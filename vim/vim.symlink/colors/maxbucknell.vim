@@ -39,6 +39,8 @@ hi Constant cterm=NONE ctermfg=7 ctermbg=NONE
 hi Define cterm=NONE ctermfg=7 ctermbg=NONE
 hi Include cterm=NONE ctermfg=7 ctermbg=NONE
 hi Macro cterm=NONE ctermfg=7 ctermbg=NONE
+
+" Residual Less colors
 hi lessFunction cterm=NONE ctermfg=7 ctermbg=NONE
 hi lessCssAttribute cterm=NONE ctermfg=7 ctermbg=NONE
 
@@ -47,10 +49,10 @@ hi VimSet cterm=NONE ctermfg=7 ctermbg=NONE
 hi VimOption cterm=NONE ctermfg=7 ctermbg=NONE
 hi VimHiAttrib cterm=NONE ctermfg=7 ctermbg=NONE
 
-" Scalars are cyan
-hi String cterm=NONE ctermfg=6 ctermbg=NONE
-hi Number cterm=NONE ctermfg=6 ctermbg=NONE
-hi Boolean cterm=NONE ctermfg=6 ctermbg=NONE
+" Residual Zsh colors
+hi ZshDeref cterm=NONE ctermfg=7 ctermbg=NONE
+hi ZshShortDeref cterm=NONE ctermfg=7 ctermbg=NONE
+hi ZshSubstDelim cterm=NONE ctermfg=7 ctermbg=NONE
 
 " Miscellaneous leftovers
 hi helpNote cterm=NONE ctermfg=7 ctermbg=NONE

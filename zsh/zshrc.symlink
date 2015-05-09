@@ -1,3 +1,29 @@
+## Path
+
+# Default path
+PATH="/sbin"
+PATH="/usr/sbin:$PATH"
+PATH="/bin:$PATH"
+PATH="/usr/bin:$PATH"
+PATH="/usr/local/sbin:$PATH"
+PATH="/usr/local/bin:$PATH"
+
+# MacGPG
+PATH="/usr/local/MacGPG2/bin:$PATH"
+
+# Ruby
+RUBY_VERSION="$(ruby --version | cut -d " " -f 2 | cut -d "p" -f 1)"
+PATH="/usr/local/Cellar/ruby/$RUBY_VERSION/bin$PATH"
+
+# LaTeX!
+PATH="/usr/texbin:$PATH"
+
+# Local path
+PATH="~/.config/bin:$PATH"
+
+# Composer (PHP)
+PATH="~/.composer/vendor/bin:$PATH"
+
 ## Completion
 
 # Load up the extra Z Shell completions
@@ -149,7 +175,7 @@ bindkey -rM vicmd "^["
 bindkey -rpM vicmd "^["
 
 # Show if we are in normal mode.
-function zle-line-init zle-keymap-select {
+function zle-line-init zle-keymap-select () {
   if [[ "$KEYMAP" == "vicmd" ]]; then
     RESULT="N"
   else
