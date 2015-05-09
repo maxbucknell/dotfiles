@@ -1,10 +1,10 @@
 # Default path
-set PATH /usr/local/bin
-set PATH /usr/local/sbin $PATH
-set PATH /usr/bin $PATH
-set PATH /bin $PATH
+set PATH /sbin
 set PATH /usr/sbin $PATH
-set PATH /sbin $PATH
+set PATH /bin $PATH
+set PATH /usr/bin $PATH
+set PATH /usr/local/sbin $PATH
+set PATH /usr/local/bin $PATH
 
 # MacGPG
 set PATH /usr/local/MacGPG2/bin $PATH
