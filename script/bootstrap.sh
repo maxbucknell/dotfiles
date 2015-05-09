@@ -128,7 +128,6 @@ install_vim_plugins () {
     "pangloss/vim-javascript"
     "JulesWang/css.vim"
     "genoma/vim-less"
-    "christoomey/vim-tmux-navigator"
   )
   local BASE_DIR="$DOTFILES_ROOT/vim/vim.symlink/bundle"
   local GIT_HOST="git@github.com"
