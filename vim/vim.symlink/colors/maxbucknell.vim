@@ -39,6 +39,8 @@ hi Constant cterm=NONE ctermfg=7 ctermbg=NONE
 hi Define cterm=NONE ctermfg=7 ctermbg=NONE
 hi Include cterm=NONE ctermfg=7 ctermbg=NONE
 hi Macro cterm=NONE ctermfg=7 ctermbg=NONE
+hi lessFunction cterm=NONE ctermfg=7 ctermbg=NONE
+hi lessCssAttribute cterm=NONE ctermfg=7 ctermbg=NONE
 
 " Residual Vim colors
 hi VimSet cterm=NONE ctermfg=7 ctermbg=NONE

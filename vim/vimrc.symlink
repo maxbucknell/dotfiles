@@ -34,8 +34,8 @@ set nowrap
 " This shows the real line number of the current line, and relative
 " line numbers on the other lines. Relative line numbers are good to
 " know how many lines to yank, delete, or move.
-set relativenumber
 set number
+set relativenumber
 
 " Write before commands
 "
