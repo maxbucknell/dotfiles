@@ -67,6 +67,30 @@ ZSH_HIGHLIGHT_STYLES[back-double-quoted-argument]='none'
 ZSH_HIGHLIGHT_STYLES[assign]='none'
 ZSH_HIGHLIGHT_STYLES[default]='none'
 
+# Get the first part of the hostname
+#
+# Sometimes they have dots in them, I'm not partial to that.
+function nice-hostname {
+  echo $(command hostname | cut -d . -f 1)
+}
+
+## Feature Colors
+#
+# These are used in the prompt and Tmux status bar as a reminder of
+# where we are.
+
+declare -A FEATURE_COLORS
+FEATURE_COLORS=(
+  kronecker green
+  galois cyan
+)
+
+COLOR_NAME="$FEATURE_COLORS[$(nice-hostname)]"
+COLOR="$fg[$COLOR_NAME]"
+
+# Tmux
+
+tmux set status-style "bg=$COLOR_NAME"
 
 ## Git
 
@@ -76,7 +100,8 @@ ZSH_HIGHLIGHT_STYLES[default]='none'
 function git-prompt-info {
   REF=$(command git current-branch 2> /dev/null) || \
   REF=$(command git rev-parse --short HEAD 2> /dev/null) || return 0
-  echo "(%{$fg[magenta]%}$REF%{$reset_color%})"
+  COLOR="$fg[$FEATURE_COLORS[$(nice-hostname)]]"
+  echo "($COLOR$REF$reset_color)"
 }
 
 # Keep track of editing mode.
@@ -95,13 +120,6 @@ function get-editing-mode {
 }
 
 ## Prompt
-
-# Get the first part of the hostname
-#
-# Sometimes they have dots in them, I'm not partial to that.
-function nice-hostname {
-  echo $(command hostname | cut -d . -f 1)
-}
 
 # Autoload colors so we can make the prompt green.
 autoload -U colors && colors
@@ -166,7 +184,7 @@ setopt no_beep
 # Add my shortcut for escape.
 #
 # See my vimrc for why I do this
-bindkey hh vi-cmd-mode
+bindkey -M viins hh vi-cmd-mode
 
 # Ensure backspace continues to work in insert mode
 bindkey '^?' backward-delete-char
@@ -187,8 +205,9 @@ function zle-line-init zle-keymap-select () {
 
   set-editing-mode "$RESULT"
 
-  PS1="$(command whoami)@%{$fg[magenta]%}$(nice-hostname)%{$reset_color%} in %1d$(git-prompt-info)
-[%{$fg[magenta]%}$(get-editing-mode)%{$reset_color%}]→ "
+  COLOR="$fg[$FEATURE_COLORS[$(nice-hostname)]]"
+  PS1="$(command whoami)@$COLOR$(nice-hostname)$reset_color in %1d$(git-prompt-info)
+[$COLOR$(get-editing-mode)$reset_color]→ "
 
   zle reset-prompt
 }
