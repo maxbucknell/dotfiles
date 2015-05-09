@@ -1,0 +1,257 @@
+## Completion
+
+# Load up the extra Z Shell completions
+fpath=("~/.zsh/zsh-completions/src" $fpath)
+
+# Ensure we can run the compinit to make them work.
+autoload compinit
+
+## Syntax Highlighting
+
+source "$HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+
+# Make errors red
+ZSH_HIGHLIGHT_STYLES[unknown-token]='fg=red'
+
+# Turn just about everything else off
+ZSH_HIGHLIGHT_STYLES[reserved-word]='none'
+ZSH_HIGHLIGHT_STYLES[reserved-word]='none'
+ZSH_HIGHLIGHT_STYLES[alias]='none'
+ZSH_HIGHLIGHT_STYLES[builtin]='none'
+ZSH_HIGHLIGHT_STYLES[function]='none'
+ZSH_HIGHLIGHT_STYLES[command]='none'
+ZSH_HIGHLIGHT_STYLES[precommand]='none'
+ZSH_HIGHLIGHT_STYLES[commandseparator]='none'
+ZSH_HIGHLIGHT_STYLES[hashed-command]='none'
+ZSH_HIGHLIGHT_STYLES[path]='none'
+ZSH_HIGHLIGHT_STYLES[path_prefix]='none'
+ZSH_HIGHLIGHT_STYLES[path_approx]='none'
+ZSH_HIGHLIGHT_STYLES[globbing]='none'
+ZSH_HIGHLIGHT_STYLES[history-expansion]='none'
+ZSH_HIGHLIGHT_STYLES[single-hyphen-option]='none'
+ZSH_HIGHLIGHT_STYLES[double-hyphen-option]='none'
+ZSH_HIGHLIGHT_STYLES[back-quoted-argument]='none'
+ZSH_HIGHLIGHT_STYLES[single-quoted-argument]='none'
+ZSH_HIGHLIGHT_STYLES[double-quoted-argument]='none'
+ZSH_HIGHLIGHT_STYLES[dollar-double-quoted-argument]='none'
+ZSH_HIGHLIGHT_STYLES[back-double-quoted-argument]='none'
+ZSH_HIGHLIGHT_STYLES[assign]='none'
+ZSH_HIGHLIGHT_STYLES[default]='none'
+
+
+## Git
+
+# Show the current Git branch.
+#
+# If we are not on a branch, print the short ref.
+function git-prompt-info {
+  REF=$(command git current-branch 2> /dev/null) || \
+  REF=$(command git rev-parse --short HEAD 2> /dev/null) || return 0
+  echo "(%{$fg[magenta]%}$REF%{$reset_color%})"
+}
+
+# Keep track of editing mode.
+#
+# Since I use Vi key bindings, I need a way to know which editing mode
+# I am in.
+
+EDITING_MODE="I"
+
+function set-editing-mode {
+  EDITING_MODE="$1"
+}
+
+function get-editing-mode {
+  echo "$EDITING_MODE"
+}
+
+## Prompt
+
+# Get the first part of the hostname
+#
+# Sometimes they have dots in them, I'm not partial to that.
+function nice-hostname {
+  echo $(command hostname | cut -d . -f 1)
+}
+
+# Autoload colors so we can make the prompt green.
+autoload -U colors && colors
+
+# We set the prompt in the line editor function.
+
+## SSH Agent
+
+# Start SSH Agent and set relevant variables
+function start-agent {
+  echo "Initialising new SSH Agent..."
+  ssh-agent -s | sed 's/^echo/# echo/' > "$SSH_ENV"
+  echo "Success!"
+  chmod 600 "$SSH_ENV"
+  . $SSH_ENV > /dev/null
+  ssh-add "$HOME/.ssh/id_$(nice-hostname)"
+}
+
+# Add my SSH identity
+function test-identities {
+  ssh-add -l | grep "The agent has no identities" > /dev/null
+  if [[ $? -eq 0 ]]; then
+    ssh-add "$HOME/.ssh/id_$(nice-hostname)"
+    if [[ $? -eq 2 ]]; then
+      start-agent
+    fi
+  fi
+}
+
+# Start SSH Agent if it's not already running.
+#
+# Also add the id_(nice-hostname) identity.
+export SSH_ENV="$HOME/.ssh/environment"
+if [[ -n $SSH_AGENT_PID ]]; then
+  ps aux | grep "ssh-agent" | grep -v "grep"
+  if [[ $? -eq 0 ]]; then
+    test-identities
+  fi
+else
+  if [[ -f $SSH_ENV ]]; then
+    . $SSH_ENV > /dev/null
+  fi
+  ps aux | grep "$SSH_AGENT_PID" | grep -v "grep" > /dev/null
+  if [[ $? -eq 0 ]]; then
+    test-identities
+  else
+    start-agent
+  fi
+fi
+
+## Line Editing
+
+# Use Vi key bindings rather than emacs.
+bindkey -v
+
+# Don't beep at me when I do something wrong.
+#
+# I found it was beeping when I wasn't doing something wrong, and that
+# really gets on my nerves.
+setopt no_beep
+
+# Add my shortcut for escape.
+#
+# See my vimrc for why I do this
+bindkey hh vi-cmd-mode
+
+# Ensure backspace continues to work in insert mode
+bindkey '^?' backward-delete-char
+
+# Disable traditional escape and arrow keys.
+bindkey -rM viins "^["
+bindkey -rpM viins "^["
+bindkey -rM vicmd "^["
+bindkey -rpM vicmd "^["
+
+# Show if we are in normal mode.
+function zle-line-init zle-keymap-select {
+  if [[ "$KEYMAP" == "vicmd" ]]; then
+    RESULT="N"
+  else
+    RESULT="I"
+  fi
+
+  set-editing-mode "$RESULT"
+
+  PS1="$(command whoami)@%{$fg[magenta]%}$(nice-hostname)%{$reset_color%} in %1d$(git-prompt-info)
+[%{$fg[magenta]%}$(get-editing-mode)%{$reset_color%}]→ "
+
+  zle reset-prompt
+}
+
+zle -N zle-line-init
+zle -N zle-keymap-select
+
+
+## Changing Directories
+
+# If a command cannot be executed, try cd.
+#
+# This is an old Fish option that I sometimes made use of.
+setopt auto_cd
+
+# Use pushd instead of cd
+#
+# Pushd is a thing that maintains a history of directories in a stack.
+# It turns out that this is incredibly useful.
+setopt auto_pushd
+
+# Resolve links to their actual directory.
+#
+# Not doing this causes several unpleasant conflicts. Fish made the
+# right call by not doing this. See:
+#
+#  http://fishshell.com/docs/current/faq.html#faq-cwd-symlink
+#
+#  > ...it is impossible to consistently keep symlinked directories
+#  > unresolved. It is indeed possible to do this partially, and many
+#  > other shells do so. But it was felt there are enough serious corner
+#  > cases that this is a bad idea. Most such issues have to do with how
+#  > '..' is handled...
+setopt chase_links
+
+# Do not print the directory stack on each pushd (cd)
+setopt pushd_silent
+
+# Pushd with no arguments is like cd with no arguments
+setopt pushd_to_home
+
+
+## History
+
+# Save history between sessions.
+#
+# Zsh doesn't do this by default, and I don't know why.
+HISTSIZE=10000
+SAVEHIST=10000
+
+# Don't beep at me when I do something wrong
+setopt no_hist_beep
+
+# Tell Z Shell to append to the history file.
+#
+# The other option is to write to it each session.
+setopt append_history
+
+# Store more information in the history file.
+#
+# This option will store the timestamp corresponding to when the
+# command started, as well as its duration. I'm turning this on
+# because I don't see why I wouldn't want more information.
+setopt extended_history
+
+# Ignore all duplicate commands in the history.
+setopt hist_ignore_all_dups
+
+# Apparently, there is a bug in the way Z Shell handles words.
+#
+# This option enforces correct behaviour, but can be slower. We'll try
+# to do things correctly and see if it's slow.
+setopt hist_lex_words
+
+# Append to the history file as each command is entered.
+#
+# The default behaviour is to append at the end of each session. In
+# Fish, I had some troubles wherein I wanted something from the history
+# in a new session, but I hadn't closed the old one. This fixes that.
+#
+# The reason we pick the time variant of this option is that this one
+# writes the command when it has finished, as opposed to when it
+# starts. This enables the extended history option above to remain
+# correct.
+#
+# setopt inc_append_history_time
+
+# Read from the history file on up arrow.
+#
+# This supercedes the above option, so it has to be turned off to
+# avoid duplication of history. I have kept the comments in place,
+# because I think they are valuable.
+setopt share_history
+
+
