@@ -1,6 +1,4 @@
-# smart pane switching with awareness of vim splits
-#
-# See: https://robots.thoughtbot.com/seamlessly-navigate-vim-and-tmux-splits
+# pane switching
 bind C-h select-pane -L
 bind C-j select-pane -D
 bind C-k select-pane -U
@@ -10,3 +8,8 @@ bind C-\ select-pane -l
 # easily toggle synchronization (mnemonic: e is for echo)
 bind e setw synchronize-panes on
 bind E setw synchronize-panes off
+
+# start a pane in the right fucking folder
+bind c new-window -c "#{pane_current_path}"
+
+
