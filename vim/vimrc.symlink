@@ -311,14 +311,7 @@ augroup vimrcEx
     \ endif
 
   " Language whitespace settings
-  autocmd FileType
-    \ json,
-    \ c,
-    \ xml,
-    \ java,
-    \ php,
-    \ python
-    \ setl sw=4 stp=4
+  autocmd FileType json,c,xml,java,php,python setl sw=4 sts=4
   autocmd FileType
     \ make
     \ setl noet sw=8 sts=8 ts=8
@@ -333,7 +326,6 @@ augroup vimrcEx
   " comments in code, but I haven't gotten that far yet.
   autocmd FileType
     \ markdown,
-    \ tex
     \ setl tw=80 fo=t1
 
   " Create files when opened

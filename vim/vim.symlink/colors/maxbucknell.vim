@@ -54,6 +54,9 @@ hi ZshDeref cterm=NONE ctermfg=7 ctermbg=NONE
 hi ZshShortDeref cterm=NONE ctermfg=7 ctermbg=NONE
 hi ZshSubstDelim cterm=NONE ctermfg=7 ctermbg=NONE
 
+" Residual XML colors
+hi xmlProcessingDelim cterm=NONE ctermfg=7 ctermbg=NONE
+
 " Miscellaneous leftovers
 hi helpNote cterm=NONE ctermfg=7 ctermbg=NONE
 hi MatchParens cterm=NONE ctermfg=7 ctermbg=NONE
