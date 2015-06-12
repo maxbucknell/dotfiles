@@ -19,15 +19,15 @@ PATH="/usr/local/Cellar/ruby/$RUBY_VERSION/bin$PATH"
 PATH="/usr/texbin:$PATH"
 
 # Local path
-PATH="~/.config/bin:$PATH"
+PATH="$HOME/.config/bin:$PATH"
 
 # Composer (PHP)
-PATH="~/.composer/vendor/bin:$PATH"
+PATH="$HOME/.composer/vendor/bin:$PATH"
 
 ## Completion
 
 # Load up the extra Z Shell completions
-fpath=("~/.zsh/zsh-completions/src" $fpath)
+fpath=("$HOME/.zsh/zsh-completions/src" $fpath)
 
 # Ensure we can run the compinit to make them work.
 autoload compinit
@@ -206,8 +206,8 @@ function zle-line-init zle-keymap-select () {
   set-editing-mode "$RESULT"
 
   COLOR="$fg[$FEATURE_COLORS[$(nice-hostname)]]"
-  PS1="$(command whoami)@$COLOR$(nice-hostname)$reset_color in %1d$(git-prompt-info)
-[$COLOR$(get-editing-mode)$reset_color]→ "
+  PS1="$(command whoami)@%{$COLOR%}$(nice-hostname)%{$reset_color%} in %1d$(git-prompt-info)
+[%{$COLOR%}$(get-editing-mode)%{$reset_color%}]→ "
 
   zle reset-prompt
 }
