@@ -83,6 +83,7 @@ declare -A FEATURE_COLORS
 FEATURE_COLORS=(
   kronecker green
   galois cyan
+  dirac magenta
 )
 
 COLOR_NAME="$FEATURE_COLORS[$(nice-hostname)]"
