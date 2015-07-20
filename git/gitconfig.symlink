@@ -31,3 +31,5 @@
 [push]
   default = simple
 
+[github]
+	user = maxbucknell
