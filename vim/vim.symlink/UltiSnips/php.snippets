@@ -1,0 +1,77 @@
+snippet mcomponent
+<?php
+/**
+ * @copyright Copyright 2016 Redbox Digital
+ */
+
+use Magento\Framework\Component\ComponentRegistrar;
+
+ComponentRegistrar::register(
+    ComponentRegistrar::MODULE,
+    '$0',
+    __DIR__
+);
+
+endsnippet
+
+snippet mcontroller
+<?php
+
+namespace $1\Controller$2;
+
+use Magento\Framework\App\Action\Action;
+use Magento\Framework\App\Action\Context;
+use Magento\Framework\Controller\ResultFactory;
+
+class $3 extends Action
+{
+    /**
+     * @var ResultFactory
+     */
+    protected $resultFactory;
+
+    /**
+     * @param Context     $context
+     * @param ResultFactory $resultFactory
+     */
+    public function __construct(
+        Context $context,
+        ResultFactory $resultFactory
+    ) {
+        parent::__construct($context);
+
+        $this->resultFactory = $resultFactory;
+    }
+
+    /**
+     * @return \Magento\Framework\Controller\ResultInterface
+     */
+    public function execute()
+    {
+        $0
+    }
+}
+endsnippet
+
+snippet mblock
+<?php
+
+namespace $NAMESPACE$\Block;
+
+use Magento\Framework\View\Element\Template;
+use Magento\Framework\View\Element\Template\Context;
+
+class $CLASS$ extends Template
+{
+    /**
+     * @param Context $context
+     * @param array   $data
+     */
+    public function __construct(
+        Context $context,
+        array $data = []
+    ) {
+        parent::__construct($context, $data);
+    }
+}
+endsnippet
