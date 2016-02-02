@@ -127,7 +127,7 @@ noremap ;; ;
 " sure to mess up someone not familiar with my setup.
 inoremap hh <esc>
 inoremap hhh h<esc>
-inoremap <esc> <nop>
+" inoremap <esc> <nop>
 
 " Bad arrow keys
 "
@@ -296,6 +296,14 @@ set laststatus=2
 " Pastetoggle to let Vim paste things without auto stuff
 set pastetoggle=<F2>
 
+""""""""""""""""""
+" Ultisnips, y'all
+""""""""""""""""""
+
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<S-tab>"
+
 """""""""""""""""
 " Custom autocmds
 """""""""""""""""
@@ -312,9 +320,7 @@ augroup vimrcEx
 
   " Language whitespace settings
   autocmd FileType json,c,xml,java,php,python setl sw=4 sts=4
-  autocmd FileType
-    \ make
-    \ setl noet sw=8 sts=8 ts=8
+  autocmd FileType make setl noet sw=8 sts=8 ts=8
 
   " Hard wrap prose
   "
@@ -328,8 +334,6 @@ augroup vimrcEx
     \ markdown,
     \ setl tw=80 fo=t1
 
-  " Create files when opened
-  autocmd BufNewFile * write
 augroup END
 
 " Set the statusline.
@@ -348,6 +352,7 @@ set statusline+=\ %{SyntasticStatuslineFlag()} " syntastic errors
 " line styles I need to colour my lines red. I need to split these out.
 let g:syntastic_enable_signs = 0
 let g:syntastic_javascript_checkers = ['eslint']
+let g:systastic_xml_checkers = ['xmllint']
 let g:syntastic_stl_format='[%t errors, first: %F]'
 
 " Copy visual selection to clipboard.
