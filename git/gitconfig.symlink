@@ -33,3 +33,5 @@
 
 [github]
 	user = maxbucknell
+[credential]
+	helper = osxkeychain
