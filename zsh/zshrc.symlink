@@ -24,6 +24,10 @@ PATH="$HOME/.config/bin:$PATH"
 # Composer (PHP)
 PATH="$HOME/.composer/vendor/bin:$PATH"
 
+## RVM
+
+source /Users/maxbucknell/.rvm/scripts/rvm
+
 ## Completion
 
 # Load up the extra Z Shell completions
