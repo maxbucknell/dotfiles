@@ -344,7 +344,7 @@ augroup vimrcEx
     \ endif
 
   " Language whitespace settings
-  autocmd FileType snippets,javascript,json,c,xml,java,php,python setl et sw=4 sts=4
+  autocmd FileType less,snippets,javascript,json,c,xml,java,php,python setl et sw=4 sts=4
   autocmd FileType make setl noet sw=8 sts=8 ts=8
 
   " Hard wrap prose
