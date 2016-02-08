@@ -60,7 +60,7 @@ hi xmlAttribPunct cterm=NONE ctermfg=7 ctermbg=NONE
 
 " Miscellaneous leftovers
 hi helpNote cterm=NONE ctermfg=7 ctermbg=NONE
-hi MatchParens cterm=NONE ctermfg=7 ctermbg=NONE
+hi MatchParen cterm=NONE ctermfg=5 ctermbg=NONE
 
 " Comments are green
 hi Comment cterm=NONE ctermfg=2 ctermbg=NONE

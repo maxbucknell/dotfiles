@@ -223,7 +223,7 @@ endfunction
 " Disable match-paren
 "
 " It has really bad colours and it displays terribly.
-let loaded_matchparen = 1
+" let loaded_matchparen = 1
 
 " Make searches case sensitive only if an upper case character has been typed
 set ignorecase smartcase
