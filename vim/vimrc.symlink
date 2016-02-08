@@ -310,6 +310,25 @@ let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<S-tab>"
 
+""""""""
+" VDebug
+""""""""
+
+let g:vdebug_options={}
+let g:vdebug_options['break_on_open']=0
+let g:vdebug_options['ide_key']='vagrant'
+let g:vdebug_options['port']=9001
+let g:vdebug_options['path_maps']={
+      \'/var/www/magento': getcwd()
+\}
+
+"""""""""""""
+" Local vimrc
+"""""""""""""
+
+" Just load automatically, never ask me.
+let g:localvimrc_ask=0
+
 """""""""""""""""
 " Custom autocmds
 """""""""""""""""
@@ -356,7 +375,7 @@ set statusline+=\ %{SyntasticStatuslineFlag()} " syntastic errors
 " I need to for Syntastic, and maybe send them a pull request. I detest
 " signs in my gutter, but having signs on is the only way to add the
 " line styles I need to colour my lines red. I need to split these out.
-let g:syntastic_enable_signs = 0
+let g:syntastic_enable_signs = 1
 let g:syntastic_javascript_checkers = ['eslint']
 let g:systastic_xml_checkers = ['xmllint']
 let g:syntastic_stl_format='[%t errors, first: %F]'

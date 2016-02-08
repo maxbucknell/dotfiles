@@ -74,10 +74,6 @@ hi Search cterm=NONE ctermfg=3 ctermbg=0
 hi MBSearchNext cterm=NONE ctermfg=3 ctermbg=0
 
 " Errors are red
-hi SyntasticErrorLine cterm=NONE ctermfg=1 ctermbg=NONE
-hi SyntasticWarningLine cterm=NONE ctermfg=1 ctermbg=NONE
-hi SyntasticError cterm=NONE ctermfg=1 ctermbg=NONE
-hi SyntasticWarning cterm=NONE ctermfg=1 ctermbg=NONE
 
 " Make current line magenta
 hi CursorLine cterm=NONE ctermfg=5 ctermbg=NONE
@@ -88,3 +84,31 @@ hi CursorLineNr cterm=NONE ctermfg=5 ctermbg=NONE
 """""""""""""
 
 hi StatusLine cterm=NONE ctermfg=7 ctermbg=5
+
+"""""""
+" Signs
+"""""""
+
+hi SignColumn cterm=NONE ctermbg=0 ctermfg=0
+
+""""""""
+" Vdebug
+""""""""
+
+hi DbgBreakptLine cterm=NONE ctermfg=4 ctermbg=NONE
+hi DbgBreakptSign cterm=NONE ctermfg=4 ctermbg=4
+hi DbgCurrentLine cterm=NONE ctermfg=0 ctermbg=4
+hi DbgCurrentSign cterm=NONE ctermfg=4 ctermbg=4
+
+"""""""""""
+" Syntastic
+"""""""""""
+
+hi SyntasticError cterm=NONE ctermbg=NONE ctermfg=1
+hi link SyntasticWarning SyntasticError
+hi link SyntasticErrorLine SyntasticError
+hi link SyntasticWarningLine SyntasticError
+
+hi SyntasticErrorSign cterm=NONE ctermbg=1 ctermfg=1
+hi SyntasticWarningSign cterm=NONE ctermbg=1 ctermfg=1
+
