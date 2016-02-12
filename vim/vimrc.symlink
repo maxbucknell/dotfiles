@@ -66,9 +66,63 @@ set shell=bash
 " My fuzzy file finder has changed, but the commands I use to interact
 " with it have not. These have the advantage of being close together on
 " my keyboard, as well as vaguely mnemonic.
+
+let g:pick_executable = "pick"
+let g:pick_index_file = ".pick_index"
+
+function! PickCommand(choice_command, pick_args, vim_command)
+  try
+    let selection = system(a:choice_command . " | " . g:pick_executable . " " . a:pick_args)
+    redraw!
+    if v:shell_error == 0
+      try
+        exec a:vim_command . " " . selection
+      catch /E325/
+      endtry
+    endif
+  catch /Vim:Interrupt/
+    " Swallow the ^C so that the redraw below happens; otherwise there will be
+    " leftovers from pick on the screen
+    redraw!
+  endtry
+endfunction
+
+function! s:FileListCommand()
+  if filereadable(g:pick_index_file) == 0
+    call system("find * -type f -o -type l > " . g:pick_index_file)
+  endif
+
+  let l:choice_command = "cat " . g:pick_index_file
+
+  return l:choice_command
+endfunction
+
+function! s:BufferListCommand()
+  let bufnrs = filter(range(1, bufnr("$")), 'buflisted(v:val)')
+  let buffers = map(bufnrs, 'bufname(v:val)')
+  return 'echo "' . join(buffers, "\n") . '"'
+endfunction
+
+function! PickBuffer()
+  call PickCommand(s:BufferListCommand(), "", ":buffer")
+endfunction
+
+function! PickFile()
+  call PickCommand(s:FileListCommand(), "", ":edit")
+endfunction
+
+function! PickFileVerticalSplit()
+  call PickCommand(s:FileListCommand(), "", ":vsplit")
+endfunction
+
+function! RefreshPickIndex()
+  call system("rm " . g:pick_index_file)
+endfunction
+
 nnoremap <leader>t :call PickFile()<cr>
 nnoremap <leader>b :call PickBuffer()<cr>
 nnoremap <leader>n :call PickFileVerticalSplit()<cr>
+nnoremap <c-f> :call RefreshPickIndex()<cr>
 
 " Git blame
 "
