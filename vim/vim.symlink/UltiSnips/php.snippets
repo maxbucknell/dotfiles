@@ -56,12 +56,12 @@ endsnippet
 snippet mblock
 <?php
 
-namespace $NAMESPACE$\Block;
+namespace $1\Block;
 
 use Magento\Framework\View\Element\Template;
 use Magento\Framework\View\Element\Template\Context;
 
-class $CLASS$ extends Template
+class $2 extends Template
 {
     /**
      * @param Context $context
@@ -73,5 +73,62 @@ class $CLASS$ extends Template
     ) {
         parent::__construct($context, $data);
     }
+}
+endsnippet
+
+snippet mtest
+<?php
+
+namespace $1\Test\\$2;
+
+class $3Test extends \PHPUnit_Framework_TestCase
+{
+    public function test$4()
+    {
+        $0
+    }
+}
+endsnippet
+
+snippet mclass
+<?php
+
+namespace $1;
+
+class $2
+{
+    $0
+}
+endsnippet
+
+snippet minterface
+<?php
+
+namespace $1;
+
+interface $2
+{
+    $0
+}
+endsnippet
+
+snippet pubf
+public function $1($2)
+{
+    $0
+}
+endsnippet
+
+snippet prof
+public function $1($2)
+{
+    $0
+}
+endsnippet
+
+snippet prif
+private function $1($2)
+{
+    $0
 }
 endsnippet
