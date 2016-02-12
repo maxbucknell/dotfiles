@@ -118,16 +118,13 @@ install_vim_plugins () {
   info "installing vim plugins"
 
   local PLUGINS=(
-    "thoughtbot/pick.vim"
-    "tomtom/tlib_vim"
-    "mxw/vim-jsx"
-    "wting/rust.vim"
-    "marcweber/vim-addon-mw-utils"
+    "joonty/vdebug"
     "scrooloose/syntastic"
-    "mustache/vim-mustache-handlebars"
+    "groenewege/vim-less"
     "pangloss/vim-javascript"
+    "sirver/ultisnips"
     "JulesWang/css.vim"
-    "genoma/vim-less"
+    "mxw/vim-jsx"
   )
   local BASE_DIR="$DOTFILES_ROOT/vim/vim.symlink/bundle"
   local GIT_HOST="git@github.com"
