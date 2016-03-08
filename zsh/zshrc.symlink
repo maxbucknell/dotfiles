@@ -1,5 +1,4 @@
 ## Path
-
 # Default path
 export PATH="/sbin"
 PATH="/usr/sbin:$PATH"
@@ -19,10 +18,13 @@ PATH="/usr/local/Cellar/ruby/$RUBY_VERSION/bin$PATH"
 PATH="/usr/texbin:$PATH"
 
 # Local path
-PATH="$HOME/.config/bin:$PATH"
+PATH="$HOME/Dropbox/dotfiles/bin:$PATH"
 
 # Composer (PHP)
 PATH="$HOME/.composer/vendor/bin:$PATH"
+
+# Python
+export PYTHONPATH="$PYTHONPATH:$HOME/Dropbox/dotfiles/lib/python"
 
 ## RVM
 
