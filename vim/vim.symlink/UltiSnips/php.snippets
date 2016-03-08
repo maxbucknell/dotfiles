@@ -1,134 +1,74 @@
-snippet mcomponent
+global !p
+from mbutils import get_namespace
+import os
+
+def full_path(filename):
+    cwd = os.getcwd()
+    filepath = os.path.join(cwd, filename)
+
+    return os.path.dirname(filepath)
+endglobal
+
+snippet class
 <?php
 /**
- * @copyright Copyright 2016 Redbox Digital
+ * @copyright Copyright 2016 ${1:Redbox Digital}
  */
 
-use Magento\Framework\Component\ComponentRegistrar;
+namespace ${2:`!p snip.rv = get_namespace(full_path(path))`};
 
-ComponentRegistrar::register(
-    ComponentRegistrar::MODULE,
-    '$1_$0',
-    __DIR__
-);
+${3:// Use...}
 
+class ${4:`!p snip.rv = snip.basename`}${5: extends ${6:ParentClass}}${7: implements ${8:SomeInterface, OtherInterface}}
+\{
+    ${0:// Implementation...}
+\}
 endsnippet
 
-snippet mcontroller
+snippet interface
 <?php
+/**
+ * @copyright Copyright 2016 ${1:Redbox Digital}
+ */
 
-namespace $1\Controller$2;
+namespace ${2:`!p snip.rv = get_namespace(full_path(path))`};
 
-use Magento\Framework\App\Action\Action;
-use Magento\Framework\App\Action\Context;
-use Magento\Framework\Controller\ResultFactory;
+${3:// Use...}
 
-class $3 extends Action
-{
-    /**
-     * @var ResultFactory
-     */
-    protected $resultFactory;
-
-    /**
-     * @param Context     $context
-     * @param ResultFactory $resultFactory
-     */
-    public function __construct(
-        Context $context,
-        ResultFactory $resultFactory
-    ) {
-        parent::__construct($context);
-
-        $this->resultFactory = $resultFactory;
-    }
-
-    /**
-     * @return \Magento\Framework\Controller\ResultInterface
-     */
-    public function execute()
-    {
-        $0
-    }
-}
+class ${4:`!p snip.rv = snip.basename`}${5: extends ${6:ParentInterface}}
+\{
+    ${0:// Interface...}
+\}
 endsnippet
 
-snippet mblock
-<?php
-
-namespace $1\Block;
-
-use Magento\Framework\View\Element\Template;
-use Magento\Framework\View\Element\Template\Context;
-
-class $2 extends Template
-{
-    /**
-     * @param Context $context
-     * @param array   $data
-     */
-    public function __construct(
-        Context $context,
-        array $data = []
-    ) {
-        parent::__construct($context, $data);
-    }
-}
-endsnippet
-
-snippet mtest
-<?php
-
-namespace $1\Test\\$2;
-
-class $3Test extends \PHPUnit_Framework_TestCase
-{
-    public function test$4()
-    {
-        $0
-    }
-}
-endsnippet
-
-snippet mclass
-<?php
-
-namespace $1;
-
-class $2
-{
+snippet f
+function ${1}(
+    ${2}
+) \{
     $0
-}
-endsnippet
-
-snippet minterface
-<?php
-
-namespace $1;
-
-interface $2
-{
-    $0
-}
+\}
 endsnippet
 
 snippet pubf
-public function $1($2)
-{
+public function ${1}(
+    ${2}
+) \{
     $0
-}
+\}
 endsnippet
 
 snippet prof
-public function $1($2)
-{
+protected function ${1}(
+    ${2}
+) \{
     $0
-}
+\}
 endsnippet
 
 snippet prif
-private function $1($2)
-{
+private function ${1}(
+    ${2}
+) \{
     $0
-}
+\}
 endsnippet
