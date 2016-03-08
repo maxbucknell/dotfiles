@@ -384,6 +384,12 @@ let g:vdebug_options['path_maps']={
 " Just load automatically, never ask me.
 let g:localvimrc_ask=0
 
+""""""""
+" Python
+""""""""
+
+let g:pymode_python = 'python3'
+
 """""""""""""""""
 " Custom autocmds
 """""""""""""""""
@@ -441,6 +447,7 @@ let g:syntastic_php_checkers = ['phpcs']
 let g:syntastic_php_phpcs_exec = './vendor/bin/phpcs'
 let g:syntastic_php_phpcs_args = '--standard=PSR2'
 
+let g:syntastic_python_python_exec = 'python3'
 
 " Copy visual selection to clipboard.
 noremap <leader>y "*y
