@@ -64,7 +64,14 @@ hi MatchParen cterm=NONE ctermfg=5 ctermbg=NONE
 
 " Comments are green
 hi Comment cterm=NONE ctermfg=2 ctermbg=NONE
+
 hi PreProc cterm=NONE ctermfg=2 ctermbg=NONE
+
+hi jsDocTags cterm=NONE ctermfg=2 ctermbg=NONE
+hi jsDocType cterm=NONE ctermfg=2 ctermbg=NONE
+hi jsDocParam cterm=NONE ctermfg=2 ctermbg=NONE
+hi jsDocTypeNoParam cterm=NONE ctermfg=2 ctermbg=NONE
+hi jsDocSeeTag cterm=NONE ctermfg=2 ctermbg=NONE
 
 " Line numbers are grey
 hi LineNr cterm=NONE ctermfg=8 ctermbg=NONE
@@ -111,4 +118,10 @@ hi link SyntasticWarningLine SyntasticError
 
 hi SyntasticErrorSign cterm=NONE ctermbg=1 ctermfg=1
 hi SyntasticWarningSign cterm=NONE ctermbg=1 ctermfg=1
+
+"""""""""""
+" UltiSnips
+"""""""""""
+
+hi snipLeadingSpaces cterm=NONE ctermbg=NONE ctermfg=NONE
 
