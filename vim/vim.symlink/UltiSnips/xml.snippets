@@ -7,3 +7,42 @@ snippet mmodxml
     </module>
 </config>
 endsnippet
+
+snippet mdixml
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    $0
+</config>
+endsnippet
+
+snippet mwidgets
+<?xml version="1.0" encoding="UTF-8"?>
+<widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Widget:etc/widget.xsd">
+    $0
+</widgets>
+endsnippet
+
+snippet mwidget
+<widget id="$1_$2__$3"
+        class="$1\\$2\Block\Widget\\$4"
+        is_email_compatible="$5"
+        placeholder_image="$1_$2::images/$3.png">
+    <label translate="true">$6</label>
+    <description translate="true">$7</description>
+    <parameters>
+        $0
+    </parameters>
+</widget>
+endsnippet
+
+snippet mwidgetparam
+<parameter name="$1"
+           xsi:type="$2"
+           visible="$3"
+           required="$4"
+           sort_order="$5">
+    <label translate="true">$6</label>
+    <description translate="true">$7</description>
+</parameter>
+endsnippet

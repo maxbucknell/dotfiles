@@ -89,6 +89,7 @@ endfunction
 
 function! s:FileListCommand()
   if filereadable(g:pick_index_file) == 0
+    echo "Rebuilding"
     call system("find * -type f -o -type l > " . g:pick_index_file)
   endif
 
@@ -124,11 +125,29 @@ nnoremap <leader>b :call PickBuffer()<cr>
 nnoremap <leader>n :call PickFileVerticalSplit()<cr>
 nnoremap <c-f> :call RefreshPickIndex()<cr>
 
+" Navigate to test, and back
+
+" Find test counterpart.
+"
+" This works by replacing src/ with test/, and test/ with src/
+function! FindTestFilename(filename)
+  " Replace src/ with t_est/
+  let first = substitute(a:filename, 'src/', 't_est/', '')
+  " Replace test/ with src/
+  let second = substitute(first, 'test/', 'src/', '')
+  " Replace t_est/ with test/
+  let third = substitute(second, 't_est/', 'test/', '')
+
+  return third
+endfunction
+
+nnoremap <c-t> :exec ":e " . FindTestFilename(expand('%')) <cr>
+
 " Git blame
 "
 " Replace the buffer contents with git blame.
 " Hit u to undo
-nnoremap <leader>a :1,$!git blame %<cr>
+nnoremap <leader>a :%!git blame %<cr>
 
 " Tab config options
 "
@@ -405,7 +424,7 @@ augroup vimrcEx
     \ endif
 
   " Language whitespace settings
-  autocmd FileType less,snippets,javascript,json,c,xml,java,php,python setl et sw=4 sts=4
+  autocmd FileType less,snippets,json,c,xml,java,php,python setl et sw=4 sts=4
   autocmd FileType make,markdown setl noet sw=8 sts=8 ts=8
 
   " Hard wrap prose
@@ -448,6 +467,9 @@ let g:syntastic_php_phpcs_exec = './vendor/bin/phpcs'
 let g:syntastic_php_phpcs_args = '--standard=PSR2'
 
 let g:syntastic_python_python_exec = 'python3'
+
+" JSX in mah JavaScript
+let g:jsx_ext_required = 0
 
 " Copy visual selection to clipboard.
 noremap <leader>y "*y

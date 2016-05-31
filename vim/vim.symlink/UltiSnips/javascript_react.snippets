@@ -1,0 +1,50 @@
+snippet action
+export const type = '${1:`!p snip.rv = snip.basename`}';
+
+export default (${2:...args}) => (\{
+  type,${3:
+  payload: \{
+    ${2/,?( |$)/,\n  $1$1/g}\},}
+\});$0
+endsnippet
+
+snippet testaction
+import test from 'tape';
+
+import ${1/-(\w)/\u$1/g}, \{
+  type,
+\} from '../../src/actions/${1:`!p snip.rv = snip.basename`}';
+
+test('${1/-(\w)/\u$1/g} is a function', (t) => \{
+  const actual = typeof ${1/-(\w)/\u$1/g};
+  const expected = 'function';
+
+  t.equal(
+    actual, expected,
+    '${1/-(\w)/\u$1/g} should be a function'
+  );
+
+  t.end();
+\});
+
+test('${1/-(\w)/\u$1/g} returns the correct action', (t) => \{
+  const actual = ${1/-(\w)/\u$1/g}();
+  const expected = \{ type \};
+
+  t.deepEqual(
+    actual, expected,
+    'Action not of expected shape'
+  );
+  t.end();
+\});
+endsnippet
+
+snippet impaction
+import ${1/-(\w)/\u$1/g}, \{
+  type as ${1/-(\w)/\u$1/g}Type,
+\} from './${1:action-file-name}';
+
+${1/-(\w)/\u$1/g}.type = ${1/-(\w)/\u$1/g}Type;
+
+export \{ ${1/-(\w)/\u$1/g} \};
+endsnippet

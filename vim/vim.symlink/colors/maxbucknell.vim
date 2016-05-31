@@ -29,10 +29,7 @@ hi Normal cterm=NONE ctermfg=7 ctermbg=NONE
 hi Type cterm=NONE ctermfg=7 ctermbg=NONE
 hi Keyword cterm=NONE ctermfg=7 ctermbg=NONE
 hi Operator cterm=NONE ctermfg=7 ctermbg=NONE
-hi String cterm=NONE ctermfg=7 ctermbg=NONE
-hi Number cterm=NONE ctermfg=7 ctermbg=NONE
 hi Special cterm=NONE ctermfg=7 ctermbg=NONE
-hi Boolean cterm=NONE ctermfg=7 ctermbg=NONE
 hi Statement cterm=NONE ctermfg=7 ctermbg=NONE
 hi Identifier cterm=NONE ctermfg=7 ctermbg=NONE
 hi Constant cterm=NONE ctermfg=7 ctermbg=NONE
@@ -60,13 +57,20 @@ hi xmlAttribPunct cterm=NONE ctermfg=7 ctermbg=NONE
 
 " Miscellaneous leftovers
 hi helpNote cterm=NONE ctermfg=7 ctermbg=NONE
-hi MatchParen cterm=NONE ctermfg=5 ctermbg=NONE
+hi MatchParen cterm=NONE ctermfg=7 ctermbg=5
+
+" Scalars are cyan
+hi String cterm=NONE ctermfg=6 ctermbg=NONE
+hi Number cterm=NONE ctermfg=6 ctermbg=NONE
+hi Boolean cterm=NONE ctermfg=6 ctermbg=NONE
 
 " Comments are green
 hi Comment cterm=NONE ctermfg=2 ctermbg=NONE
 
+" Preprocessor statements aren't comments.
 hi PreProc cterm=NONE ctermfg=2 ctermbg=NONE
 
+" JSDoc comments are comments.
 hi jsDocTags cterm=NONE ctermfg=2 ctermbg=NONE
 hi jsDocType cterm=NONE ctermfg=2 ctermbg=NONE
 hi jsDocParam cterm=NONE ctermfg=2 ctermbg=NONE
