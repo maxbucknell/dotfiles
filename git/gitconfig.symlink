@@ -2,6 +2,7 @@
   excludesfile = ~/.gitignore
   editor = vim
   autocrlf = input
+  fileMode = false
 
 [user]
   name = Max Bucknell
@@ -30,9 +31,9 @@
   autocorrect = 1
 
 [push]
-  default = simple
+  default = current
 
 [github]
-	user = maxbucknell
+  user = maxbucknell
 [credential]
-	helper = osxkeychain
+  helper = osxkeychain
