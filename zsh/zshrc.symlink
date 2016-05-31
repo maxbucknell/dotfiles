@@ -204,19 +204,19 @@ bindkey -rpM vicmd "^["
 
 # Show if we are in normal mode.
 function zle-line-init zle-keymap-select () {
-  if [[ "$KEYMAP" == "vicmd" ]]; then
-    RESULT="N"
-  else
-    RESULT="I"
-  fi
+if [[ "$KEYMAP" == "vicmd" ]]; then
+  RESULT="N"
+else
+  RESULT="I"
+fi
 
-  set-editing-mode "$RESULT"
+set-editing-mode "$RESULT"
 
-  COLOR="$fg[$FEATURE_COLORS[$(nice-hostname)]]"
-  PS1="$(command whoami)@%{$COLOR%}$(nice-hostname)%{$reset_color%} in %1d$(git-prompt-info)
+COLOR="$fg[$FEATURE_COLORS[$(nice-hostname)]]"
+PS1="$(command whoami)@%{$COLOR%}$(nice-hostname)%{$reset_color%} in %1d$(git-prompt-info)
 [%{$COLOR%}$(get-editing-mode)%{$reset_color%}]→ "
 
-  zle reset-prompt
+zle reset-prompt
 }
 
 zle -N zle-line-init
