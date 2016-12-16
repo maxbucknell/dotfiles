@@ -7,28 +7,17 @@ PATH="/usr/bin:$PATH"
 PATH="/usr/local/sbin:$PATH"
 PATH="/usr/local/bin:$PATH"
 
-# MacGPG
-PATH="/usr/local/MacGPG2/bin:$PATH"
-
-# Ruby
-RUBY_VERSION="$(ruby --version | cut -d " " -f 2 | cut -d "p" -f 1)"
-PATH="/usr/local/Cellar/ruby/$RUBY_VERSION/bin$PATH"
-
 # LaTeX!
 PATH="/usr/texbin:$PATH"
 
 # Local path
-PATH="$HOME/Dropbox/dotfiles/bin:$PATH"
+PATH="$HOME/dotfiles/bin:$PATH"
 
 # Composer (PHP)
 PATH="$HOME/.composer/vendor/bin:$PATH"
 
 # Python
 export PYTHONPATH="$PYTHONPATH:$HOME/Dropbox/dotfiles/lib/python"
-
-## RVM
-
-source /Users/maxbucknell/.rvm/scripts/rvm
 
 ## Completion
 
@@ -90,14 +79,11 @@ FEATURE_COLORS=(
   kronecker green
   galois cyan
   dirac magenta
+  hilbert blue
 )
 
 COLOR_NAME="$FEATURE_COLORS[$(nice-hostname)]"
 COLOR="$fg[$COLOR_NAME]"
-
-# Tmux
-
-tmux set status-style "bg=$COLOR_NAME"
 
 ## Git
 
@@ -138,43 +124,22 @@ autoload -U colors && colors
 # Start SSH Agent and set relevant variables
 function start-agent {
   echo "Initialising new SSH Agent..."
-  ssh-agent -s | sed 's/^echo/# echo/' > "$SSH_ENV"
+  rm ~/.ssh/redbox-docker-socket
+  ssh-agent -s -a $HOME/.ssh/redbox-docker-socket | sed 's/^echo/# echo/' > "$SSH_ENV"
   echo "Success!"
   chmod 600 "$SSH_ENV"
   . $SSH_ENV > /dev/null
   ssh-add "$HOME/.ssh/id_$(nice-hostname)"
 }
 
-# Add my SSH identity
-function test-identities {
-  ssh-add -l | grep "The agent has no identities" > /dev/null
-  if [[ $? -eq 0 ]]; then
-    ssh-add "$HOME/.ssh/id_$(nice-hostname)"
-    if [[ $? -eq 2 ]]; then
-      start-agent
-    fi
-  fi
-}
-
 # Start SSH Agent if it's not already running.
 #
 # Also add the id_(nice-hostname) identity.
 export SSH_ENV="$HOME/.ssh/environment"
-if [[ -n $SSH_AGENT_PID ]]; then
-  ps aux | grep "ssh-agent" | grep -v "grep"
-  if [[ $? -eq 0 ]]; then
-    test-identities
-  fi
+if [[ -f $SSH_ENV ]]; then
+  . $SSH_ENV > /dev/null
 else
-  if [[ -f $SSH_ENV ]]; then
-    . $SSH_ENV > /dev/null
-  fi
-  ps aux | grep "$SSH_AGENT_PID" | grep -v "grep" > /dev/null
-  if [[ $? -eq 0 ]]; then
-    test-identities
-  else
-    start-agent
-  fi
+  start-agent
 fi
 
 ## Line Editing
@@ -312,4 +277,5 @@ setopt hist_lex_words
 # because I think they are valuable.
 setopt share_history
 
-
+alias pbcopy='xclip -selection clipboard'
+alias pbpaste='xclip -selection clipboard -o'

@@ -9,9 +9,7 @@
 # layout, use the i3-config-wizard
 #
 
-# This font is widely installed, provides lots of unicode glyphs, right-to-left
-# text rendering and scalability on retina/hidpi displays (thanks to pango).
-font pango:DejaVu Sans Mono 16
+font pango:System San Francisco Text 18
 
 # use these keys for focus, movement, and resize directions when reaching for
 # the arrows is not convenient
@@ -19,6 +17,62 @@ set $up k
 set $down j
 set $left h
 set $right l
+
+# Colour, baby
+set $bg-color #2f343f
+set $inactive-bg-color #2f343f
+set $text-color #f3f4f5
+set $inactive-text-color #676e7d
+set $urgent-bg-color #e53935
+set $indicator-color #00ff00
+
+# Window colours
+client.focused \
+  $bg-color \
+  $bg-color \
+  $text-color \
+  $indicator-color
+
+client.unfocused \
+  $inactive-bg-color \
+  $inactive-bg-color \
+  $inactive-text-color \
+  $indicator-color
+
+client.focused_inactive \
+  $inactive-bg-color \
+  $inactive-bg-color \
+  $inactive-text-color \
+  $indicator-color
+client.urgent \
+  $urgent-bg-color \
+  $urgent-bg-color \
+  $text-color \
+  $indicator-color
+
+bar {
+        status_command i3status
+        colors {
+                background $bg-color
+
+                focused_workspace \
+                  $bg-color \
+                  $bg-color \
+                  $text-color
+
+                inactive_workspace \
+                  $inactive-bg-color \
+                  $inactive-bg-color \
+                  $inactive-text-color
+
+                urgent_workspace \
+                  $urgent-bg-color \
+                  $urgent-bg-color \
+                  $text-color
+        }
+}
+
+bindsym Mod4+shift+slash exec i3lock --color "$bg-color"
 
 # use Mouse+Mod4 to drag floating windows to their wanted position
 floating_modifier Mod4
@@ -29,10 +83,7 @@ bindsym Mod4+Return exec i3-sensible-terminal
 # kill focused window
 bindsym Mod4+Shift+q kill
 
-# There also is the (new) i3-dmenu-desktop which only displays applications
-# shipping a .desktop file. It is a wrapper around dmenu, so you need that
-# installed.
-bindsym Mod4+d exec --no-startup-id i3-dmenu-desktop
+bindsym Mod4+d exec rofi -show run -lines 3 -eh 2 -width 100 -padding 10 -opacity "85" -bw 0 -bc "$bg-color" -bg "$bg-color" -fg "$text-color" -hlbg "$bg-color" -hlfg "#9575cd" -font "System San Francisco Display 18"
 
 # change focus
 bindsym Mod4+$left focus left
@@ -127,10 +178,10 @@ mode "resize" {
 
 bindsym Mod4+r mode "resize"
 
-# Start i3bar to display a workspace bar (plus the system information i3status
-# finds out, if available)
-bar {
-        status_command i3status
-        tray_output primary
-}
 
+hide_edge_borders both
+focus_follows_mouse no
+
+exec xmodmap ~/.xmodmap
+exec compton
+exec gnome-terminal
