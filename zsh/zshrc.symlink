@@ -132,12 +132,20 @@ function start-agent {
   ssh-add "$HOME/.ssh/id_$(nice-hostname)"
 }
 
+# If we may have loaded config, let's just check that
+function test-identities {
+  if ! ssh-add -l > /dev/null; then
+    start-agent
+  fi
+}
+
 # Start SSH Agent if it's not already running.
 #
 # Also add the id_(nice-hostname) identity.
 export SSH_ENV="$HOME/.ssh/environment"
 if [[ -f $SSH_ENV ]]; then
   . $SSH_ENV > /dev/null
+  test-identities
 else
   start-agent
 fi
