@@ -129,3 +129,14 @@ hi SyntasticWarningSign cterm=NONE ctermbg=1 ctermfg=1
 
 hi snipLeadingSpaces cterm=NONE ctermbg=NONE ctermfg=NONE
 
+""""""""""
+" Markdown
+""""""""""
+
+hi markdownH1 cterm=NONE ctermbg=NONE ctermfg=0
+hi markdownH2 cterm=NONE ctermbg=NONE ctermfg=0
+hi markdownH3 cterm=NONE ctermbg=NONE ctermfg=0
+hi markdownH4 cterm=NONE ctermbg=NONE ctermfg=0
+hi markdownH5 cterm=NONE ctermbg=NONE ctermfg=0
+hi markdownH6 cterm=NONE ctermbg=NONE ctermfg=0
+
