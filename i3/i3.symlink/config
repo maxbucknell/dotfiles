@@ -18,6 +18,9 @@ set $down j
 set $left h
 set $right l
 
+# Command key for all system things, ctrl for stuff in windows
+set $mod Mod4
+
 # Colour, baby
 set $bg-color #2f343f
 set $inactive-bg-color #2f343f
@@ -30,92 +33,92 @@ bar {
         status_command i3status
 }
 
-bindsym Mod4+shift+apostrophe exec i3lock --color "$bg-color"
+bindsym $mod+shift+apostrophe exec i3lock --color "$bg-color"
 
-# use Mouse+Mod4 to drag floating windows to their wanted position
-floating_modifier Mod4
+# use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
 
 # start a terminal
-bindsym Mod4+Return exec i3-sensible-terminal
-bindsym Mod4+n exec google-chrome --force-device-scale-factor=1.15
+bindsym $mod+Return exec i3-sensible-terminal
+bindsym $mod+n exec google-chrome --force-device-scale-factor=1.15
 
 # kill focused window
-bindsym Mod4+Shift+q kill
+bindsym $mod+Shift+q kill
 
-bindsym Mod4+space exec dmenu_run -i -fn "System San Francisco Text 16"
+bindsym $mod+space exec dmenu_run -i -fn "System San Francisco Text 16"
 
 # change focus
-bindsym Mod4+$left focus left
-bindsym Mod4+$down focus down
-bindsym Mod4+$up focus up
-bindsym Mod4+$right focus right
+bindsym $mod+$left focus left
+bindsym $mod+$down focus down
+bindsym $mod+$up focus up
+bindsym $mod+$right focus right
 
 # move focused window
-bindsym Mod4+Shift+$left move left
-bindsym Mod4+Shift+$down move down
-bindsym Mod4+Shift+$up move up
-bindsym Mod4+Shift+$right move right
+bindsym $mod+Shift+$left move left
+bindsym $mod+Shift+$down move down
+bindsym $mod+Shift+$up move up
+bindsym $mod+Shift+$right move right
 
 # split in horizontal orientation
-bindsym Mod4+z split h
+bindsym $mod+z split h
 
 # split in vertical orientation
-bindsym Mod4+v split v
+bindsym $mod+v split v
 
 # enter fullscreen mode for the focused container
-bindsym Mod4+f fullscreen toggle
+bindsym $mod+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
-bindsym Mod4+s layout stacking
-bindsym Mod4+w layout tabbed
-bindsym Mod4+e layout toggle split
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
 
 # toggle tiling / floating
-bindsym Mod4+Shift+space floating toggle
+bindsym $mod+Shift+space floating toggle
 
 # change focus between tiling / floating windows
-bindsym Mod4+d focus mode_toggle
+bindsym $mod+d focus mode_toggle
 
 # focus the parent container
-bindsym Mod4+a focus parent
+bindsym $mod+a focus parent
 
 # move the currently focused window to the scratchpad
-bindsym Mod4+Shift+minus move scratchpad
+bindsym $mod+Shift+minus move scratchpad
 
 # Show the next scratchpad window or hide the focused scratchpad window.
 # If there are multiple scratchpad windows, this command cycles through them.
-bindsym Mod4+minus scratchpad show
+bindsym $mod+minus scratchpad show
 
 # switch to workspace
-bindsym Mod4+1 workspace 1
-bindsym Mod4+2 workspace 2
-bindsym Mod4+3 workspace 3
-bindsym Mod4+4 workspace 4
-bindsym Mod4+5 workspace 5
-bindsym Mod4+6 workspace 6
-bindsym Mod4+7 workspace 7
-bindsym Mod4+8 workspace 8
-bindsym Mod4+9 workspace 9
-bindsym Mod4+0 workspace 10
+bindsym $mod+1 workspace 1
+bindsym $mod+2 workspace 2
+bindsym $mod+3 workspace 3
+bindsym $mod+4 workspace 4
+bindsym $mod+5 workspace 5
+bindsym $mod+6 workspace 6
+bindsym $mod+7 workspace 7
+bindsym $mod+8 workspace 8
+bindsym $mod+9 workspace 9
+bindsym $mod+0 workspace 10
 
 # move focused container to workspace
-bindsym Mod4+Shift+1 move container to workspace 1
-bindsym Mod4+Shift+2 move container to workspace 2
-bindsym Mod4+Shift+3 move container to workspace 3
-bindsym Mod4+Shift+4 move container to workspace 4
-bindsym Mod4+Shift+5 move container to workspace 5
-bindsym Mod4+Shift+6 move container to workspace 6
-bindsym Mod4+Shift+7 move container to workspace 7
-bindsym Mod4+Shift+8 move container to workspace 8
-bindsym Mod4+Shift+9 move container to workspace 9
-bindsym Mod4+Shift+0 move container to workspace 10
+bindsym $mod+Shift+1 move container to workspace 1
+bindsym $mod+Shift+2 move container to workspace 2
+bindsym $mod+Shift+3 move container to workspace 3
+bindsym $mod+Shift+4 move container to workspace 4
+bindsym $mod+Shift+5 move container to workspace 5
+bindsym $mod+Shift+6 move container to workspace 6
+bindsym $mod+Shift+7 move container to workspace 7
+bindsym $mod+Shift+8 move container to workspace 8
+bindsym $mod+Shift+9 move container to workspace 9
+bindsym $mod+Shift+0 move container to workspace 10
 
 # reload the configuration file
-bindsym Mod4+Shift+c reload
+bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym Mod4+Shift+r restart
+bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
-bindsym Mod4+Shift+e exec "i3-msg exit"
+bindsym $mod+Shift+e exec "i3-msg exit"
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -135,7 +138,7 @@ mode "resize" {
         bindsym Escape mode "default"
 }
 
-bindsym Mod4+r mode "resize"
+bindsym $mod+r mode "resize"
 
 # Pulse Audio controls
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 1 +5% #increase sound volume
