@@ -197,7 +197,6 @@ zle -N zle-keymap-select
 
 unset zle_bracketed_paste
 
-
 ## Changing Directories
 
 # If a command cannot be executed, try cd.
@@ -254,9 +253,6 @@ setopt append_history
 # command started, as well as its duration. I'm turning this on
 # because I don't see why I wouldn't want more information.
 setopt extended_history
-
-# Ignore all duplicate commands in the history.
-setopt hist_ignore_all_dups
 
 # Apparently, there is a bug in the way Z Shell handles words.
 #
