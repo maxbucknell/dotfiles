@@ -43,7 +43,7 @@ bindsym $mod+Return exec i3-sensible-terminal
 bindsym $mod+n exec google-chrome --force-device-scale-factor=1.15
 
 # kill focused window
-bindsym $mod+Shift+q kill
+bindsym $mod+q kill
 
 bindsym $mod+space exec dmenu_run -i -fn "System San Francisco Text 16"
 
