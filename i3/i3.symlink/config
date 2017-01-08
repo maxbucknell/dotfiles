@@ -153,4 +153,7 @@ hide_edge_borders both
 focus_follows_mouse no
 
 exec xmodmap ~/.xmodmap
-exec compton
+
+# Mouse controls. I am so happy I found this
+exec synclient HorizTwoFingerScroll=1
+exec synclient PalmDetect=1
