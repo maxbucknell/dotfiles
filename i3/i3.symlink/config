@@ -157,3 +157,9 @@ exec xmodmap ~/.xmodmap
 # Mouse controls. I am so happy I found this
 exec synclient HorizTwoFingerScroll=1
 exec synclient PalmDetect=1
+exec synclient TapButton1=0
+exec synclient TapButton2=0
+
+# Natural scrolling
+exec synclient VertScrollDelta=-243
+exec synclient HorizScrollDelta=-243
