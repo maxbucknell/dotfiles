@@ -119,12 +119,9 @@ install_vim_plugins () {
 
   local PLUGINS=(
     "joonty/vdebug"
-    "scrooloose/syntastic"
-    "groenewege/vim-less"
+    "vim-syntastic/syntastic"
     "pangloss/vim-javascript"
     "sirver/ultisnips"
-    "JulesWang/css.vim"
-    "mxw/vim-jsx"
   )
   local BASE_DIR="$DOTFILES_ROOT/vim/vim.symlink/bundle"
   local GIT_HOST="git@github.com"

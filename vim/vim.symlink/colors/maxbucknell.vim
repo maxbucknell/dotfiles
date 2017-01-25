@@ -1,4 +1,4 @@
-set background=dark
+set background=light
 hi clear
 
 if exists("syntax_on")
@@ -54,6 +54,14 @@ hi ZshSubstDelim cterm=NONE ctermfg=0 ctermbg=NONE
 " Residual XML colors
 hi xmlProcessingDelim cterm=NONE ctermfg=0 ctermbg=NONE
 hi xmlAttribPunct cterm=NONE ctermfg=0 ctermbg=NONE
+
+" Residual Markdown colors
+hi markdownH1 cterm=NONE ctermbg=NONE ctermfg=0
+hi markdownH2 cterm=NONE ctermbg=NONE ctermfg=0
+hi markdownH3 cterm=NONE ctermbg=NONE ctermfg=0
+hi markdownH4 cterm=NONE ctermbg=NONE ctermfg=0
+hi markdownH5 cterm=NONE ctermbg=NONE ctermfg=0
+hi markdownH6 cterm=NONE ctermbg=NONE ctermfg=0
 
 " Miscellaneous leftovers
 hi helpNote cterm=NONE ctermfg=0 ctermbg=NONE
@@ -128,15 +136,3 @@ hi SyntasticWarningSign cterm=NONE ctermbg=1 ctermfg=1
 """""""""""
 
 hi snipLeadingSpaces cterm=NONE ctermbg=NONE ctermfg=NONE
-
-""""""""""
-" Markdown
-""""""""""
-
-hi markdownH1 cterm=NONE ctermbg=NONE ctermfg=0
-hi markdownH2 cterm=NONE ctermbg=NONE ctermfg=0
-hi markdownH3 cterm=NONE ctermbg=NONE ctermfg=0
-hi markdownH4 cterm=NONE ctermbg=NONE ctermfg=0
-hi markdownH5 cterm=NONE ctermbg=NONE ctermfg=0
-hi markdownH6 cterm=NONE ctermbg=NONE ctermfg=0
-

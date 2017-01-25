@@ -1,5 +1,5 @@
 global !p
-from mbutils import get_namespace
+from mbutils import get_namespace, format_method
 import os
 
 def full_path(filename):
@@ -49,10 +49,18 @@ function ${1}(
 \}
 endsnippet
 
+post_jump "if (snip.tabstop == 0): format_method(snip)"
 snippet pubf
-public function ${1}(
-    ${2}
-) \{
+/**
+ * ${2:Short description...}
+ *
+ * ${3:A slightly longer description of what you want to do. This will automatically be wrapped}
+ *
+ * ${4:@tags}
+ */
+public function ${1:methodName}(
+    ...\$args
+):returnType \{
     $0
 \}
 endsnippet
@@ -71,4 +79,8 @@ private function ${1}(
 ) \{
     $0
 \}
+endsnippet
+
+snippet @param
+@param ${1:Type}${2:|null} \$${3:name} ${4:Description}
 endsnippet

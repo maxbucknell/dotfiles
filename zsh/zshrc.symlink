@@ -119,39 +119,6 @@ autoload -U colors && colors
 
 # We set the prompt in the line editor function.
 
-## SSH Agent
-
-# Start SSH Agent and set relevant variables
-function start-agent {
-  echo "Initialising new SSH Agent..."
-  rm ~/.ssh/redbox-docker-socket
-  ssh-agent -s -a $HOME/.ssh/redbox-docker-socket | sed 's/^echo/# echo/' > "$SSH_ENV"
-  echo "Success!"
-  chmod 600 "$SSH_ENV"
-  . $SSH_ENV > /dev/null
-  ssh-add "$HOME/.ssh/id_$(nice-hostname)"
-}
-
-# If we may have loaded config, let's just check that
-function test-identities {
-  if ! ssh-add -l > /dev/null; then
-    start-agent
-  fi
-}
-
-# Start SSH Agent if it's not already running.
-#
-# Also add the id_(nice-hostname) identity.
-export SSH_ENV="$HOME/.ssh/environment"
-if [[ -f $SSH_ENV ]]; then
-  . $SSH_ENV > /dev/null
-  test-identities
-else
-  start-agent
-fi
-
-## Line Editing
-
 # Use Vi key bindings rather than emacs.
 bindkey -v
 
