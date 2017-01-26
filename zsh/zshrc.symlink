@@ -229,3 +229,6 @@ setopt hist_lex_words
 
 alias pbcopy='xclip -selection clipboard'
 alias pbpaste='xclip -selection clipboard -o'
+
+# Because this just doesn't work in GNOME
+xmodmap $HOME/.xmodmap
