@@ -25,47 +25,47 @@ endif
 let g:colors_name = "maxbucknell"
 
 " Make everything white by default
-hi Normal cterm=NONE ctermfg=0 ctermbg=NONE
-hi Type cterm=NONE ctermfg=0 ctermbg=NONE
-hi Keyword cterm=NONE ctermfg=0 ctermbg=NONE
-hi Operator cterm=NONE ctermfg=0 ctermbg=NONE
-hi Special cterm=NONE ctermfg=0 ctermbg=NONE
-hi Statement cterm=NONE ctermfg=0 ctermbg=NONE
-hi Identifier cterm=NONE ctermfg=0 ctermbg=NONE
-hi Constant cterm=NONE ctermfg=0 ctermbg=NONE
-hi Define cterm=NONE ctermfg=0 ctermbg=NONE
-hi Include cterm=NONE ctermfg=0 ctermbg=NONE
-hi Macro cterm=NONE ctermfg=0 ctermbg=NONE
+hi Normal cterm=NONE ctermfg=7 ctermbg=NONE
+hi Type cterm=NONE ctermfg=7 ctermbg=NONE
+hi Keyword cterm=NONE ctermfg=7 ctermbg=NONE
+hi Operator cterm=NONE ctermfg=7 ctermbg=NONE
+hi Special cterm=NONE ctermfg=7 ctermbg=NONE
+hi Statement cterm=NONE ctermfg=7 ctermbg=NONE
+hi Identifier cterm=NONE ctermfg=7 ctermbg=NONE
+hi Constant cterm=NONE ctermfg=7 ctermbg=NONE
+hi Define cterm=NONE ctermfg=7 ctermbg=NONE
+hi Include cterm=NONE ctermfg=7 ctermbg=NONE
+hi Macro cterm=NONE ctermfg=7 ctermbg=NONE
 
 " Residual Less colors
-hi lessFunction cterm=NONE ctermfg=0 ctermbg=NONE
-hi lessCssAttribute cterm=NONE ctermfg=0 ctermbg=NONE
+hi lessFunction cterm=NONE ctermfg=7 ctermbg=NONE
+hi lessCssAttribute cterm=NONE ctermfg=7 ctermbg=NONE
 
 " Residual Vim colors
-hi VimSet cterm=NONE ctermfg=0 ctermbg=NONE
-hi VimOption cterm=NONE ctermfg=0 ctermbg=NONE
-hi VimHiAttrib cterm=NONE ctermfg=0 ctermbg=NONE
+hi VimSet cterm=NONE ctermfg=7 ctermbg=NONE
+hi VimOption cterm=NONE ctermfg=7 ctermbg=NONE
+hi VimHiAttrib cterm=NONE ctermfg=7 ctermbg=NONE
 
 " Residual Zsh colors
-hi ZshDeref cterm=NONE ctermfg=0 ctermbg=NONE
-hi ZshShortDeref cterm=NONE ctermfg=0 ctermbg=NONE
-hi ZshSubstDelim cterm=NONE ctermfg=0 ctermbg=NONE
+hi ZshDeref cterm=NONE ctermfg=7 ctermbg=NONE
+hi ZshShortDeref cterm=NONE ctermfg=7 ctermbg=NONE
+hi ZshSubstDelim cterm=NONE ctermfg=7 ctermbg=NONE
 
 " Residual XML colors
-hi xmlProcessingDelim cterm=NONE ctermfg=0 ctermbg=NONE
-hi xmlAttribPunct cterm=NONE ctermfg=0 ctermbg=NONE
+hi xmlProcessingDelim cterm=NONE ctermfg=7 ctermbg=NONE
+hi xmlAttribPunct cterm=NONE ctermfg=7 ctermbg=NONE
 
 " Residual Markdown colors
-hi markdownH1 cterm=NONE ctermbg=NONE ctermfg=0
-hi markdownH2 cterm=NONE ctermbg=NONE ctermfg=0
-hi markdownH3 cterm=NONE ctermbg=NONE ctermfg=0
-hi markdownH4 cterm=NONE ctermbg=NONE ctermfg=0
-hi markdownH5 cterm=NONE ctermbg=NONE ctermfg=0
-hi markdownH6 cterm=NONE ctermbg=NONE ctermfg=0
+hi markdownH1 cterm=NONE ctermbg=NONE ctermfg=7
+hi markdownH2 cterm=NONE ctermbg=NONE ctermfg=7
+hi markdownH3 cterm=NONE ctermbg=NONE ctermfg=7
+hi markdownH4 cterm=NONE ctermbg=NONE ctermfg=7
+hi markdownH5 cterm=NONE ctermbg=NONE ctermfg=7
+hi markdownH6 cterm=NONE ctermbg=NONE ctermfg=7
 
 " Miscellaneous leftovers
-hi helpNote cterm=NONE ctermfg=0 ctermbg=NONE
-hi MatchParen cterm=NONE ctermfg=0 ctermbg=5
+hi helpNote cterm=NONE ctermfg=7 ctermbg=NONE
+hi MatchParen cterm=NONE ctermfg=7 ctermbg=5
 
 " Scalars are cyan
 hi String cterm=NONE ctermfg=6 ctermbg=NONE
@@ -86,11 +86,11 @@ hi jsDocTypeNoParam cterm=NONE ctermfg=2 ctermbg=NONE
 hi jsDocSeeTag cterm=NONE ctermfg=2 ctermbg=NONE
 
 " Line numbers are grey
-hi LineNr cterm=NONE ctermfg=0 ctermbg=NONE
+hi LineNr cterm=NONE ctermfg=7 ctermbg=NONE
 
 " Current search result yellow
-hi Search cterm=NONE ctermfg=3 ctermbg=0
-hi MBSearchNext cterm=NONE ctermfg=3 ctermbg=0
+hi Search cterm=NONE ctermfg=3 ctermbg=7
+hi MBSearchNext cterm=NONE ctermfg=3 ctermbg=7
 
 " Errors are red
 
@@ -102,7 +102,7 @@ hi CursorLineNr cterm=NONE ctermfg=4 ctermbg=NONE
 " Status Line
 """""""""""""
 
-hi StatusLine cterm=NONE ctermfg=0 ctermbg=4
+hi StatusLine cterm=NONE ctermfg=7 ctermbg=4
 
 """""""
 " Signs
@@ -116,20 +116,15 @@ hi SignColumn cterm=NONE ctermbg=0 ctermfg=0
 
 hi DbgBreakptLine cterm=NONE ctermfg=5 ctermbg=NONE
 hi DbgBreakptSign cterm=NONE ctermfg=5 ctermbg=5
-hi DbgCurrentLine cterm=NONE ctermfg=0 ctermbg=5
+hi DbgCurrentLine cterm=NONE ctermfg=7 ctermbg=5
 hi DbgCurrentSign cterm=NONE ctermfg=5 ctermbg=5
 
-"""""""""""
-" Syntastic
-"""""""""""
+"""""
+" Ale
+"""""
 
-hi SyntasticError cterm=NONE ctermbg=NONE ctermfg=1
-hi link SyntasticWarning SyntasticError
-hi link SyntasticErrorLine SyntasticError
-hi link SyntasticWarningLine SyntasticError
-
-hi SyntasticErrorSign cterm=NONE ctermbg=1 ctermfg=1
-hi SyntasticWarningSign cterm=NONE ctermbg=1 ctermfg=1
+hi ALEWarningSign cterm=NONE ctermbg=3 ctermfg=3
+hi ALEErrorSign cterm=NONE ctermbg=1 ctermfg=1
 
 """""""""""
 " UltiSnips
