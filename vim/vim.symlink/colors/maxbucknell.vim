@@ -109,6 +109,7 @@ hi Visual cterm=NONE ctermbg=7 ctermfg=0
 """""""""""""
 
 hi StatusLine cterm=NONE ctermfg=7 ctermbg=4
+hi StatusLineNC cterm=NONE ctermfg=0 ctermbg=7
 
 """""""
 " Signs
