@@ -456,25 +456,27 @@ augroup END
 set statusline=[%f] " filename
 set statusline+=\ [%l,\ %c] "line and column number
 set statusline+=\ %y " filetype
-set statusline+=\ %{SyntasticStatuslineFlag()} " syntastic errors
+set statusline+=\ %{ALEGetStatusLine()}
 
-" Syntastic.
+" Ale
 "
-" I need to for Syntastic, and maybe send them a pull request. I detest
-" signs in my gutter, but having signs on is the only way to add the
-" line styles I need to colour my lines red. I need to split these out.
-let g:syntastic_enable_signs = 1
-let g:syntastic_stl_format='[%t errors, first: %F]'
+" An asynchronous linting engine.
+let g:ale_lint_on_text_changed = 1
+let g:ale_linters = {
+  \ 'javascript': [ 'eslint' ],
+  \ 'php': [ 'php', 'phpcs' ],
+  \ 'json': [ 'jsonlint' ]
+\ }
 
-let g:syntastic_javascript_checkers = ['eslint']
+" Hallelujah!
+let g:ale_set_signs = 1
+let g:ale_sign_column_always = 1
+let g:ale_sign_error = '--'
+let g:ale_sign_warning = '--'
 
-let g:systastic_xml_checkers = ['xmllint']
+let g:ale_php_phpcs_standard = 'PSR2'
+let g:ale_javascript_eslint_options = '--no-ignore '
 
-let g:syntastic_php_checkers = ['phpcs']
-let g:syntastic_php_phpcs_exec = './vendor/bin/phpcs'
-let g:syntastic_php_phpcs_args = '--standard=PSR2'
-
-let g:syntastic_python_python_exec = 'python3'
 
 " JSX in mah JavaScript
 let g:jsx_ext_required = 0
