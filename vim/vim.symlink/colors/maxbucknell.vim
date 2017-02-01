@@ -89,8 +89,8 @@ hi jsDocSeeTag cterm=NONE ctermfg=2 ctermbg=NONE
 hi LineNr cterm=NONE ctermfg=7 ctermbg=NONE
 
 " Current search result yellow
-hi Search cterm=NONE ctermfg=3 ctermbg=7
-hi MBSearchNext cterm=NONE ctermfg=3 ctermbg=7
+hi Search cterm=NONE ctermfg=0 ctermbg=3
+hi MBSearchNext cterm=NONE ctermfg=0 ctermbg=3
 
 " Errors are red
 
