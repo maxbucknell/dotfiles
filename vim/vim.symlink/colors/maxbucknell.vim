@@ -76,7 +76,7 @@ hi Boolean cterm=NONE ctermfg=6 ctermbg=NONE
 hi Comment cterm=NONE ctermfg=2 ctermbg=NONE
 
 " Preprocessor statements aren't comments.
-hi PreProc cterm=NONE ctermfg=2 ctermbg=NONE
+hi PreProc cterm=NONE ctermfg=7 ctermbg=NONE
 
 " JSDoc comments are comments.
 hi jsDocTags cterm=NONE ctermfg=2 ctermbg=NONE
