@@ -122,6 +122,9 @@ install_vim_plugins () {
     "w0rp/ale"
     "pangloss/vim-javascript"
     "sirver/ultisnips"
+    "tpope/vim-surround"
+    "tpope/vim-fugitive"
+    "airblade/vim-gitgutter"
   )
   local BASE_DIR="$DOTFILES_ROOT/vim/vim.symlink/bundle"
   local GIT_HOST="git@github.com"

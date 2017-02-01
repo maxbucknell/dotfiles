@@ -153,9 +153,8 @@ nnoremap <c-t> :exec ":e " . FindTestFilename(expand('%')) <cr>
 
 " Git blame
 "
-" Replace the buffer contents with git blame.
-" Hit u to undo
-nnoremap <leader>a :%!git blame %<cr>
+" I used to do this by just filling in my buffer, but this is nicer.
+nnoremap <leader>a :Gblame<cr>
 
 " Tab config options
 "
@@ -477,6 +476,10 @@ let g:ale_sign_warning = '--'
 let g:ale_php_phpcs_standard = 'PSR2'
 let g:ale_javascript_eslint_options = '--no-ignore '
 
+" Gitgutter
+
+let g:gitgutter_realtime = 1
+let g:gitgutter_eager = 1
 
 " JSX in mah JavaScript
 let g:jsx_ext_required = 0
