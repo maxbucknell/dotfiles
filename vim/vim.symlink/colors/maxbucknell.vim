@@ -85,6 +85,10 @@ hi jsDocParam cterm=NONE ctermfg=2 ctermbg=NONE
 hi jsDocTypeNoParam cterm=NONE ctermfg=2 ctermbg=NONE
 hi jsDocSeeTag cterm=NONE ctermfg=2 ctermbg=NONE
 
+" PHPDoc comments are comments.
+hi phpDocTags cterm=NONE ctermfg=2 ctermbg=NONE
+hi phpDocCustomTags cterm=NONE ctermfg=2 ctermbg=NONE
+
 " Line numbers are grey
 hi LineNr cterm=NONE ctermfg=7 ctermbg=NONE
 

@@ -66,8 +66,22 @@ set shell=bash
 " I want to use this to manage my ascii drawings
 set virtualedit=block
 
+" Swap block and visual block
+nnoremap v <C-V>
+nnoremap <C-V> v
+
+vnoremap v <C-V>
+vnoremap <C-V> v
+
+" Automatically read on update
+set autoread
+
 " I am always adding /g. No longer, suckers!
 set gdefault
+
+" Set comment line length
+set tw=72
+set fo=c
 
 " Navigate to test, and back
 
@@ -375,13 +389,35 @@ augroup vimrcEx
   " This will automatically insert a new line in insert mode when a
   " line gets too long (above 80 characters). I can also run gqap
   " in normal mode to reflow a paragraph.
-  "
-  " I would like to have a customised version of this work with
-  " comments in code, but I haven't gotten that far yet.
   autocmd FileType
     \ markdown,
     \ setl tw=80 fo=t1
 
+augroup END
+
+" Make directories in a filename if they don't exist.
+
+function! AskQuit (msg, options, quit_option)
+    if confirm(a:msg, a:options) == a:quit_option
+        exit
+    endif
+endfunction
+
+function! EnsureDirExists ()
+    let required_dir = expand("%:h")
+    if !isdirectory(required_dir)
+        try
+            call mkdir( required_dir, 'p' )
+        catch
+          echom "Could not create directory"
+          exit
+        endtry
+    endif
+endfunction
+
+augroup AutoMkdir
+    autocmd!
+    autocmd  BufNewFile  *  :call EnsureDirExists()
 augroup END
 
 " Set the statusline.
