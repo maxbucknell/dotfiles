@@ -137,4 +137,6 @@ hi ALEErrorSign cterm=NONE ctermbg=1 ctermfg=1
 " UltiSnips
 """""""""""
 
-hi snipLeadingSpaces cterm=NONE ctermbg=NONE ctermfg=NONE
+hi snipLeadingSpaces cterm=NONE ctermbg=0 ctermfg=NONE
+hi snipTabStop cterm=NONE ctermbg=NONE ctermfg=6
+hi snipTabStopDefault cterm=NONE ctermbg=NONE ctermfg=6
