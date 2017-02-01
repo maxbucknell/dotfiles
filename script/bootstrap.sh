@@ -119,7 +119,7 @@ install_vim_plugins () {
 
   local PLUGINS=(
     "joonty/vdebug"
-    "vim-syntastic/syntastic"
+    "w0rp/ale"
     "pangloss/vim-javascript"
     "sirver/ultisnips"
   )
