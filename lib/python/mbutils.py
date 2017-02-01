@@ -3,6 +3,7 @@ import os
 import re
 from os import path
 from collections import OrderedDict
+from functools import cmp_to_key
 
 def find_in_parent(filename, starting_dir=None):
     '''Look up the directory tree until you find a file.'''
@@ -84,7 +85,7 @@ def format_method(snip):
     sorted_params = sort_params(params.values())
 
     delete_param_tags(snip, params)
-    place_to_insert_params = snip.snippet_start[0] + params.keys()[0]
+    place_to_insert_params = snip.snippet_start[0] + list(params.keys())[0]
     snip.buffer[place_to_insert_params:place_to_insert_params] = sorted_params
 
     arguments = generate_arguments(sorted_params)
@@ -121,7 +122,7 @@ def sort_params(params):
 
         return 0
 
-    return sorted(params, sorter)
+    return sorted(params, key=cmp_to_key(sorter))
 
 def get_snippet_lines(snip):
     '''Get the relevant slice of a snippet buffer.'''
