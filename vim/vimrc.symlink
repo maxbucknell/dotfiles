@@ -61,6 +61,14 @@ nnoremap <C-l> <C-w>l
 " Set editor shell to bash, for Syntastic compatibility
 set shell=bash
 
+" Allow visual block mode to select anywhere.
+"
+" I want to use this to manage my ascii drawings
+set virtualedit=block
+
+" I am always adding /g. No longer, suckers!
+set gdefault
+
 " Find files
 "
 " My fuzzy file finder has changed, but the commands I use to interact
