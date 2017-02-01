@@ -98,6 +98,12 @@ hi MBSearchNext cterm=NONE ctermfg=0 ctermbg=3
 hi CursorLine cterm=NONE ctermfg=4 ctermbg=NONE
 hi CursorLineNr cterm=NONE ctermfg=4 ctermbg=NONE
 
+""""""""
+" Visual
+""""""""
+
+hi Visual cterm=NONE ctermbg=7 ctermfg=0
+
 """""""""""""
 " Status Line
 """""""""""""
