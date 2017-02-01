@@ -1,5 +1,5 @@
 global !p
-from mbutils import get_namespace, format_method
+from mbutils import get_namespace, format_method, map_type, prepare_arguments
 import os
 
 def full_path(filename):
@@ -56,31 +56,50 @@ snippet pubf
  *
  * ${3:A slightly longer description of what you want to do. This will automatically be wrapped}
  *
- * ${4:@tags}
+ * ${4:@api}
+ * ${5:@params}
+ * @return ${6:ReturnType}
+ * ${7:@throws ${8:ExceptionType}}
  */
 public function ${1:methodName}(
     ...\$args
-):returnType \{
+): `!p snip.rv = map_type(t[6])`  \{
     $0
 \}
 endsnippet
 
 snippet prof
-protected function ${1}(
-    ${2}
-) \{
+/**
+ * ${2:Short description...}
+ *
+ * ${3:A slightly longer description of what you want to do. This will automatically be wrapped}
+ *
+ * ${4:@api}
+ * ${5:@tags}
+ * @return ${6:ReturnType}
+ * ${7:@throws ${8:ExceptionType}}
+ */
+protected function ${1:methodName}(`!p snip.rv = prepare_arguments(t[5])`): `!p snip.rv = map_type(t[6])`  \{
     $0
 \}
 endsnippet
 
 snippet prif
-private function ${1}(
-    ${2}
-) \{
+/**
+ * ${2:Short description...}
+ *
+ * ${3:A slightly longer description of what you want to do. This will automatically be wrapped}
+ *
+ * ${4:@api}
+ * ${5:@tags}
+ * @return ${6:ReturnType}
+ */
+private function ${1:methodName}(
+    ...\$args
+): `!p snip.rv = map_type(t[6])`  \{
     $0
-\}
 endsnippet
 
 snippet @param
-@param ${1:Type}${2:|null} \$${3:name} ${4:Description}
+@param ${1:Type}${2:|null} ${3:name} ${4:Description}
 endsnippet

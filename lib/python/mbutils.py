@@ -71,6 +71,9 @@ def get_namespace(dirname):
 
     return namespace + convert_path(remainder)
 
+def prepare_arguments(param_tags):
+    arguments = generate_arguments(param_tags)
+
 def format_method(snip):
     '''Convert expanded snippet into method name and args.'''
     params = get_params_map(snip)
