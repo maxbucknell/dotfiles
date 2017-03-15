@@ -1,3 +1,4 @@
 ! Fix some lingering keyboard layout issues
 keycode 94 = grave asciitilde
-
+keycode 50 = grave asciitilde
+keycode 135 = Super_R
