@@ -164,6 +164,7 @@ noremap ;; ;
 inoremap hh <esc>
 inoremap hhh h<esc>
 " inoremap <esc> <nop>
+inoremap uu \
 
 " Bad arrow keys
 "
