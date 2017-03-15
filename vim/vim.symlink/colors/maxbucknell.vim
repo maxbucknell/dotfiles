@@ -62,6 +62,10 @@ hi markdownH3 cterm=NONE ctermbg=NONE ctermfg=7
 hi markdownH4 cterm=NONE ctermbg=NONE ctermfg=7
 hi markdownH5 cterm=NONE ctermbg=NONE ctermfg=7
 hi markdownH6 cterm=NONE ctermbg=NONE ctermfg=7
+hi markdownBlockQuote cterm=NONE ctermbg=NONE ctermfg=7
+
+" Residual HTML
+hi htmlTitle cterm=NONE ctermbg=NONE ctermfg=7
 
 " Miscellaneous leftovers
 hi helpNote cterm=NONE ctermfg=7 ctermbg=NONE
@@ -71,9 +75,15 @@ hi MatchParen cterm=NONE ctermfg=7 ctermbg=5
 hi String cterm=NONE ctermfg=6 ctermbg=NONE
 hi Number cterm=NONE ctermfg=6 ctermbg=NONE
 hi Boolean cterm=NONE ctermfg=6 ctermbg=NONE
+hi phpHereDoc cterm=NONE ctermfg=6 ctermbg=NONE
+hi phpNowDoc cterm=NONE ctermfg=6 ctermbg=NONE
+hi phpBackslashSequences cterm=NONE ctermfg=6 ctermbg=NONE
 
 " Comments are green
 hi Comment cterm=NONE ctermfg=2 ctermbg=NONE
+
+" Todos are almost green
+hi Todo cterm=NONE ctermfg=0 ctermbg=2
 
 " Preprocessor statements aren't comments.
 hi PreProc cterm=NONE ctermfg=7 ctermbg=NONE
@@ -144,3 +154,9 @@ hi ALEErrorSign cterm=NONE ctermbg=1 ctermfg=1
 hi snipLeadingSpaces cterm=NONE ctermbg=0 ctermfg=NONE
 hi snipTabStop cterm=NONE ctermbg=NONE ctermfg=6
 hi snipTabStopDefault cterm=NONE ctermbg=NONE ctermfg=6
+
+""""""""""""
+" Long lines
+""""""""""""
+
+hi ColorColumn cterm=NONE ctermbg=1 ctermfg=NONE

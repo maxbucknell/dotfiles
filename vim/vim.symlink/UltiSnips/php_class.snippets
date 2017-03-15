@@ -1,0 +1,65 @@
+# Python
+#
+# `mbutils` is a collection of tooling I've built to do some intelligent
+# stuff around PHP tooling.
+# Found in lib/python/mbutils.py
+global !p
+import mbutils
+import os
+
+def full_path(filename):
+    cwd = os.getcwd()
+    filepath = os.path.join(cwd, filename)
+
+    return os.path.dirname(filepath)
+endglobal
+
+snippet class
+<?php
+/**
+ * This file is part of the ${1:`!p snip.rv = mbutils.get_package_name(full_path(path))`} package.
+ *
+ * @copyright Copyright `date +%Y` ${2:Redbox Digital}. All rights reserved.
+ */
+
+namespace ${12:`!p snip.rv = mbutils.get_namespace(full_path(path))`};${13:
+
+use ${14:ImportedTypes;}}
+
+/**
+ * ${3:${4:Short description...}
+ *
+ * ${5:A slightly longer description of what you want to do.}
+ *
+ * ${6:@tags...}}
+ */
+class ${7:`!p snip.rv = snip.basename`}${8: extends ${9:ParentClass}}${10: implements ${11:$7Interface}}
+\{
+    ${0:// Implementation...}
+\}
+endsnippet
+
+snippet interface
+<?php
+/**
+ * This file is part of the ${1:`!p snip.rv = mbutils.get_package_name(full_path(path))`} package.
+ *
+ * @copyright Copyright `date +%Y` ${2:Redbox Digital}. All rights reserved.
+ */
+
+namespace ${12:`!p snip.rv = mbutils.get_namespace(full_path(path))`};${13:
+
+use ${14:ImportedTypes;}}
+
+/**
+ * ${3:${4:Short description...}
+ *
+ * ${5:A slightly longer description of what you want to do.}
+ *
+ * ${6:@tags...}}
+ */
+interface ${7:`!p snip.rv = snip.basename`}${8: extends ${9:ParentInterface}}
+\{
+    ${0:// Methods...}
+\}
+endsnippet

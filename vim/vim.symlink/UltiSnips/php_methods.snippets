@@ -4,7 +4,7 @@
 # stuff around PHP tooling.
 # Found in lib/python/mbutils.py
 global !p
-from mbutils import get_namespace, format_method, map_type, prepare_arguments
+import mbutils
 import os
 
 def full_path(filename):
@@ -17,6 +17,7 @@ endglobal
 # @param
 #
 # To make param generation a little easier.
+post_jump "if (snip.tabstop is 4): mbutils.add_argument(snip)"
 snippet @param
 @param ${1:Type}${2:|null} ${3:name} ${4:Description}
 endsnippet
@@ -24,21 +25,18 @@ endsnippet
 # Public method.
 #
 # Forces me to write a really good docblock.
-post_jump "if (snip.tabstop == 0): format_method(snip)"
 snippet pubf
 /**
  * ${2:Short description...}
  *
- * ${3:A slightly longer description of what you want to do. This will automatically be wrapped}
+ * ${3:A slightly longer description of what you want to do.}
  *
  * ${4:@api}
- * ${5:@params}
+ * ${5:@params...}
  * @return ${6:ReturnType}
  * ${7:@throws ${8:ExceptionType}}
  */
-public function ${1:methodName}(
-    ...\$args
-): `!p snip.rv = map_type(t[6])`  \{
+public function ${1:methodName}(): `!p snip.rv = mbutils.map_type(t[6])` \{
     $0
 \}
 endsnippet
@@ -49,10 +47,10 @@ snippet prif
 /**
  * ${2:Short description...}
  *
- * ${3:A slightly longer description of what you want to do. This will automatically be wrapped}
+ * ${3:A slightly longer description of what you want to do.}
  *
  * ${4:@api}
- * ${5:@params}
+ * ${5:@params...}
  * @return ${6:ReturnType}
  * ${7:@throws ${8:ExceptionType}}
  */
@@ -64,21 +62,37 @@ private function ${1:methodName}(
 endsnippet
 
 # Protected method. As public.
-post_jump "if (snip.tabstop == 0): format_method(snip)"
 snippet prof
 /**
  * ${2:Short description...}
  *
- * ${3:A slightly longer description of what you want to do. This will automatically be wrapped}
+ * ${3:A slightly longer description of what you want to do.}
  *
  * ${4:@api}
- * ${5:@params}
+ * ${5:@params...}
  * @return ${6:ReturnType}
  * ${7:@throws ${8:ExceptionType}}
  */
-protected function ${1:methodName}(
+protected function ${1:methodName}(): `!p snip.rv = map_type(t[6])` \{
+    $0
+\}
+endsnippet
+
+snippet construct
+/**
+ * ${1:@params}
+ */
+public function __construct(
     ...\$args
-): `!p snip.rv = map_type(t[6])`  \{
+) \{
+    /*
+     * Mark the ballot if you want the relevant code to be generated.
+     *
+     * [${2: }] - Make fields?
+     * [${3: }] - Make getters?
+     * [${4: }] - Make setters?
+     */
+
     $0
 \}
 endsnippet

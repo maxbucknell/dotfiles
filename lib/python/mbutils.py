@@ -25,6 +25,13 @@ def _parse_composer_manifest(path):
         manifest = json.load(composer_file)
         return manifest
 
+def _get_package_name(manifest):
+    '''Return the name field from composer.json.'''
+    try:
+        return manifest['name']
+    except KeyError:
+        return 'foo/bar'
+
 def _get_all_autoloaders(manifest):
     '''Combine all PSR-0 and PSR-4 autoloaders'''
     autoloaders = dict()
@@ -61,7 +68,10 @@ def convert_path(dirname):
 
 def get_namespace(dirname):
     '''Convert dirname into namespace intelligently.'''
-    composer_json = find_in_parent('composer.json', dirname)
+    try:
+        composer_json = find_in_parent('composer.json', dirname)
+    except IOError:
+        return None
     composer_manifest = _parse_composer_manifest(composer_json)
     repo_root = path.dirname(composer_json)
     relative_path = path.relpath(dirname, repo_root)
@@ -72,8 +82,58 @@ def get_namespace(dirname):
 
     return namespace + convert_path(remainder)
 
+def get_package_name(dirname):
+    '''Find package name from current location.'''
+    try:
+        composer_json = find_in_parent('composer.json', dirname)
+    except IOError:
+        return 'foo/bar'
+    composer_manifest = _parse_composer_manifest(composer_json)
+    name = _get_package_name(composer_manifest)
+    return name
+
 def prepare_arguments(param_tags):
     arguments = generate_arguments(param_tags)
+
+def add_argument(snip):
+    '''Search for the next argument list, and insert one.
+
+    These arguments will be of the form
+
+        TypeName $variableName
+
+    and will come from the body the @param snippet:
+
+        * @param Typename $variableName Description
+    '''
+    buffer = snip.buffer
+    param_line_number = snip.snippet_start[0]
+    param_line = buffer[param_line_number]
+    try:
+        argument_line_number = find_argument_line_number(param_line_number, buffer)
+    except IndexError:
+        return
+    argument_line = buffer[argument_line_number]
+    argument = get_argument_line(param_line)
+    new_argument_line = insert_argument(argument, argument_line)
+    buffer[argument_line_number] = new_argument_line
+
+def insert_argument(arg, line):
+    insert_point = line.find(')')
+
+    # No arguments yet, so no comma
+    if line[insert_point - 1] is '(':
+        return line[:insert_point] + arg + line[insert_point:]
+    else:
+        return line[:insert_point] + ', ' + arg + line[insert_point:]
+
+def find_argument_line_number(start, buffer):
+    for line_number, line in enumerate(buffer[start:]):
+        if line.endswith('*/'):
+            return line_number + 1 + start
+        else:
+            pass
+    raise IndexError('Could not find end of comment and start of method')
 
 def format_method(snip):
     '''Convert expanded snippet into method name and args.'''
@@ -167,7 +227,7 @@ def is_array_type(type):
 
 def format_argument_line(type, name):
     if (type is None):
-        return '        {},'.format(name)
+        return name
     else:
-        return '        {} {},'.format(type, name)
+        return '{} {}'.format(type, name)
 
