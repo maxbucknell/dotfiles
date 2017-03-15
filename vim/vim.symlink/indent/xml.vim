@@ -54,7 +54,7 @@ endfun
 
 fun! XmlCurrentLine(line)
   " 'Checking current line:'
-  if (match(a:line, '^\s*/\{0,1}>') != -1) || (match(a:line, '</') != -1)
+  if (match(a:line, '^\s*/\{0,1}>') != -1) || (match(a:line, '^\s*</') != -1)
     " 'Is closing tag line'
     return -1
   else
