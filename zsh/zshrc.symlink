@@ -1,3 +1,5 @@
+source /etc/bash_completion.d/git-prompt
+
 ## Path
 # Default path
 export PATH="/sbin"
@@ -91,10 +93,16 @@ COLOR="$fg[$COLOR_NAME]"
 #
 # If we are not on a branch, print the short ref.
 function git-prompt-info {
-  REF=$(command git current-branch 2> /dev/null) || \
-  REF=$(command git rev-parse --short HEAD 2> /dev/null) || return 0
+  local ref=$(__git_ps1 | sed 's/(//g' | sed 's/)//g' | sed 's/^ //')
+
+  if [ -z "$ref" ]
+  then
+    echo ""
+    return 0
+  fi
+
   COLOR="$fg[$FEATURE_COLORS[$(nice-hostname)]]"
-  echo "($COLOR$REF$reset_color)"
+  echo "($COLOR$ref$reset_color)"
 }
 
 # Keep track of editing mode.
