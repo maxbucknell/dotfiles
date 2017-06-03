@@ -1,5 +1,3 @@
-source /etc/bash_completion.d/git-prompt
-
 ## Path
 # Default path
 export PATH="/sbin"
@@ -8,9 +6,6 @@ PATH="/bin:$PATH"
 PATH="/usr/bin:$PATH"
 PATH="/usr/local/sbin:$PATH"
 PATH="/usr/local/bin:$PATH"
-
-# LaTeX!
-PATH="/usr/texbin:$PATH"
 
 # Local path
 PATH="$HOME/dotfiles/bin:$PATH"
@@ -71,104 +66,11 @@ function nice-hostname {
   echo $(command hostname | cut -d . -f 1)
 }
 
-## Feature Colors
-#
-# These are used in the prompt and Tmux status bar as a reminder of
-# where we are.
-
-declare -A FEATURE_COLORS
-FEATURE_COLORS=(
-  kronecker green
-  galois cyan
-  dirac magenta
-  hilbert blue
-)
-
-COLOR_NAME="$FEATURE_COLORS[$(nice-hostname)]"
-COLOR="$fg[$COLOR_NAME]"
-
-## Git
-
-# Show the current Git branch.
-#
-# If we are not on a branch, print the short ref.
-function git-prompt-info {
-  local ref=$(__git_ps1 | sed 's/(//g' | sed 's/)//g' | sed 's/^ //')
-
-  if [ -z "$ref" ]
-  then
-    echo ""
-    return 0
-  fi
-
-  COLOR="$fg[$FEATURE_COLORS[$(nice-hostname)]]"
-  echo "($COLOR$ref$reset_color)"
-}
-
-# Keep track of editing mode.
-#
-# Since I use Vi key bindings, I need a way to know which editing mode
-# I am in.
-
-EDITING_MODE="I"
-
-function set-editing-mode {
-  EDITING_MODE="$1"
-}
-
-function get-editing-mode {
-  echo "$EDITING_MODE"
-}
-
-## Prompt
-
-# Autoload colors so we can make the prompt green.
-autoload -U colors && colors
-
-# We set the prompt in the line editor function.
-
-# Use Vi key bindings rather than emacs.
-bindkey -v
-
 # Don't beep at me when I do something wrong.
 #
 # I found it was beeping when I wasn't doing something wrong, and that
 # really gets on my nerves.
 setopt no_beep
-
-# Add my shortcut for escape.
-#
-# See my vimrc for why I do this
-bindkey -M viins hh vi-cmd-mode
-
-# Ensure backspace continues to work in insert mode
-bindkey '^?' backward-delete-char
-
-# Disable traditional escape and arrow keys.
-bindkey -rM viins "^["
-bindkey -rpM viins "^["
-bindkey -rM vicmd "^["
-bindkey -rpM vicmd "^["
-
-# Show if we are in normal mode.
-function zle-line-init zle-keymap-select () {
-if [[ "$KEYMAP" == "vicmd" ]]; then
-  RESULT="N"
-else
-  RESULT="I"
-fi
-
-set-editing-mode "$RESULT"
-
-COLOR="$fg[$FEATURE_COLORS[$(nice-hostname)]]"
-PS1="$(command whoami)@%{$COLOR%}$(nice-hostname)%{$reset_color%} in %1d$(git-prompt-info)
-[%{$COLOR%}$(get-editing-mode)%{$reset_color%}]→ "
-
-zle reset-prompt
-}
-
-zle -N zle-line-init
-zle -N zle-keymap-select
 
 unset zle_bracketed_paste
 
@@ -235,8 +137,4 @@ setopt extended_history
 # to do things correctly and see if it's slow.
 setopt hist_lex_words
 
-alias pbcopy='xclip -selection clipboard'
-alias pbpaste='xclip -selection clipboard -o'
-
-# Because this just doesn't work in GNOME
-xmodmap $HOME/.xmodmap
+source "$HOME/.zsh/liquidprompt/liquidprompt"
