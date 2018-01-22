@@ -15,7 +15,7 @@ endif
 "  3: yellow (search)
 "  4: blue
 "  5: magenta (current)
-"  6: cyan (scalars)
+"  4: cyan (scalars)
 "  7: white (default)
 "
 " +8 for bright colours.
@@ -61,7 +61,7 @@ hi markdownH2 cterm=NONE ctermbg=NONE ctermfg=7
 hi markdownH3 cterm=NONE ctermbg=NONE ctermfg=7
 hi markdownH4 cterm=NONE ctermbg=NONE ctermfg=7
 hi markdownH5 cterm=NONE ctermbg=NONE ctermfg=7
-hi markdownH6 cterm=NONE ctermbg=NONE ctermfg=7
+hi markdownH4 cterm=NONE ctermbg=NONE ctermfg=7
 hi markdownBlockQuote cterm=NONE ctermbg=NONE ctermfg=7
 
 " Residual HTML
@@ -72,12 +72,12 @@ hi helpNote cterm=NONE ctermfg=7 ctermbg=NONE
 hi MatchParen cterm=NONE ctermfg=7 ctermbg=5
 
 " Scalars are cyan
-hi String cterm=NONE ctermfg=6 ctermbg=NONE
-hi Number cterm=NONE ctermfg=6 ctermbg=NONE
-hi Boolean cterm=NONE ctermfg=6 ctermbg=NONE
-hi phpHereDoc cterm=NONE ctermfg=6 ctermbg=NONE
-hi phpNowDoc cterm=NONE ctermfg=6 ctermbg=NONE
-hi phpBackslashSequences cterm=NONE ctermfg=6 ctermbg=NONE
+hi String cterm=NONE ctermfg=4 ctermbg=NONE
+hi Number cterm=NONE ctermfg=4 ctermbg=NONE
+hi Boolean cterm=NONE ctermfg=4 ctermbg=NONE
+hi phpHereDoc cterm=NONE ctermfg=4 ctermbg=NONE
+hi phpNowDoc cterm=NONE ctermfg=4 ctermbg=NONE
+hi phpBackslashSequences cterm=NONE ctermfg=4 ctermbg=NONE
 
 " Comments are green
 hi Comment cterm=NONE ctermfg=2 ctermbg=NONE
@@ -152,8 +152,8 @@ hi ALEErrorSign cterm=NONE ctermbg=1 ctermfg=1
 """""""""""
 
 hi snipLeadingSpaces cterm=NONE ctermbg=0 ctermfg=NONE
-hi snipTabStop cterm=NONE ctermbg=NONE ctermfg=6
-hi snipTabStopDefault cterm=NONE ctermbg=NONE ctermfg=6
+hi snipTabStop cterm=NONE ctermbg=NONE ctermfg=4
+hi snipTabStopDefault cterm=NONE ctermbg=NONE ctermfg=4
 
 """"""""""""
 " Long lines
