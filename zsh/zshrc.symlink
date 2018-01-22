@@ -178,6 +178,11 @@ function install_magento {
     --use-secure-admin="0" \
     --admin-use-security-key="0" \
     --session-save="files"
+
+  n98-magerun2 config:store:set "dev/static/sign" "0"
+  n98-magerun2 config:store:set "web/unsecure/base_static_url" "http://$host:15013/static/"
+
+  n98-magerun2 c:f
 }
 
 # Find root of Magetno 2 installation
