@@ -136,4 +136,57 @@ setopt extended_history
 # to do things correctly and see if it's slow.
 setopt hist_lex_words
 
+# Liquid Prompt!
 source "$HOME/.zsh/liquidprompt/liquidprompt"
+
+# Create MySQL Docker container
+function provision_mysql {
+  mkdir -p "$HOME/Data/5.6/data" && docker run -d\
+    --name="mysql-5.6" \
+    -e "MYSQL_ROOT_PASSWORD=root" \
+    -p 33306:3306 \
+    -v "$HOME/Data/5.6/data:/tmp/data" \
+    -v "/var/lib/mysql" \
+    "mysql:5.6"
+}
+
+# Access MySQL Docker container
+alias mysql='docker exec -it "mysql-5.6" mysql -uroot -proot'
+
+# Install Magento 2
+function install_magento {
+  local host="$1"
+  local db_name="$2"
+
+  n98-magerun2 setup:install \
+    --admin-firstname="Max" \
+    --admin-lastname="Bucknell" \
+    --admin-email="me@maxbucknell.com" \
+    --admin-user="max.bucknell" \
+    --admin-password="password123" \
+    --base-url="http://$host:15013/index.php/" \
+    --backend-frontname="admin" \
+    --db-host="127.0.0.1:33306" \
+    --db-name="$db_name" \
+    --db-user="root" \
+    --db-password="root" \
+    --language="en_US" \
+    --currency="EUR" \
+    --timezone="UTC" \
+    --use-rewrites="1" \
+    --use-secure="0" \
+    --use-secure-admin="0" \
+    --admin-use-security-key="0" \
+    --session-save="files"
+}
+
+# Find root of Magetno 2 installation
+alias find_magento_root='findroot "app/etc/config.php"'
+
+# Start M2 server
+function serve_m2 {
+  local root="$(find_magento_root)"
+  pushd "$root/pub"
+  php -S "0.0.0.0:15013" "../phpserver/router.php" "../pub"
+  popd
+}
