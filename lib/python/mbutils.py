@@ -17,7 +17,7 @@ def find_root(filename, starting_dir=None):
 
     candidate_file = path.join(starting_dir, filename)
 
-    if (path.isfile(candidate_file)):
+    if (path.isfile(candidate_file) or path.isdir(candidate_file)):
         return starting_dir
     elif starting_dir == '/':
         raise IOError('File not found in any directory')

@@ -1,3 +1,5 @@
+source /etc/zshrc
+
 ## Path
 # Default path
 export PATH="/sbin"
@@ -193,5 +195,25 @@ function serve_m2 {
   local root="$(find_magento_root)"
   pushd "$root/pub"
   php -S "0.0.0.0:15013" "../phpserver/router.php" "../pub"
+  popd
+}
+
+alias ww='workflow'
+
+# Initialize workflow with Github
+function workflow_github {
+  local root="$(findroot "app/code/Magento")"
+  pushd "$root"
+  cp -r "$HOME/dotfiles/share/workflow-github/" "."
+  cat <<'EOF'
+Initialized workflow Docker and Docker Compose files in the Magento root.
+
+Configure your volumes to sync what you are working on, edit .docker/local.env
+and run:
+
+    $ workflow up && workflow mfi
+
+To install Magento. Happy hacking!
+EOF
   popd
 }
