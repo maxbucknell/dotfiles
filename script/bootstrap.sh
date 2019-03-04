@@ -114,35 +114,6 @@ install_dotfiles () {
   done
 }
 
-install_vim_plugins () {
-  info "installing vim plugins"
-
-  local PLUGINS=(
-    "joonty/vdebug"
-    "w0rp/ale"
-    "pangloss/vim-javascript"
-    "sirver/ultisnips"
-    "tpope/vim-surround"
-    "tpope/vim-fugitive"
-    "airblade/vim-gitgutter"
-  )
-  local BASE_DIR="$DOTFILES_ROOT/vim/vim.symlink/bundle"
-  local GIT_HOST="git@github.com"
-
-  rm -fr "$BASE_DIR"
-  success "remove existing plugins"
-
-  mkdir -p "$BASE_DIR"
-
-  for i in "${PLUGINS[@]}"
-  do
-    info "installing $i"
-    local BASE_NAME="$(basename $i)"
-    git clone "$GIT_HOST:$i" "$BASE_DIR/$BASE_NAME" &> /dev/null
-    success "installed $i"
-  done
-}
-
 install_zsh_plugins () {
   info "installing bash plugins"
 
@@ -167,7 +138,6 @@ install_zsh_plugins () {
   done
 }
 
-install_vim_plugins
 install_zsh_plugins
 install_dotfiles
 
