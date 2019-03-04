@@ -1,0 +1,9 @@
+#! /usr/bin/env bash
+
+set -euo pipefail
+
+function main {
+  lsof -nP +c 15 | grep LISTEN
+}
+
+main
