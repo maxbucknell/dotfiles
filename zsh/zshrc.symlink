@@ -1,5 +1,7 @@
 source /etc/zshrc
 
+source $HOME/.zsh/secret
+
 ## Path
 # Default path
 export PATH="/sbin"
