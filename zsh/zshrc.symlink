@@ -20,6 +20,9 @@ PATH="$HOME/.composer/vendor/bin:$PATH"
 # Python
 export PYTHONPATH="$PYTHONPATH:$HOME/dotfiles/lib/python"
 
+# Rust
+source $HOME/.cargo/env
+
 ## Completion
 
 # Load up the extra Z Shell completions
