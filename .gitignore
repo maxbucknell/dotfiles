@@ -8,6 +8,8 @@ hub
 vim/vim.symlink/.netrwhist
 vim/vim.symlink/bundle
 
+nvim/nvim.symlink/plugged
+
 zsh/zsh.symlink/liquidprompt
 zsh/zsh.symlink/zsh-completions
 zsh/zsh.symlink/zsh-syntax-highlighting

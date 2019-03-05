@@ -1,6 +1,10 @@
 source /etc/zshrc
 
+# Secret stuff
 source $HOME/.zsh/secret
+
+# Fuzzy finder! 
+source $HOME/.zsh/fzf.zsh
 
 ## Path
 # Default path
@@ -18,11 +22,17 @@ PATH="$HOME/dotfiles/bin:$PATH"
 PATH="$HOME/.composer/vendor/bin:$PATH"
 export COMPOSER_HOME="$HOME/.composer"
 
+# Ruby
+PATH="/usr/local/opt/ruby/bin:/usr/local/lib/ruby/gems/2.6.0/bin:$PATH"
+
 # Python
 export PYTHONPATH="$PYTHONPATH:$HOME/dotfiles/lib/python"
 
 # Rust
 source $HOME/.cargo/env
+
+# Go
+PATH="$HOME/go/bin:$PATH"
 
 ## Completion
 
@@ -147,6 +157,9 @@ setopt hist_lex_words
 # Liquid Prompt!
 source "$HOME/.zsh/liquidprompt/liquidprompt"
 
+# Vim!
+alias vim=nvim
+
 # Create MySQL Docker container
 function provision_mysql {
   mkdir -p "$HOME/Data/5.6/data" && docker run -d\
@@ -220,3 +233,4 @@ To install Magento. Happy hacking!
 EOF
   popd
 }
+

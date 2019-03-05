@@ -64,7 +64,7 @@ LP_PERCENTS_ALWAYS=0
 # Use the permissions feature and display a red ':' before the prompt to show
 # when you don't have write permission to the current directory.
 # Recommended value is 1
-LP_ENABLE_PERM=0
+LP_ENABLE_PERM=1
 
 # Enable the proxy detection feature.
 # Recommended value is 1
@@ -76,11 +76,11 @@ LP_ENABLE_JOBS=1
 
 # Enable the load feature.
 # Recommended value is 1
-LP_ENABLE_LOAD=1
+LP_ENABLE_LOAD=0
 
 # Enable the battery feature.
 # Recommended value is 1
-LP_ENABLE_BATT=1
+LP_ENABLE_BATT=0
 
 # Enable the 'sudo credentials' feature.
 # Be warned that this may pollute the syslog if you don't have sudo
@@ -118,7 +118,7 @@ LP_ENABLE_TIME=1
 
 # Show runtime of the previous command if over LP_RUNTIME_THRESHOLD
 # Recommended value is 0
-LP_ENABLE_RUNTIME=0
+LP_ENABLE_RUNTIME=1
 
 # Minimal runtime (in seconds) before the runtime will be displayed
 # Recommended value is 2
@@ -162,24 +162,23 @@ LP_DISABLED_VCS_PATH=""
 
 # Colors
 
-LP_COLOR_MARK=""
-LP_COLOR_USER_LOGGED=""
-LP_COLOR_TIME=""
+LP_COLOR_MARK="$PURPLE"
+LP_COLOR_USER_LOGGED="$CYAN"
+LP_COLOR_TIME="$BLUE"
 
 LP_COLOR_WRITE="$GREEN"
 LP_COLOR_NOWRITE="$RED"
 
+LP_MARK_DEFAULT="$"
 LP_MARK_LOAD=""
-LP_MARK_GIT="${LP_MARK_DEFAULT}"
 LP_MARK_BRACKET_OPEN="${BLACK}[${WHITE}"
 LP_MARK_BRACKET_CLOSE="${BLACK}]${WHITE}"
 LP_MARK_PERM="${BLACK}:${WHITE}"
 
-LP_COLOR_UP=""
+LP_COLOR_UP="$YELLOW"
 LP_COLOR_COMMITS="$GREEN"
 LP_COLOR_CHANGES="$BLUE"
 
-LP_COLOR_PATH="${WHITE}"
-
+LP_COLOR_PATH="${YELLOW}"
 
 # vim: set et sts=4 sw=4 tw=120 ft=sh:
