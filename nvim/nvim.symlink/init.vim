@@ -6,6 +6,9 @@ set updatetime=100
 
 call plug#begin()
 
+" Pane Navigation (Tmux integration)
+Plug 'christoomey/vim-tmux-navigator'
+
 " Colours
 Plug 'morhetz/gruvbox'
 
@@ -116,12 +119,6 @@ set autowrite
 set splitbelow
 set splitright
 
-" Just remove an extra keystroke
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-h> <C-w>h
-nnoremap <C-l> <C-w>l
-
 " Make searches case sensitive only if an upper case character has been typed
 set ignorecase smartcase
 
@@ -190,6 +187,29 @@ set shiftwidth=4
 set softtabstop=4
 set autoindent
 
+" Zoom the current split
+function! ZoomOrUnzoom()
+    if exists('g:is_zoomed')
+        unlet g:is_zoomed
+        execute "wincmd ="
+    else
+        let g:is_zoomed = 'true'
+        execute "wincmd _"
+        execute "wincmd \|"
+    endif
+endfunc
+
+function! HandleResize()
+    if exists('g:is_zoomed')
+        execute "wincmd _"
+        execute "wincmd \|"
+    else
+        execute "wincmd ="
+    endif
+endfunc
+
+nnoremap <C-z> :call ZoomOrUnzoom()<cr>
+
 function! RunTypeScript()
     silent !clear
     execute "!tsc % --outFile /dev/stdout | node"
@@ -233,6 +253,9 @@ augroup vimrcEx
 
   " Automatically enter terminal mode when summoning a terminal
   autocmd TermOpen term://* startinsert
+
+  " Lay out splits when Vim gets resized
+  autocmd VimResized * :call HandleResize()<cr>
 
 augroup END
 
