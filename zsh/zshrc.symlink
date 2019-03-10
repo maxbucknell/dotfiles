@@ -159,3 +159,33 @@ source "$HOME/.zsh/liquidprompt/liquidprompt"
 
 # Vim!
 alias vim=nvim
+
+# Use fzf to select a running tmux session to attach to
+function select_session_interactive {
+    tmux list-sessions |
+        cut -d":" -f 1 |
+        cat - <(echo  "Create new session") |
+        fzf --height 30% --layout=reverse --border
+}
+
+# On startup, I want to be prompted to join a Tmux session.
+#
+# Simply cancelling the command will leave me in native terminal mode.
+function select_session {
+    if [ -z "$TMUX" ]
+    then
+        local selected_session=$(select_session_interactive)
+
+        if [[ "$selected_session" == "Create new session" ]]
+        then
+            echo -n "Session name: "
+            read new_session_name
+            tmux new-session -s "$new_session_name"
+        elif [[ -n "$selected_session" ]]
+        then
+            tmux attach -t "$selected_session"
+        fi
+    fi
+}
+
+select_session
