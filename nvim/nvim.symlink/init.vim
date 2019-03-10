@@ -49,6 +49,8 @@ Plug 'deoplete-plugins/deoplete-go', { 'do': 'make'}
 Plug 'rust-lang/rust.vim'
 Plug 'sebastianmarkow/deoplete-rust'
 
+" CSV
+Plug 'chrisbra/csv.vim'
 call plug#end()
 
 " Theme configuration
@@ -87,7 +89,7 @@ tnoremap hhh h<C-\><C-n>
 let mapleader = "\<space>"
 
 " FUzzy finding
-nnoremap <leader>t :FZF<cr>
+nnoremap <leader>o :FZF<cr>
 
 " Don't wrap lines
 "
@@ -188,12 +190,37 @@ set shiftwidth=4
 set softtabstop=4
 set autoindent
 
+function! RunTypeScript()
+    silent !clear
+    execute "!tsc % --outFile /dev/stdout | node"
+endfunction
+
+function! RunJavaScript()
+    silent !clear
+    execute "!node %"
+endfunction
+
+function! RunPython()
+    silent !clear
+    execute "!python %"
+endfunction
+
+function! RunRust()
+    silent !clear
+    execute "!cargo run"
+endfunction
+
 augroup vimrcEx
   " Clear all autocmds in the group
   autocmd!
 
   " Language whitespace settings
   autocmd FileType make setl noet sw=8 sts=8 ts=8
+
+  autocmd FileType typescript nnoremap <leader>r :call RunTypeScript()<cr>
+  autocmd FileType javascript nnoremap <leader>r :call RunJavaScript()<cr>
+  autocmd FileType python nnoremap <leader>r :call RunPython()<cr>
+  autocmd FileType rust nnoremap <leader>r :call RunRust()<cr>
 
   " Hard wrap prose
   "
