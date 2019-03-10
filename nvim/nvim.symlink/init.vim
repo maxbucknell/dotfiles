@@ -27,6 +27,10 @@ Plug 'w0rp/ale'
 " Comments
 Plug 'tpope/vim-commentary'
 
+" File browsing
+Plug 'francoiscabrol/ranger.vim'
+Plug 'rbgrouleff/bclose.vim'
+
 " Statusline
 Plug 'vim-airline/vim-airline'
 
@@ -50,6 +54,9 @@ call plug#end()
 " Theme configuration
 let g:gruvbox_italic = 1
 colorscheme gruvbox
+
+" Use ranger instead of netrw
+let g:ranger_replace_netrw = 1
 
 " Setting up autocomplete
 let g:deoplete#enable_at_startup = 1
@@ -304,3 +311,4 @@ nnoremap Q <nop>
 
 " Summon a terminal
 nnoremap <leader>k :bot sp term://zsh<cr>
+
