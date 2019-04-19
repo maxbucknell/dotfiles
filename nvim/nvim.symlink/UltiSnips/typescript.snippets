@@ -1,0 +1,12 @@
+snippet mochatest
+import 'mocha';
+import { expect } from 'chai';
+
+import $1 from '$2';
+
+describe('$3', () => {
+	it('should $4', () => {
+		$0
+	});
+});
+endsnippet
