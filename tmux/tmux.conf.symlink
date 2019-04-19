@@ -27,6 +27,13 @@ bind-key -T copy-mode y send-keys -X copy-pipe "pbcopy"
 # When I delete a window, relabel them automatically.
 set-option -g renumber-windows on
 
+# Neovim told me to do this
+set-option -sg escape-time 10
+
+# Enable true color support in Tmux
+set -g default-terminal "screen-256color"
+set -ga terminal-overrides ",xterm-256color*:Tc"
+
 # Pane switching. These interface with Vim to ensure that pane switching is
 # both consistent and sensible.
 #
