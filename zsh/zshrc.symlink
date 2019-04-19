@@ -5,6 +5,7 @@ source $HOME/.zsh/secret
 
 # Fuzzy finder! 
 source $HOME/.zsh/fzf.zsh
+export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
 
 ## Path
 # Default path
@@ -44,6 +45,8 @@ autoload compinit
 
 # Initialise better autocompletion
 compinit
+
+source "$HOME/.zsh/_bazel"
 
 ## Syntax Highlighting
 source "$HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
@@ -160,9 +163,12 @@ source "$HOME/.zsh/liquidprompt/liquidprompt"
 # Vim!
 alias vim=nvim
 
+# Exa!
+alias ls=exa
+
 # Use fzf to select a running tmux session to attach to
 function select_session_interactive {
-    tmux list-sessions |
+    tmux list-sessions 2> /dev/null |
         cut -d":" -f 1 |
         cat - <(echo  "Create new session") |
         fzf --height 30% --layout=reverse --border
