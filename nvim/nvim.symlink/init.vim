@@ -43,9 +43,7 @@ call plug#begin()
     Plug 'chrisbra/csv.vim'
 
     " CSS Colour previews
-    "
-    " Working on changing this, making it use virtual text to render a swatch.
-    Plug 'chrisbra/Colorizer'
+    Plug 'maxbucknell/Colorizer', { 'branch': 'neovim-virtual-text' }
 call plug#end()
 
 " I have a true colour terminal, and I will have true colours in my Vim
@@ -188,6 +186,11 @@ nnoremap <leader><leader> <c-^>
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<S-tab>"
+
+" Colorizer adds little colour swatches next to CSS colours
+let g:colorizer_auto_filetype='css,less,scss,sass'
+let g:colorizer_colornames = 0
+let g:colorizer_use_virtual_text = 1
 
 " Remap semi-colon to colon.
 "
