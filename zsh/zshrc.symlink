@@ -79,6 +79,9 @@ ZSH_HIGHLIGHT_STYLES[back-double-quoted-argument]='none'
 ZSH_HIGHLIGHT_STYLES[assign]='none'
 ZSH_HIGHLIGHT_STYLES[default]='none'
 
+# Set editor
+export EDITOR="/usr/local/bin/nvim"
+
 # Get the first part of the hostname
 #
 # Sometimes they have dots in them, I'm not partial to that.
