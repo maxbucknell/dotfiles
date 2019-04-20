@@ -241,7 +241,7 @@ function! ZoomOrUnzoom()
 endfunc
 
 " Map it to <space>z
-nnoremap <leader>z :call ZoomOrUnzoom()<cr>
+nnoremap <leader>v :call ZoomOrUnzoom()<cr>
 
 " I had this running as an autocommand on resizes, but it was buggy so it's
 " disabled at the moment.

@@ -47,7 +47,8 @@ bind-key -n C-l if-shell "$is_vim" "send-keys C-l"  "select-pane -R"
 bind-key -n C-\ if-shell "$is_vim" "send-keys C-\\" "select-pane -l"
 
 # When zooming a pane in a window, also zoom the vim split
-bind-key z if-shell "$is_vim" "resize-pane -Z \; send-keys C-z" "resize-pane -Z"
+# Used to be z, but it interefered with backgrounding processes
+bind-key v if-shell "$is_vim" "resize-pane -Z \; send-keys ' v' " "resize-pane -Z"
 
 # All pane and window creations use the same path as the current process,
 # which I have found to be a good default.
