@@ -194,4 +194,9 @@ function select_session {
     fi
 }
 
+if [ -z "$TMUX" ]
+then
+    neofetch
+fi
+
 select_session
