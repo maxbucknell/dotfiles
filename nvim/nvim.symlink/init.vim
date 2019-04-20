@@ -1,6 +1,8 @@
 " Let's get the plugins out of the way first, shall we?
 call plug#begin()
     " Pane Navigation (Tmux integration)
+    Plug 'christoomey/vim-tmux-navigator'
+
     " Colours
     Plug 'morhetz/gruvbox'
 
