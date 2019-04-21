@@ -10,6 +10,7 @@ vim/vim.symlink/bundle
 
 nvim/nvim.symlink/plugged
 nvim/nvim.symlink/.netrwhist
+nvim/nvim.symlink/plugged-update
 
 zsh/zsh.symlink/liquidprompt
 zsh/zsh.symlink/zsh-completions
