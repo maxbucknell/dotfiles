@@ -134,6 +134,7 @@ set shiftwidth=4
 set softtabstop=4
 set autoindent
 
+
 " Enable highlighting for syntax
 syntax on
 
@@ -142,7 +143,12 @@ filetype plugin indent on
 
 " Theme configuration
 let g:gruvbox_italic = 1
-colorscheme gruvbox
+colorscheme maxbucknell
+
+" I want floating windows to have the same syntax highlighting as normal vim
+" things.
+" hi NormalFloat ctermbg=4
+
 
 " Lead with the biggest button on the motherfucking keyboard
 let mapleader = "\<space>"
@@ -192,6 +198,17 @@ let g:colorizer_auto_filetype='css,less,scss,sass'
 let g:colorizer_colornames = 0
 let g:colorizer_use_virtual_text = 1
 
+" Gitgutter
+let g:gitgutter_realtime = 1
+let g:gitgutter_eager = 1
+
+" Status line stuff
+let g:airline_theme = 'gruvbox'
+let g:airline#extensions#tabline#enabled = 1
+
+" Input supports patched fonts already \o/
+let g:airline_powerline_fonts = 1
+
 " Remap semi-colon to colon.
 "
 " Colon is the starting point of a lot of actions in Vim. And I
@@ -216,12 +233,8 @@ nnoremap _ :-1d<cr>pk
 
 " Updating Vimrc
 "
-" A little mapping to edit my vimrc. I'd like to do this with a function, and
-" account for a few things:
-" 
-" + Is a buffer already open and visible?
-" + Open in a floating window over everything to not disturb my workflow
-nnoremap <leader>ev :vsp $MYVIMRC<cr>
+" Open my vimrc in a floating window over my workspace when I want to edit it.
+nnoremap <leader>ev :call OpenFileWindow($MYVIMRC)<cr>
 
 " Second part, every time I write to $MYVIMRC, source it for me.
 augroup updateVimrc
@@ -345,15 +358,14 @@ augroup AutoMkdir
     autocmd BufNewFile * :call EnsureDirExists()
 augroup END
 
-" Gitgutter
-let g:gitgutter_realtime = 1
-let g:gitgutter_eager = 1
+function! HandleWinEnter()
+    setlocal winhighlight=Normal:ActiveWindow,NormalNC:InactiveWindow
+endfunc
 
-" Status line stuff
-let g:airline#extensions#ale#enabled = 1
-let g:airline#extensions#tabline#enabled = 1
-" Input supports patched fonts already \o/
-let g:airline_powerline_fonts = 1
+augroup WindowManagement
+    autocmd!
+    autocmd WinEnter * call HandleWinEnter()
+augroup END
 
 " Show syntax highlighting groups for word under cursor
 "
@@ -367,3 +379,48 @@ function! <SID>SynStack()
 endfunc
 
 nnoremap <leader>\ :call <SID>SynStack()<CR>
+
+" Open a file as a hidden buffer
+"
+" Because Vim is single threaded, we can open this in the foreground, and
+" replace it with the old buffer, and the screen won't change until we finish
+" executing, at which point we are back where we began.
+function! OpenFileHidden(file)
+    " Store the current buffer number
+    let oldbufnr = bufnr('%')
+
+    " Open the given file for editing
+    execute 'edit ' . a:file
+
+    " Store the new buffer number, because we return it
+    let newbufnr = bufnr('%')
+
+    " If they are equal, it means it was an empty buffer before and we need to
+    " open a new buffer instead of restoring the old one.
+    if oldbufnr == newbufnr
+        enew
+    else
+        execute oldbufnr . 'buffer'
+    endif
+
+    return newbufnr
+endfunc
+
+function! OpenFileWindow(file)
+    let newbufnr = OpenFileHidden(a:file)
+
+    let width = &columns - 10 - 5
+    let height = &lines - 10 - 3
+
+    let window_options = {
+        \ 'relative': 'editor',
+        \ 'height': height,
+        \ 'width': width,
+        \ 'row': 6,
+        \ 'col': 9
+    \ }
+
+    let newwinnr = nvim_open_win(newbufnr, v:true, window_options)
+
+    return newwinnr
+endfunc
