@@ -30,7 +30,9 @@ call plug#begin()
     " Statusline
     Plug 'vim-airline/vim-airline'
 
-    " TypeScript
+    " (Java|Type)Script
+    Plug 'pangloss/vim-javascript'
+    Plug 'mxw/vim-jsx'
     Plug 'HerringtonDarkholme/yats.vim'
 
     " Go
@@ -38,9 +40,6 @@ call plug#begin()
 
     " Rust
     Plug 'rust-lang/rust.vim'
-
-    " CSV
-    Plug 'chrisbra/csv.vim'
 
     " CSS Colour previews
     Plug 'maxbucknell/Colorizer', { 'branch': 'neovim-virtual-text' }
@@ -209,6 +208,23 @@ let g:airline#extensions#tabline#enabled = 1
 " Input supports patched fonts already \o/
 let g:airline_powerline_fonts = 1
 
+" Coc
+"
+" I'm not sure that I like Coc, its configuration feels very "unvimmy", but it
+" is the only completion engine that integrates well with language servers and
+" handles other language server tasks, like linting.
+"
+" The alternative would be to use some completion plugin (like deoplete), and
+" then a whole separate process for linting, when both require the same
+" inputs. Waste of energy.
+
+" Some autocommands to handle Coc
+augroup Coc
+    autocmd!
+
+    autocmd CursorHold * silent call CocActionAsync('highlight')
+augroup END
+
 " Remap semi-colon to colon.
 "
 " Colon is the starting point of a lot of actions in Vim. And I
@@ -234,13 +250,43 @@ nnoremap _ :-1d<cr>pk
 " Updating Vimrc
 "
 " Open my vimrc in a floating window over my workspace when I want to edit it.
-nnoremap <leader>ev :call OpenFileWindow($MYVIMRC)<cr>
+nnoremap <leader>ev :call OpenModalWindow(OpenFileHidden($MYVIMRC))<cr>
 
 " Second part, every time I write to $MYVIMRC, source it for me.
 augroup updateVimrc
     autocmd!
 
     autocmd BufWritePost $MYVIMRC :source $MYVIMRC
+augroup END
+
+" When I have my Vimrc open is when I most frequently open the help menu. This
+" renders as a split under the floating window, so I need to move it to a
+" floating window over my Vimrc
+
+function! OpenHelpWindow()
+    if &buftype == 'help'
+        if exists('g:help_window_opening')
+            return
+        else
+            let g:help_window_opening = v:true
+        endif
+
+        " Stuff to do now we know that help is open in a split
+        let help_buffer = bufnr('%')
+        let win_number = bufwinnr('%')
+
+        call OpenModalWindow(bufnr('%'))
+
+        execute win_number . 'wincmd c'
+
+        unlet g:help_window_opening
+    endif
+endfunc
+
+augroup helpWindow
+    autocmd!
+
+    autocmd BufEnter *.txt call OpenHelpWindow()
 augroup END
 
 " Zoom the current split
@@ -410,9 +456,9 @@ function! OpenFileHidden(file)
     return newbufnr
 endfunc
 
-function! OpenFileWindow(file)
-    let newbufnr = OpenFileHidden(a:file)
+let g:modal_windows = []
 
+function! OpenModalWindow(bufnr)
     let width = &columns - 10 - 5
     let height = &lines - 10 - 3
 
@@ -424,10 +470,40 @@ function! OpenFileWindow(file)
         \ 'col': 9
     \ }
 
-    let newwinnr = nvim_open_win(newbufnr, v:true, window_options)
+    let g:ignore_modal_focus = v:true
+
+    let newwinnr = nvim_open_win(a:bufnr, v:true, window_options)
+    call insert(g:modal_windows, newwinnr)
+
+    unlet g:ignore_modal_focus
 
     return newwinnr
 endfunc
+
+" Check if a modal window is opened, and if so, focus it when switching
+" buffers
+function! FocusModalWindow()
+    if exists('g:ignore_modal_focus') || !exists('g:modal_windows[0]')
+        return
+    endif
+
+    let current_modal = g:modal_windows[0]
+    echo current_modal
+    let current_winnr = nvim_get_current_win()
+    echo current_winnr
+
+    if current_modal != current_winnr
+        call nvim_set_current_win(current_modal)
+    else
+
+    endif
+endfunc
+
+augroup manageModalWindows
+    autocmd!
+
+"   autocmd BufEnter * call FocusModalWindow()
+augroup END
 
 " Remind me to update my plugins every so often. Run a function at startup
 " that checks when they were last updated.
