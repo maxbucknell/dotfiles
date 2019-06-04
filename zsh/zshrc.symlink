@@ -30,10 +30,13 @@ PATH="/usr/local/opt/ruby/bin:/usr/local/lib/ruby/gems/2.6.0/bin:$PATH"
 export PYTHONPATH="$PYTHONPATH:$HOME/dotfiles/lib/python"
 
 # Rust
-source $HOME/.cargo/env
+# source $HOME/.cargo/env
 
 # Go
 PATH="$HOME/go/bin:$PATH"
+
+# Yarn ffs
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 
 ## Completion
 
@@ -160,6 +163,15 @@ setopt extended_history
 # to do things correctly and see if it's slow.
 setopt hist_lex_words
 
+# Dark Mode Support
+isdark="$($HOME/dotfiles/bin/isdark)"
+if [[ "$isdark" == 'true' ]]
+then
+    export MACOS_DARKMODE=1
+else
+    export MACOS_DARKMODE=0
+fi
+
 # Liquid Prompt!
 source "$HOME/.zsh/liquidprompt/liquidprompt"
 
@@ -197,11 +209,11 @@ function select_session {
     fi
 }
 
-if [ -z "$TMUX" ]
-then
-    neofetch
-fi
+# Disabling the below because Tmux has been playing up.
+#
+# if [ -z "$TMUX" ]
+# then
+#     neofetch
+# fi
 
-select_session
-
-export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+# select_session

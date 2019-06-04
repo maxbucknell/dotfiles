@@ -141,8 +141,16 @@ syntax on
 filetype plugin indent on
 
 " Theme configuration
+
+if $MACOS_DARKMODE
+    set background=dark
+else
+    set background=light
+endif
+
 let g:gruvbox_italic = 1
-colorscheme maxbucknell
+
+colorscheme gruvbox
 
 " I want floating windows to have the same syntax highlighting as normal vim
 " things.
