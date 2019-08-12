@@ -11,10 +11,13 @@
 .Spotlight-V100
 .Trashes
 
-# Vim Stuff
+# Editor Stuff
 *.swp
 GoToFile
 
 .idea
 
 .pick_index
+
+# Files I want to have but not stage
+*.maxignore
