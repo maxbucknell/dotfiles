@@ -1,11 +1,5 @@
 " Let's get the plugins out of the way first, shall we?
 call plug#begin()
-    " Pane Navigation (Tmux integration)
-    Plug 'christoomey/vim-tmux-navigator'
-
-    " Colours
-    Plug 'morhetz/gruvbox'
-
     " Fuzzy finding
     Plug '/usr/local/opt/fzf'
     Plug 'junegunn/fzf.vim'
@@ -15,20 +9,15 @@ call plug#begin()
 
     " Snippets
     Plug 'SirVer/ultisnips'
-    Plug 'honza/vim-snippets'
 
     " Surround
     Plug 'tpope/vim-surround'
 
     " Git integration
     Plug 'tpope/vim-fugitive'
-    Plug 'airblade/vim-gitgutter'
 
     " Comments
     Plug 'tpope/vim-commentary'
-
-    " Statusline
-    Plug 'vim-airline/vim-airline'
 
     " (Java|Type)Script
     Plug 'pangloss/vim-javascript'
@@ -43,6 +32,9 @@ call plug#begin()
 
     " CSS Colour previews
     Plug 'maxbucknell/Colorizer', { 'branch': 'neovim-virtual-text' }
+
+    " Statusline
+    Plug 'vim-airline/vim-airline'
 call plug#end()
 
 " I have a true colour terminal, and I will have true colours in my Vim
@@ -58,12 +50,32 @@ set nobackup
 set nowritebackup
 set noswapfile
 
-" Don't wrap lines
+" Show things faster, particularly error messages
+set updatetime=300
+
+" I always want a sign column
+set signcolumn=yes
+
+" Trying this bizarre method of self location again.
+set cursorline
+
+" Statuslines!
+
+" Input supports patched fonts already \o/
+let g:airline_powerline_fonts = 1
+
+" Made a custom theme for it didn't I?
+let g:airline_theme='maxbucknell'
+
+let g:airline_left_sep='|'
+let g:airline_right_sep='|'
+
+" Wrap lines
 "
-" I look at a lot of CSV files and logs, which are generally the only
-" times I see long lines. If code is too long, I shorten it. As such,
-" having lines artificially wrapping only gets in my way.
-set nowrap
+" Splitting screens means that sometimes my code windows are little. It might
+" be nice in future to indent and give indication that it's wrapped, but for
+" now, I can manage by seeing line numbers.
+set wrap
 
 " Line numbering
 "
@@ -110,7 +122,7 @@ set autoread
 
 " Show trailing whitespace, since it's a crime
 set list
-set listchars=tab:‣\ ,trail:·
+set listchars=tab:‣\ ,trail:·,extends:◣,precedes:◢,nbsp:○
 
 " Turn off code folding
 "
@@ -142,20 +154,17 @@ filetype plugin indent on
 
 " Theme configuration
 
-if $MACOS_DARKMODE
-    set background=dark
+let g:is_dark_mode = system("isdark")
+
+if g:is_dark_mode == "true\n"
+    set background=light
+    colorscheme maxbucknell_light
 else
     set background=light
+    colorscheme maxbucknell_light
 endif
 
-let g:gruvbox_italic = 1
-
-colorscheme gruvbox
-
-" I want floating windows to have the same syntax highlighting as normal vim
-" things.
-" hi NormalFloat ctermbg=4
-
+let g:go_def_mapping_enabled = 0
 
 " Lead with the biggest button on the motherfucking keyboard
 let mapleader = "\<space>"
@@ -196,25 +205,14 @@ nnoremap <leader>b :Buffers<cr>
 nnoremap <leader><leader> <c-^>
 
 " Ultisnips, y'all
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<tab>"
-let g:UltiSnipsJumpBackwardTrigger="<S-tab>"
+" I previously configured tab as a trigger here, but now I just
+" use CoC
+let g:UltiSnipsSnippetDirectories=[$VIMCONFIG.'/UltiSnips']
 
 " Colorizer adds little colour swatches next to CSS colours
 let g:colorizer_auto_filetype='css,less,scss,sass'
 let g:colorizer_colornames = 0
 let g:colorizer_use_virtual_text = 1
-
-" Gitgutter
-let g:gitgutter_realtime = 1
-let g:gitgutter_eager = 1
-
-" Status line stuff
-let g:airline_theme = 'gruvbox'
-let g:airline#extensions#tabline#enabled = 1
-
-" Input supports patched fonts already \o/
-let g:airline_powerline_fonts = 1
 
 " Coc
 "
@@ -313,7 +311,23 @@ function! ZoomOrUnzoom()
 endfunc
 
 " Map it to <space>z
-nnoremap <leader>v :call ZoomOrUnzoom()<cr>
+nnoremap <leader>z :call ZoomOrUnzoom()<cr>
+
+" Making splits a little bit better.
+"
+" I open splits before opening files because I can never remember the
+" keyboard incantations in FZF to open in splits, but I get annoyed for
+" the brief moment that the same buffer was shown when I do :vsp or :sp.
+"
+" I don't have to have this problem anymore.
+nnoremap <leader>v :vnew<cr>
+nnoremap <leader>s :new<cr>
+
+" And make moving around splits just a little bit sane.
+nnoremap <c-j> <c-w><c-j>
+nnoremap <c-k> <c-w><c-k>
+nnoremap <c-h> <c-w><c-h>
+nnoremap <c-l> <c-w><c-l>
 
 " I had this running as an autocommand on resizes, but it was buggy so it's
 " disabled at the moment.
@@ -371,6 +385,9 @@ augroup textFormatting
     " Make files really need tabs
     autocmd FileType make setl noet sw=8 sts=8 ts=8
 
+    " So too do Go files, apparently.
+    autocmd FileType go setl noet sw=8 sts=8 ts=8
+
     " Hard wrap prose
     "
     " This will automatically insert a new line in insert mode when a
@@ -415,14 +432,11 @@ augroup AutoMkdir
     autocmd BufNewFile * :call EnsureDirExists()
 augroup END
 
-function! HandleWinEnter()
-    setlocal winhighlight=Normal:ActiveWindow,NormalNC:InactiveWindow
-endfunc
-
 augroup WindowManagement
     autocmd!
 
-    autocmd WinEnter * call HandleWinEnter()
+    autocmd WinEnter * setl rnu cul syntax=on
+    autocmd WinLeave * setl nornu nocul syntax=off
 augroup END
 
 " Show syntax highlighting groups for word under cursor
@@ -433,7 +447,11 @@ function! <SID>SynStack()
   if !exists("*synstack")
     return
   endif
-  echo map(synstack(line('.'), col('.')), 'synIDattr(v:val,"name")')
+  " echo map(synstack(line('.'), col('.')), 'synIDattr(v:val,"name")')
+
+  echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+              \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+              \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"
 endfunc
 
 nnoremap <leader>\ :call <SID>SynStack()<CR>
@@ -510,7 +528,7 @@ endfunc
 augroup manageModalWindows
     autocmd!
 
-"   autocmd BufEnter * call FocusModalWindow()
+  " autocmd BufEnter * call FocusModalWindow()
 augroup END
 
 " Remind me to update my plugins every so often. Run a function at startup

@@ -33,7 +33,9 @@ export PYTHONPATH="$PYTHONPATH:$HOME/dotfiles/lib/python"
 # source $HOME/.cargo/env
 
 # Go
-PATH="$HOME/go/bin:$PATH"
+export GOPATH="$HOME/go"
+export GOBIN="$GOPATH/bin"
+PATH="$GOBIN:$PATH"
 
 # Yarn ffs
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
@@ -163,20 +165,14 @@ setopt extended_history
 # to do things correctly and see if it's slow.
 setopt hist_lex_words
 
-# Dark Mode Support
-isdark="$($HOME/dotfiles/bin/isdark)"
-if [[ "$isdark" == 'true' ]]
-then
-    export MACOS_DARKMODE=1
-else
-    export MACOS_DARKMODE=0
-fi
-
 # Liquid Prompt!
 source "$HOME/.zsh/liquidprompt/liquidprompt"
 
 # Vim!
 alias vim=nvim
+# I made this typo once and never again.
+alias vi=nvim
+alias v=nvim
 
 # Exa!
 alias ls=exa
@@ -217,3 +213,9 @@ function select_session {
 # fi
 
 # select_session
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/maxbucknell/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/maxbucknell/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/maxbucknell/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/maxbucknell/google-cloud-sdk/completion.zsh.inc'; fi

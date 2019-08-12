@@ -1,2 +1,13 @@
 {
+    "tslint.configFile": "config/tslint.json",
+    "coc.preferences.formatOnSaveFiletypes": ["javascript", "typescript", "typescript.tsx"],
+    "coc.preferences.useQuickfixForLocations": true,
+    "codeLens.enable": true,
+    "languageserver": {
+        "golang": {
+            "command": "gopls",
+            "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
+            "filetypes": ["go"]
+        }
+    }
 }
