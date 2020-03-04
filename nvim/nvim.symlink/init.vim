@@ -20,8 +20,6 @@ call plug#begin()
     Plug 'tpope/vim-commentary'
 
     " (Java|Type)Script
-    Plug 'pangloss/vim-javascript'
-    Plug 'mxw/vim-jsx'
     Plug 'HerringtonDarkholme/yats.vim'
 
     " Go
