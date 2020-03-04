@@ -179,6 +179,9 @@ alias v=nvim
 # Exa!
 alias ls=exa
 
+# Bat!
+alias cat='bat --theme=GitHub'
+
 # Use fzf to select a running tmux session to attach to
 function select_session_interactive {
     tmux list-sessions 2> /dev/null |
@@ -221,3 +224,4 @@ if [ -f '/Users/maxbucknell/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/max
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/maxbucknell/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/maxbucknell/google-cloud-sdk/completion.zsh.inc'; fi
+
