@@ -1,4 +1,4 @@
-" maxbucknell_light.vim -- Vim color scheme.
+" maxbucknell_neo.vim -- Vim color scheme.
 " Author:      Max Bucknell (me@maxbucknell.com)
 " Webpage:     https://github.com/maxbucknell/dotfiles
 " Description: My colour scheme, bruh.
@@ -9,49 +9,56 @@ if exists("syntax_on")
   syntax reset
 endif
 
-let colors_name = "maxbucknell_light"
+let colors_name = "maxbucknell_neo"
 
 if ($TERM =~ '256' || &t_Co >= 256) || has("gui_running")
-    hi Normal ctermbg=15 ctermfg=0 cterm=NONE guibg=#F7F8FF guifg=#16182B gui=NONE
+    hi Normal ctermbg=15 ctermfg=15 cterm=NONE guibg=#dfdfdf guifg=#1f1f1f gui=NONE
 
     set background=light
 
-    hi NormalFloat ctermbg=15 ctermfg=0 cterm=NONE guibg=#F7F8FF guifg=#16182B gui=NONE
-    hi NormalNC ctermbg=15 ctermfg=0 cterm=NONE guibg=#D8DAE8 guifg=#16182B gui=NONE
-    hi NonText ctermbg=NONE ctermfg=NONE cterm=NONE guibg=NONE guifg=NONE gui=NONE
+    hi NormalFloat ctermbg=15 ctermfg=15 cterm=NONE guibg=#e5e5e5 guifg=#1f1f1f gui=NONE
+    hi NormalNC ctermbg=15 ctermfg=15 cterm=NONE guibg=#d9d9d9 guifg=#1f1f1f gui=NONE
+    hi NonText ctermbg=NONE ctermfg=1 cterm=NONE guibg=NONE guifg=1 gui=NONE
     hi Comment ctermbg=NONE ctermfg=NONE cterm=bold guibg=NONE guifg=NONE gui=bold
     hi Constant ctermbg=NONE ctermfg=NONE cterm=NONE guibg=NONE guifg=NONE gui=NONE
     hi Error ctermbg=NONE ctermfg=NONE cterm=NONE guibg=NONE guifg=NONE gui=NONE
-    hi CocErrorHighlight ctermbg=15 ctermfg=NONE cterm=NONE guibg=#E0ABAB guifg=NONE gui=NONE
-    hi CocWarningHighlight ctermbg=15 ctermfg=NONE cterm=NONE guibg=#E0DDAB guifg=NONE gui=NONE
-    hi CocInfoHighlight ctermbg=15 ctermfg=NONE cterm=NONE guibg=#E0DDAB guifg=NONE gui=NONE
-    hi CocHintHighlight ctermbg=15 ctermfg=NONE cterm=NONE guibg=#E0DDAB guifg=NONE gui=NONE
-    hi CocHighlightText ctermbg=15 ctermfg=NONE cterm=NONE guibg=#F0D1EA guifg=NONE gui=NONE
+    hi CocErrorSign ctermbg=NONE ctermfg=NONE cterm=NONE guibg=NONE guifg=NONE gui=NONE
+    hi CocWarningSign ctermbg=NONE ctermfg=NONE cterm=NONE guibg=NONE guifg=NONE gui=NONE
+    hi CocHintSign ctermbg=NONE ctermfg=NONE cterm=NONE guibg=NONE guifg=NONE gui=NONE
+    hi CocInfoSign ctermbg=NONE ctermfg=NONE cterm=NONE guibg=NONE guifg=NONE gui=NONE
+    hi CocErrorVirtualText ctermbg=NONE ctermfg=15 cterm=NONE guibg=NONE guifg=#afafaf gui=NONE
+    hi CocWarningVirtualText ctermbg=NONE ctermfg=15 cterm=NONE guibg=NONE guifg=#afafaf gui=NONE
+    hi CocHintVirtualText ctermbg=NONE ctermfg=15 cterm=NONE guibg=NONE guifg=#afafaf gui=NONE
+    hi CocInfoVirtualText ctermbg=NONE ctermfg=15 cterm=NONE guibg=NONE guifg=#afafaf gui=NONE
+    hi CocErrorHighlight ctermbg=NONE ctermfg=NONE cterm=NONE guibg=NONE guifg=NONE gui=NONE
+    hi CocWarningHighlight ctermbg=NONE ctermfg=NONE cterm=NONE guibg=NONE guifg=NONE gui=NONE
+    hi CocInfoHighlight ctermbg=NONE ctermfg=NONE cterm=NONE guibg=NONE guifg=NONE gui=NONE
+    hi CocHintHighlight ctermbg=NONE ctermfg=NONE cterm=NONE guibg=NONE guifg=NONE gui=NONE
+    hi CocHighlightText ctermbg=NONE ctermfg=NONE cterm=NONE guibg=NONE guifg=NONE gui=NONE
     hi Identifier ctermbg=NONE ctermfg=NONE cterm=NONE guibg=NONE guifg=NONE gui=NONE
     hi Ignore ctermbg=NONE ctermfg=NONE cterm=NONE guibg=NONE guifg=NONE gui=NONE
     hi PreProc ctermbg=NONE ctermfg=NONE cterm=NONE guibg=NONE guifg=NONE gui=NONE
     hi Special ctermbg=NONE ctermfg=NONE cterm=NONE guibg=NONE guifg=NONE gui=NONE
     hi Statement ctermbg=NONE ctermfg=NONE cterm=NONE guibg=NONE guifg=NONE gui=NONE
-    hi Todo ctermbg=NONE ctermfg=NONE cterm=NONE guibg=NONE guifg=NONE gui=NONE
     hi Type ctermbg=NONE ctermfg=NONE cterm=NONE guibg=NONE guifg=NONE gui=NONE
     hi Underlined ctermbg=NONE ctermfg=NONE cterm=NONE guibg=NONE guifg=NONE gui=NONE
-    hi StatusLine ctermbg=7 ctermfg=NONE cterm=NONE guibg=#F0F1FF guifg=NONE gui=NONE
-    hi StatusLineNC ctermbg=7 ctermfg=NONE cterm=NONE guibg=#F0F1FF guifg=NONE gui=NONE
-    hi VertSplit ctermbg=NONE ctermfg=7 cterm=NONE guibg=NONE guifg=#F0F1FF gui=NONE
+    hi StatusLine ctermbg=15 ctermfg=15 cterm=NONE guibg=#dfdfdf guifg=#1f1f1f gui=NONE
+    hi StatusLineNC ctermbg=15 ctermfg=15 cterm=NONE guibg=#d9d9d9 guifg=#1f1f1f gui=NONE
+    hi VertSplit ctermbg=NONE ctermfg=15 cterm=NONE guibg=NONE guifg=#1f1f1f gui=NONE
     hi TabLine ctermbg=NONE ctermfg=NONE cterm=NONE guibg=NONE guifg=NONE gui=NONE
     hi TabLineFill ctermbg=NONE ctermfg=NONE cterm=NONE guibg=NONE guifg=NONE gui=NONE
     hi TabLineSel ctermbg=NONE ctermfg=NONE cterm=NONE guibg=NONE guifg=NONE gui=NONE
     hi Title ctermbg=NONE ctermfg=NONE cterm=NONE guibg=NONE guifg=NONE gui=NONE
-    hi CursorLine ctermbg=7 ctermfg=NONE cterm=NONE guibg=#F2F4FF guifg=NONE gui=NONE
-    hi LineNr ctermbg=7 ctermfg=NONE cterm=NONE guibg=#F0F1FF guifg=NONE gui=NONE
-    hi CursorLineNr ctermbg=0 ctermfg=7 cterm=NONE guibg=#16182B guifg=#F0F1FF gui=NONE
+    hi CursorLine ctermbg=1 ctermfg=NONE cterm=NONE guibg=1 guifg=NONE gui=NONE
+    hi LineNr ctermbg=15 ctermfg=NONE cterm=NONE guibg=#d3d3d3 guifg=NONE gui=NONE
+    hi CursorLineNr ctermbg=NONE ctermfg=NONE cterm=NONE guibg=NONE guifg=NONE gui=NONE
     hi helpLeadBlank ctermbg=NONE ctermfg=NONE cterm=NONE guibg=NONE guifg=NONE gui=NONE
     hi helpNormal ctermbg=NONE ctermfg=NONE cterm=NONE guibg=NONE guifg=NONE gui=NONE
-    hi Visual ctermbg=NONE ctermfg=NONE cterm=NONE guibg=NONE guifg=NONE gui=NONE
+    hi Visual ctermbg=15 ctermfg=15 cterm=NONE guibg=#1f1f1f guifg=#dfdfdf gui=NONE
     hi VisualNOS ctermbg=NONE ctermfg=NONE cterm=NONE guibg=NONE guifg=NONE gui=NONE
-    hi Pmenu ctermbg=0 ctermfg=15 cterm=NONE guibg=#16182B guifg=#F7F8FF gui=NONE
+    hi Pmenu ctermbg=15 ctermfg=15 cterm=NONE guibg=#a9a9a9 guifg=#434343 gui=NONE
     hi PmenuSbar ctermbg=NONE ctermfg=NONE cterm=NONE guibg=NONE guifg=NONE gui=NONE
-    hi PmenuSel ctermbg=9 ctermfg=10 cterm=NONE guibg=#ff0000 guifg=#00ff00 gui=NONE
+    hi PmenuSel ctermbg=15 ctermfg=15 cterm=NONE guibg=#bbbbbb guifg=#373737 gui=NONE
     hi PmenuThumb ctermbg=NONE ctermfg=NONE cterm=NONE guibg=NONE guifg=NONE gui=NONE
     hi FoldColumn ctermbg=NONE ctermfg=NONE cterm=NONE guibg=NONE guifg=NONE gui=NONE
     hi Folded ctermbg=NONE ctermfg=NONE cterm=NONE guibg=NONE guifg=NONE gui=NONE
@@ -61,16 +68,16 @@ if ($TERM =~ '256' || &t_Co >= 256) || has("gui_running")
     hi DiffChange ctermbg=NONE ctermfg=NONE cterm=NONE guibg=NONE guifg=NONE gui=NONE
     hi DiffDelete ctermbg=NONE ctermfg=NONE cterm=NONE guibg=NONE guifg=NONE gui=NONE
     hi DiffText ctermbg=NONE ctermfg=NONE cterm=NONE guibg=NONE guifg=NONE gui=NONE
-    hi IncSearch ctermbg=10 ctermfg=NONE cterm=bold guibg=#B6BDF0 guifg=NONE gui=bold
-    hi Search ctermbg=10 ctermfg=NONE cterm=NONE guibg=#B6BDF0 guifg=NONE gui=NONE
+    hi IncSearch ctermbg=NONE ctermfg=NONE cterm=underline guibg=NONE guifg=NONE gui=underline
+    hi Search ctermbg=NONE ctermfg=NONE cterm=underline guibg=NONE guifg=NONE gui=underline
     hi Directory ctermbg=NONE ctermfg=NONE cterm=NONE guibg=NONE guifg=NONE gui=NONE
-    hi MatchParen ctermbg=15 ctermfg=NONE cterm=NONE guibg=#F0D1EA guifg=NONE gui=NONE
-    hi SpellBad ctermbg=NONE ctermfg=NONE cterm=NONE guibg=NONE guifg=NONE gui=NONE guisp=#ff0000
-    hi SpellCap ctermbg=NONE ctermfg=NONE cterm=NONE guibg=NONE guifg=NONE gui=NONE guisp=#0000ff
-    hi SpellLocal ctermbg=NONE ctermfg=NONE cterm=NONE guibg=NONE guifg=NONE gui=NONE guisp=#ff00ff
-    hi SpellRare ctermbg=NONE ctermfg=NONE cterm=NONE guibg=NONE guifg=NONE gui=NONE guisp=#00ffff
+    hi MatchParen ctermbg=15 ctermfg=NONE cterm=NONE guibg=#f1f1f1 guifg=NONE gui=NONE
+    hi SpellBad ctermbg=NONE ctermfg=NONE cterm=NONE guibg=NONE guifg=NONE gui=NONE
+    hi SpellCap ctermbg=NONE ctermfg=NONE cterm=NONE guibg=NONE guifg=NONE gui=NONE
+    hi SpellLocal ctermbg=NONE ctermfg=NONE cterm=NONE guibg=NONE guifg=NONE gui=NONE
+    hi SpellRare ctermbg=NONE ctermfg=NONE cterm=NONE guibg=NONE guifg=NONE gui=NONE
     hi ColorColumn ctermbg=NONE ctermfg=NONE cterm=NONE guibg=NONE guifg=NONE gui=NONE
-    hi SignColumn ctermbg=7 ctermfg=NONE cterm=NONE guibg=#F0F1FF guifg=NONE gui=NONE
+    hi SignColumn ctermbg=15 ctermfg=NONE cterm=NONE guibg=#d3d3d3 guifg=NONE gui=NONE
     hi ErrorMsg ctermbg=NONE ctermfg=NONE cterm=NONE guibg=NONE guifg=NONE gui=NONE
     hi ModeMsg ctermbg=NONE ctermfg=NONE cterm=NONE guibg=NONE guifg=NONE gui=NONE
     hi MoreMsg ctermbg=NONE ctermfg=NONE cterm=NONE guibg=NONE guifg=NONE gui=NONE
@@ -78,52 +85,60 @@ if ($TERM =~ '256' || &t_Co >= 256) || has("gui_running")
     hi Cursor ctermbg=NONE ctermfg=NONE cterm=NONE guibg=NONE guifg=NONE gui=NONE
     hi CursorColumn ctermbg=NONE ctermfg=NONE cterm=NONE guibg=NONE guifg=NONE gui=NONE
     hi QuickFixLine ctermbg=NONE ctermfg=NONE cterm=NONE guibg=NONE guifg=NONE gui=NONE
-    hi StatusLineTerm ctermbg=7 ctermfg=NONE cterm=NONE guibg=#F0F1FF guifg=NONE gui=NONE
-    hi StatusLineTermNC ctermbg=7 ctermfg=NONE cterm=NONE guibg=#F0F1FF guifg=NONE gui=NONE
+    hi StatusLineTerm ctermbg=NONE ctermfg=NONE cterm=NONE guibg=NONE guifg=NONE gui=NONE
+    hi StatusLineTermNC ctermbg=NONE ctermfg=NONE cterm=NONE guibg=NONE guifg=NONE gui=NONE
 
 elseif &t_Co == 8 || $TERM !~# '^linux' || &t_Co == 16
     set t_Co=16
 
-    hi Normal ctermbg=white ctermfg=black cterm=NONE
+    hi Normal ctermbg=white ctermfg=white cterm=NONE
 
     set background=light
 
-    hi NormalFloat ctermbg=white ctermfg=black cterm=NONE
-    hi NormalNC ctermbg=white ctermfg=black cterm=NONE
-    hi NonText ctermbg=NONE ctermfg=NONE cterm=NONE
+    hi NormalFloat ctermbg=white ctermfg=white cterm=NONE
+    hi NormalNC ctermbg=white ctermfg=white cterm=NONE
+    hi NonText ctermbg=NONE ctermfg=1 cterm=NONE
     hi Comment ctermbg=NONE ctermfg=NONE cterm=bold
     hi Constant ctermbg=NONE ctermfg=NONE cterm=NONE
     hi Error ctermbg=NONE ctermfg=NONE cterm=NONE
-    hi CocErrorHighlight ctermbg=white ctermfg=NONE cterm=NONE
-    hi CocWarningHighlight ctermbg=white ctermfg=NONE cterm=NONE
-    hi CocInfoHighlight ctermbg=white ctermfg=NONE cterm=NONE
-    hi CocHintHighlight ctermbg=white ctermfg=NONE cterm=NONE
-    hi CocHighlightText ctermbg=white ctermfg=NONE cterm=NONE
+    hi CocErrorSign ctermbg=NONE ctermfg=NONE cterm=NONE
+    hi CocWarningSign ctermbg=NONE ctermfg=NONE cterm=NONE
+    hi CocHintSign ctermbg=NONE ctermfg=NONE cterm=NONE
+    hi CocInfoSign ctermbg=NONE ctermfg=NONE cterm=NONE
+    hi CocErrorVirtualText ctermbg=NONE ctermfg=white cterm=NONE
+    hi CocWarningVirtualText ctermbg=NONE ctermfg=white cterm=NONE
+    hi CocHintVirtualText ctermbg=NONE ctermfg=white cterm=NONE
+    hi CocInfoVirtualText ctermbg=NONE ctermfg=white cterm=NONE
+    hi CocErrorHighlight ctermbg=NONE ctermfg=NONE cterm=NONE
+    hi CocWarningHighlight ctermbg=NONE ctermfg=NONE cterm=NONE
+    hi CocInfoHighlight ctermbg=NONE ctermfg=NONE cterm=NONE
+    hi CocHintHighlight ctermbg=NONE ctermfg=NONE cterm=NONE
+    hi CocHighlightText ctermbg=NONE ctermfg=NONE cterm=NONE
     hi Identifier ctermbg=NONE ctermfg=NONE cterm=NONE
     hi Ignore ctermbg=NONE ctermfg=NONE cterm=NONE
     hi PreProc ctermbg=NONE ctermfg=NONE cterm=NONE
     hi Special ctermbg=NONE ctermfg=NONE cterm=NONE
     hi Statement ctermbg=NONE ctermfg=NONE cterm=NONE
-    hi Todo ctermbg=NONE ctermfg=NONE cterm=NONE
+    hi Todo ctermbg=NONE ctermfg=NONENONE cterm=
     hi Type ctermbg=NONE ctermfg=NONE cterm=NONE
     hi Underlined ctermbg=NONE ctermfg=NONE cterm=NONE
-    hi StatusLine ctermbg=gray ctermfg=NONE cterm=NONE
-    hi StatusLineNC ctermbg=gray ctermfg=NONE cterm=NONE
-    hi VertSplit ctermbg=NONE ctermfg=gray cterm=NONE
+    hi StatusLine ctermbg=white ctermfg=white cterm=NONE
+    hi StatusLineNC ctermbg=white ctermfg=white cterm=NONE
+    hi VertSplit ctermbg=NONE ctermfg=white cterm=NONE
     hi TabLine ctermbg=NONE ctermfg=NONE cterm=NONE
     hi TabLineFill ctermbg=NONE ctermfg=NONE cterm=NONE
     hi TabLineSel ctermbg=NONE ctermfg=NONE cterm=NONE
     hi Title ctermbg=NONE ctermfg=NONE cterm=NONE
-    hi CursorLine ctermbg=gray ctermfg=NONE cterm=NONE
-    hi LineNr ctermbg=gray ctermfg=NONE cterm=NONE
-    hi CursorLineNr ctermbg=black ctermfg=gray cterm=NONE
+    hi CursorLine ctermbg=0 ctermfg=NONE cterm=NONE
+    hi LineNr ctermbg=white ctermfg=NONE cterm=NONE
+    hi CursorLineNr ctermbg=NONE ctermfg=NONE cterm=NONE
     hi helpLeadBlank ctermbg=NONE ctermfg=NONE cterm=NONE
     hi helpNormal ctermbg=NONE ctermfg=NONE cterm=NONE
-    hi Visual ctermbg=NONE ctermfg=NONE cterm=NONE
+    hi Visual ctermbg=white ctermfg=white cterm=NONE
     hi VisualNOS ctermbg=NONE ctermfg=NONE cterm=NONE
-    hi Pmenu ctermbg=black ctermfg=white cterm=NONE
+    hi Pmenu ctermbg=white ctermfg=white cterm=NONE
     hi PmenuSbar ctermbg=NONE ctermfg=NONE cterm=NONE
-    hi PmenuSel ctermbg=red ctermfg=green cterm=NONE
+    hi PmenuSel ctermbg=white ctermfg=white cterm=NONE
     hi PmenuThumb ctermbg=NONE ctermfg=NONE cterm=NONE
     hi FoldColumn ctermbg=NONE ctermfg=NONE cterm=NONE
     hi Folded ctermbg=NONE ctermfg=NONE cterm=NONE
@@ -133,8 +148,8 @@ elseif &t_Co == 8 || $TERM !~# '^linux' || &t_Co == 16
     hi DiffChange ctermbg=NONE ctermfg=NONE cterm=NONE
     hi DiffDelete ctermbg=NONE ctermfg=NONE cterm=NONE
     hi DiffText ctermbg=NONE ctermfg=NONE cterm=NONE
-    hi IncSearch ctermbg=green ctermfg=NONE cterm=bold
-    hi Search ctermbg=green ctermfg=NONE cterm=NONE
+    hi IncSearch ctermbg=NONE ctermfg=NONE cterm=underline
+    hi Search ctermbg=NONE ctermfg=NONE cterm=underline
     hi Directory ctermbg=NONE ctermfg=NONE cterm=NONE
     hi MatchParen ctermbg=white ctermfg=NONE cterm=NONE
     hi SpellBad ctermbg=NONE ctermfg=NONE cterm=NONE
@@ -142,7 +157,7 @@ elseif &t_Co == 8 || $TERM !~# '^linux' || &t_Co == 16
     hi SpellLocal ctermbg=NONE ctermfg=NONE cterm=NONE
     hi SpellRare ctermbg=NONE ctermfg=NONE cterm=NONE
     hi ColorColumn ctermbg=NONE ctermfg=NONE cterm=NONE
-    hi SignColumn ctermbg=gray ctermfg=NONE cterm=NONE
+    hi SignColumn ctermbg=white ctermfg=NONE cterm=NONE
     hi ErrorMsg ctermbg=NONE ctermfg=NONE cterm=NONE
     hi ModeMsg ctermbg=NONE ctermfg=NONE cterm=NONE
     hi MoreMsg ctermbg=NONE ctermfg=NONE cterm=NONE
@@ -150,32 +165,13 @@ elseif &t_Co == 8 || $TERM !~# '^linux' || &t_Co == 16
     hi Cursor ctermbg=NONE ctermfg=NONE cterm=NONE
     hi CursorColumn ctermbg=NONE ctermfg=NONE cterm=NONE
     hi QuickFixLine ctermbg=NONE ctermfg=NONE cterm=NONE
-    hi StatusLineTerm ctermbg=gray ctermfg=NONE cterm=NONE
-    hi StatusLineTermNC ctermbg=gray ctermfg=NONE cterm=NONE
+    hi StatusLineTerm ctermbg=NONE ctermfg=NONE cterm=NONE
+    hi StatusLineTermNC ctermbg=NONE ctermfg=NONE cterm=NONE
 endif
 
 hi link String Constant
 hi link Number Constant
 hi link WarningMsg Error
-
-let g:terminal_ansi_colors = [
-        \ '#000000',
-        \ '#800000',
-        \ '#008000',
-        \ '#808000',
-        \ '#000080',
-        \ '#800080',
-        \ '#008080',
-        \ '#c0c0c0',
-        \ '#808080',
-        \ '#ff0000',
-        \ '#00ff00',
-        \ '#ffff00',
-        \ '#0000ff',
-        \ '#ff00ff',
-        \ '#00ffff',
-        \ '#ffffff',
-        \ ]
 
 
 

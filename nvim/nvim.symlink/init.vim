@@ -157,11 +157,11 @@ filetype plugin indent on
 let g:is_dark_mode = system("isdark")
 
 if g:is_dark_mode == "true\n"
-    set background=light
-    colorscheme maxbucknell_light
+    set background=dark
+    colorscheme maxbucknell_dark
 else
     set background=light
-    colorscheme maxbucknell_light
+    colorscheme maxbucknell_neo
 endif
 
 let g:go_def_mapping_enabled = 0

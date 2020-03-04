@@ -29,51 +29,54 @@
         webpage:     "https://github.com/maxbucknell/dotfiles"
     }
 
-    # Step 2: colors
-    #
-    # black = [       give each color a distinctive name
-    #   "#000000",    hexadecimal color used in GVim/MacVim
-    #   0,            integer between 0 and 255 used by terminals supporting 256 colors
-    #   "black"       color name used by less capable color terminals, can be "darkred",
-    #                 "red", "darkgreen", "green", "darkyellow", "yellow", "darkblue",
-    #                 "blue", "darkmagenta", "magenta", "black", "darkgrey", "grey",
-    #                 "white"
-    # ]
-    #
-    # If your colors are defined correctly, the resulting colorscheme is guaranteed
-    # to work in GVim (Windows/Linux), MacVim, and any properly set up terminal emulator.
-    #
-    # The colors below are the first 16 colors of the xterm palette. They
-    # are only here as an example, though. You can get rid of them, I won't be mad.
-    black       = ["#000000", 0, "black"]
-    darkred     = ["#800000", 1, "darkred"]
-    darkgreen   = ["#008000", 2, "darkgreen"]
-    darkyellow  = ["#808000", 3, "darkyellow"]
-    darkblue    = ["#000080", 4, "darkblue"]
-    darkmagenta = ["#800080", 5, "darkmagenta"]
-    darkcyan    = ["#008080", 6, "darkcyan"]
-    gray        = ["#c0c0c0", 7, "gray"]
-    darkgray    = ["#808080", 8, "darkgray"]
-    red         = ["#ff0000", 9, "red"]
-    green       = ["#00ff00", 10, "green"]
-    yellow      = ["#ffff00", 11, "yellow"]
-    blue        = ["#0000ff", 12, "blue"]
-    magenta     = ["#ff00ff", 13, "magenta"]
-    cyan        = ["#00ffff", 14, "cyan"]
-    white       = ["#ffffff", 15, "white"]
+    # ANSI Dark colours, picked with hue, 80% saturation, 80% brightness
+    # ANSI Light colours, picked with hue, 20% saturation, 93% brightness
+    darkred     = ["#CC4129", 1, "darkred"] # 9º
+    red         = ["#ECC4BD", 9, "red"]
 
-    background  = ["#F7F8FF", 15, "white"]
-    blurred_background = ["#D8DAE8", 15, "white"]
-    light_background = ["#F0F1FF", 7, "gray"]
-    extra_light_background = ["#F2F4FF", 7, "gray"]
-    search_highlight = ["#B6BDF0", 10, "green"]
-    symbol_highlight = ["#F0D1EA", 15, "white"]
-    error_highlight = ["#E0ABAB", 15, "white"]
-    warning_highlight = ["#E0DDAB", 15, "white"]
-    info_highlight = warning_highlight
-    paren_highlight = symbol_highlight
+    darkgreen   = ["#4FCC29", 2, "darkgreen"] # 106º
+    green       = ["#C8ECBD", 10, "green"]
 
-    foreground  = ["#16182B", 0, "black"]
+    # Actually orange
+    darkorange  = ["#CC7229", 3, "darkyellow"] # 27º
+    orange = ["#EDD3BE", 15, "white"]
+
+    darkyellow  = ["#CCC129", 3, "darkyellow"] # 56º
+    yellow = ["#EDEABE", 15, "white"]
+
+    darkblue    = ["#29A1CC", 4, "darkblue"] # 196º
+    blue = ["#BEE0EC", 15, "white"]
+
+    darkmagenta = ["#CC29C9", 5, "darkmagenta"] # 301º
+    magenta = ["#ECBCEB", 15, "white"]
+
+    darkcyan    = ["#29CCBA", 6, "darkcyan"] # 173º
+    cyan = ["#ADD3BE", 14, "cyan"]
+
+    grey = [
+        ["#ECE9ED", 15, "white"],
+        ["#DFDDE0", 15, "white"],
+        ["#D2CFD3", 15, "white"],
+        ["#C6C3C7", 15, "white"],
+        ["#B7AFB9", 15, "white"],
+        ["#9E92A1", 15, "white"],
+        ["#806D87", 15, "white"],
+        ["#67556E", 15, "white"],
+        ["#4D3A54", 15, "white"],
+        ["#331E3B", 15, "white"],
+        ["#1A0821", 15, "white"],
+    ]
+
+    background = grey[10]
+    foreground = grey[0]
+
+    error = red
+    warning = yellow
+    info = orange
+    hint = blue
+
+    search = green
+    symbol = magenta
 
     # Step 3: highlights
     #
@@ -111,16 +114,25 @@
     highlights = [
         [ "Normal", background, foreground, "NONE" ],
         [ "NormalFloat", background, foreground, "NONE" ],
-        [ "NormalNC", blurred_background, foreground, "NONE"],
+        [ "NormalNC", grey[8], foreground, "NONE"],
         [ "NonText", "NONE", "NONE", "NONE" ],
         [ "Comment", "NONE", "NONE", "bold" ],
         [ "Constant", "NONE", "NONE", "NONE" ],
         [ "Error", "NONE", "NONE", "NONE" ],
-        [ "CocErrorHighlight", error_highlight, "NONE", "NONE" ],
-        [ "CocWarningHighlight", warning_highlight, "NONE", "NONE" ],
-        [ "CocInfoHighlight", info_highlight, "NONE", "NONE" ],
-        [ "CocHintHighlight", info_highlight, "NONE", "NONE" ],
-        [ "CocHighlightText", symbol_highlight, "NONE", "NONE" ],
+        [ "CocErrorHighlight", darkred, error, "NONE" ],
+        [ "CocErrorSign", darkred, red, "NONE" ],
+        [ "CocWarningSign", darkyellow, yellow, "NONE" ],
+        [ "CocHintSign", darkblue, blue, "NONE" ],
+        [ "CocInfoSign", darkorange, orange, "NONE" ],
+        [ "CocErrorVirtualText", "NONE", darkred, "NONE" ],
+        [ "CocWarningVirtualText", "NONE", darkyellow, "NONE" ],
+        [ "CocHintVirtualText", "NONE", darkblue, "NONE" ],
+        [ "CocInfoVirtualText", "NONE", darkorange, "NONE" ],
+        [ "CocWarningHighlight", darkyellow, warning, "NONE" ],
+        [ "CocInfoHighlight", darkorange, info, "NONE" ],
+        [ "CocHintHighlight", darkblue, hint, "NONE" ],
+        [ "CocHighlightText", darkmagenta, symbol, "NONE" ],
+        [ "CocCodeLens", "NONE", grey[7] ],
         [ "Identifier", "NONE", "NONE", "NONE" ],
         [ "Ignore", "NONE", "NONE", "NONE" ],
         [ "PreProc", "NONE", "NONE", "NONE" ],
@@ -128,26 +140,26 @@
         [ "Statement", "NONE", "NONE", "NONE" ],
         [ "String", "Constant" ],
         [ "Number", "Constant" ],
-        [ "Todo", "NONE", "NONE", "NONE" ],
+        [ "Todo", "NONE", "NONE" "NONE" ],
         [ "Type", "NONE", "NONE", "NONE" ],
         [ "Underlined", "NONE", "NONE", "NONE" ],
-        [ "StatusLine", light_background, "NONE", "NONE" ],
-        [ "StatusLineNC", light_background, "NONE", "NONE" ],
-        [ "VertSplit", "NONE", light_background, "NONE" ],
+        [ "StatusLine", grey[9], "NONE", "NONE" ],
+        [ "StatusLineNC", grey[7], "NONE", "NONE" ],
+        [ "VertSplit", "NONE", grey[3], "NONE" ],
         [ "TabLine", "NONE", "NONE", "NONE" ],
         [ "TabLineFill", "NONE", "NONE", "NONE" ],
         [ "TabLineSel", "NONE", "NONE", "NONE" ],
         [ "Title", "NONE", "NONE", "NONE" ],
-        [ "CursorLine", extra_light_background, "NONE", "NONE" ],
-        [ "LineNr", light_background, "NONE", "NONE" ],
-        [ "CursorLineNr", foreground, light_background, "NONE" ],
+        [ "CursorLine", grey[9], "NONE", "NONE" ],
+        [ "LineNr", "NONE", "NONE", "NONE" ],
+        [ "CursorLineNr", "NONE", "NONE", "NONE" ],
         [ "helpLeadBlank", "NONE", "NONE", "NONE" ],
         [ "helpNormal", "NONE", "NONE", "NONE" ],
-        [ "Visual", "NONE", "NONE", "NONE" ],
-        [ "VisualNOS", "NONE", "NONE", "NONE" ],
-        [ "Pmenu", foreground, background, "NONE" ],
+        [ "Visual", blue, "NONE", "NONE" ],
+        [ "VisualNOS", blue, "NONE", "NONE" ],
+        [ "Pmenu", foreground, darkblue, "NONE" ],
         [ "PmenuSbar", "NONE", "NONE", "NONE" ],
-        [ "PmenuSel", red, green, "NONE" ],
+        [ "PmenuSel", blue, background, "NONE" ],
         [ "PmenuThumb", "NONE", "NONE", "NONE" ],
         [ "FoldColumn", "NONE", "NONE", "NONE" ],
         [ "Folded", "NONE", "NONE", "NONE" ],
@@ -157,16 +169,16 @@
         [ "DiffChange", "NONE", "NONE", "NONE" ],
         [ "DiffDelete", "NONE", "NONE", "NONE" ],
         [ "DiffText", "NONE", "NONE", "NONE" ],
-        [ "IncSearch", search_highlight, "NONE", "bold" ],
-        [ "Search", search_highlight, "NONE", "NONE" ],
+        [ "IncSearch", "NONE", green, "bold" ],
+        [ "Search", darkgreen, green, "NONE" ],
         [ "Directory", "NONE", "NONE", "NONE" ],
-        [ "MatchParen", paren_highlight, "NONE", "NONE" ],
-        [ "SpellBad", "NONE", "NONE", "NONE", red ],
-        [ "SpellCap", "NONE", "NONE", "NONE", blue ],
-        [ "SpellLocal", "NONE", "NONE", "NONE", magenta ],
-        [ "SpellRare", "NONE", "NONE", "NONE", cyan ],
+        [ "MatchParen", darkmagenta, magenta, "NONE" ],
+        [ "SpellBad", "NONE", "NONE", "NONE"],
+        [ "SpellCap", "NONE", "NONE", "NONE"],
+        [ "SpellLocal", "NONE", "NONE", "NONE"],
+        [ "SpellRare", "NONE", "NONE", "NONE"],
         [ "ColorColumn", "NONE", "NONE", "NONE" ],
-        [ "SignColumn", light_background, "NONE", "NONE" ],
+        [ "SignColumn", grey[9], "NONE", "NONE" ],
         [ "ErrorMsg", "NONE", "NONE", "NONE" ],
         [ "ModeMsg", "NONE", "NONE", "NONE" ],
         [ "MoreMsg", "NONE", "NONE", "NONE" ],
@@ -175,8 +187,16 @@
         [ "Cursor", "NONE", "NONE", "NONE" ],
         [ "CursorColumn", "NONE", "NONE", "NONE" ],
         [ "QuickFixLine", "NONE", "NONE", "NONE" ],
-        [ "StatusLineTerm", light_background, "NONE", "NONE" ],
-        [ "StatusLineTermNC", light_background, "NONE", "NONE" ]
+        [ "StatusLineTerm", background, "NONE", "NONE" ],
+        [ "StatusLineTermNC", background, "NONE", "NONE" ],
+        [ "RainbowLevel1", grey[1], "NONE", "NONE" ],
+        [ "RainbowLevel3", grey[1], "NONE", "NONE" ],
+        [ "RainbowLevel5", grey[1], "NONE", "NONE" ],
+        [ "RainbowLevel7", grey[1], "NONE", "NONE" ],
+        [ "RainbowLevel9", grey[1], "NONE", "NONE" ],
+        [ "RainbowLevel11", grey[1], "NONE", "NONE" ],
+        [ "RainbowLevel13", grey[1], "NONE", "NONE" ],
+        [ "RainbowLevel15", grey[1], "NONE", "NONE" ],
     ]
 
     # Define the color palette used by :terminal when in GUI Vim
@@ -186,22 +206,22 @@
     #
     # The expected values are colors defined in step 2.
     terminal_ansi_colors = [
-        black,
+        grey[0],
         darkred,
         darkgreen,
         darkyellow,
         darkblue,
         darkmagenta,
         darkcyan,
-        gray,
-        darkgray,
+        grey[10],
+        grey[3],
         red,
         green,
         yellow,
         blue,
         magenta,
         cyan,
-        white
+        grey[8]
     ]
 
     # Step 4: generation
