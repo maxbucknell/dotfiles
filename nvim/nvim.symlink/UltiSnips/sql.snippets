@@ -1,0 +1,31 @@
+snippet newaccesscontroller
+insert into access_controller(
+	name,
+	version,
+	"versionCode",
+	"versionNumber",
+	"prettyName",
+	"prettyDescription",
+	direction,
+	"v1Secret",
+	"siteId",
+	password,
+	"alertThresholdDisconnected",
+	"alertThresholdConnected",
+	"alertEnabled"
+) values(
+	'GK$1',
+	2,
+	2,
+	3,
+	'GK$1',
+	'',
+	'INGRESS',
+	'$2',
+	$3,
+	'$4',
+	3600,
+	3600,
+	False
+);
+endsnippet

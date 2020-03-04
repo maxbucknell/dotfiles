@@ -1,12 +1,30 @@
 snippet mochatest
-import 'mocha';
-import { expect } from 'chai';
+import 'mocha'
+import { expect } from 'chai'
 
-import $1 from '$2';
+import $1 from '$2'
 
 describe('$3', () => {
-	it('should $4', () => {
+	it('should $4', ${5:async }() => {
 		$0
-	});
-});
+	})
+})
+endsnippet
+
+snippet describe
+describe('$1', () => {
+	it('should $2', ${3:async }() => {
+		$0
+	})
+})
+endsnippet
+
+snippet it
+it('should $1', () => {
+	$0
+})
+endsnippet
+
+snippet import
+import { $2 } from '$1'$0
 endsnippet

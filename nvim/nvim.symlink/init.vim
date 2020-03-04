@@ -58,15 +58,23 @@ set signcolumn=yes
 set cursorline
 
 " Statuslines!
+set laststatus=2
+set statusline=—[%.30t]—%y—
+set fillchars=stl:—
+set fillchars+=stlnc:—
 
-" Input supports patched fonts already \o/
-let g:airline_powerline_fonts = 1
+function! ShowMiniPath(timer)
+    set statusline=-[%.30t]-%y-
+endfunction
 
-" Made a custom theme for it didn't I?
-let g:airline_theme='maxbucknell'
+function! ShowFullPath()
+    echo ''
+    set statusline=-[%f]-%y-
 
-let g:airline_left_sep='|'
-let g:airline_right_sep='|'
+    call timer_start(6000, 'ShowMiniPath')
+endfunction
+
+nnoremap <leader>f :call ShowFullPath()<cr>
 
 " Wrap lines
 "
@@ -195,17 +203,18 @@ tnoremap hhh h<C-\><C-n>
 vnoremap hh <esc>
 vnoremap hhh h<esc>
 
-" Fuzzy finding
-nnoremap <leader>o :Files<cr>
-nnoremap <leader>b :Buffers<cr>
-
 " Go to most recently edited file
 nnoremap <leader><leader> <c-^>
+
+" Insert new lines
+nnoremap <cr> i<cr><esc>
 
 " Ultisnips, y'all
 " I previously configured tab as a trigger here, but now I just
 " use CoC
-let g:UltiSnipsSnippetDirectories=[$VIMCONFIG.'/UltiSnips']
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
 " Colorizer adds little colour swatches next to CSS colours
 let g:colorizer_auto_filetype='css,less,scss,sass'
@@ -222,25 +231,12 @@ let g:colorizer_use_virtual_text = 1
 " then a whole separate process for linting, when both require the same
 " inputs. Waste of energy.
 
-" Some autocommands to handle Coc
-augroup Coc
-    autocmd!
-
-    autocmd CursorHold * silent call CocActionAsync('highlight')
-augroup END
-
 " Remap semi-colon to colon.
 "
 " Colon is the starting point of a lot of actions in Vim. And I
 " shouldn't have to hold a modifier key to access so much
 " essential functionality.
 noremap ; :
-noremap ;; ;
-
-" Git blame
-"
-" I used to do this by just filling in my buffer, but this is nicer.
-nnoremap <leader>a :Gblame<cr>
 
 " What the hell is ex mode
 "
@@ -253,8 +249,8 @@ nnoremap _ :-1d<cr>pk
 
 " Updating Vimrc
 "
-" Open my vimrc in a floating window over my workspace when I want to edit it.
-nnoremap <leader>ev :call OpenModalWindow(OpenFileHidden($MYVIMRC))<cr>
+" Open my vimrc in a new window
+nnoremap <leader>ev :tabedit $MYVIMRC<cr>
 
 " Second part, every time I write to $MYVIMRC, source it for me.
 augroup updateVimrc
@@ -263,80 +259,14 @@ augroup updateVimrc
     autocmd BufWritePost $MYVIMRC :source $MYVIMRC
 augroup END
 
-" When I have my Vimrc open is when I most frequently open the help menu. This
-" renders as a split under the floating window, so I need to move it to a
-" floating window over my Vimrc
-
-function! OpenHelpWindow()
-    if &buftype == 'help'
-        if exists('g:help_window_opening')
-            return
-        else
-            let g:help_window_opening = v:true
-        endif
-
-        " Stuff to do now we know that help is open in a split
-        let help_buffer = bufnr('%')
-        let win_number = bufwinnr('%')
-
-        call OpenModalWindow(bufnr('%'))
-
-        execute win_number . 'wincmd c'
-
-        unlet g:help_window_opening
-    endif
-endfunc
-
-augroup helpWindow
-    autocmd!
-
-    autocmd BufEnter *.txt call OpenHelpWindow()
-augroup END
-
-" Zoom the current split
-"
-" Tmux has a feature <prefix>-z, that will zoom the current pane. I decided
-" that this was a useful enough feature to have in Vim as well. Voila.
-function! ZoomOrUnzoom()
-    if exists('g:is_zoomed')
-        unlet g:is_zoomed
-        execute "wincmd ="
-    else
-        let g:is_zoomed = 'true'
-        execute "wincmd _"
-        execute "wincmd \|"
-    endif
-endfunc
-
-" Map it to <space>z
-nnoremap <leader>z :call ZoomOrUnzoom()<cr>
-
-" Making splits a little bit better.
-"
-" I open splits before opening files because I can never remember the
-" keyboard incantations in FZF to open in splits, but I get annoyed for
-" the brief moment that the same buffer was shown when I do :vsp or :sp.
-"
-" I don't have to have this problem anymore.
-nnoremap <leader>v :vnew<cr>
-nnoremap <leader>s :new<cr>
+" Focus mode
+nmap <leader>z <Plug>ZoomOrUnzoom
 
 " And make moving around splits just a little bit sane.
 nnoremap <c-j> <c-w><c-j>
 nnoremap <c-k> <c-w><c-k>
 nnoremap <c-h> <c-w><c-h>
 nnoremap <c-l> <c-w><c-l>
-
-" I had this running as an autocommand on resizes, but it was buggy so it's
-" disabled at the moment.
-function! HandleResize()
-    if exists('g:is_zoomed')
-        execute "wincmd _"
-        execute "wincmd \|"
-    else
-        execute "wincmd ="
-    endif
-endfunc
 
 " A load of default file runners. These need to be refactored, so that they
 " are in filetype plugins, and would probably be better served by being bound
@@ -386,6 +316,9 @@ augroup textFormatting
     " So too do Go files, apparently.
     autocmd FileType go setl noet sw=8 sts=8 ts=8
 
+    " Bazel messes with this apparently
+    autocmd FileType bzl setl et sw=4 sts=4 ts=4
+
     " Hard wrap prose
     "
     " This will automatically insert a new line in insert mode when a
@@ -411,25 +344,6 @@ augroup terminalInsert
     autocmd TermOpen term://* startinsert
 augroup END
 
-" Make directories in a filename if they don't exist.
-function! EnsureDirExists ()
-    let required_dir = expand("%:h")
-    if !isdirectory(required_dir)
-        try
-            call mkdir( required_dir, 'p' )
-        catch
-          echom "Could not create directory"
-          exit
-        endtry
-    endif
-endfunction
-
-augroup AutoMkdir
-    autocmd!
-
-    autocmd BufNewFile * :call EnsureDirExists()
-augroup END
-
 augroup WindowManagement
     autocmd!
 
@@ -437,138 +351,8 @@ augroup WindowManagement
     autocmd WinLeave * setl nornu nocul syntax=off
 augroup END
 
-" Show syntax highlighting groups for word under cursor
-"
-" This is useful for finding rogue elements I forgot in my colour
-" scheme.
-function! <SID>SynStack()
-  if !exists("*synstack")
-    return
-  endif
-  " echo map(synstack(line('.'), col('.')), 'synIDattr(v:val,"name")')
+nnoremap <leader>\ <Plug>SynStack
 
-  echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
-              \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
-              \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"
-endfunc
-
-nnoremap <leader>\ :call <SID>SynStack()<CR>
-
-" Open a file as a hidden buffer
-"
-" Because Vim is single threaded, we can open this in the foreground, and
-" replace it with the old buffer, and the screen won't change until we finish
-" executing, at which point we are back where we began.
-function! OpenFileHidden(file)
-    " Store the current buffer number
-    let oldbufnr = bufnr('%')
-
-    " Open the given file for editing
-    execute 'edit ' . a:file
-
-    " Store the new buffer number, because we return it
-    let newbufnr = bufnr('%')
-
-    " If they are equal, it means it was an empty buffer before and we need to
-    " open a new buffer instead of restoring the old one.
-    if oldbufnr == newbufnr
-        enew
-    else
-        execute oldbufnr . 'buffer'
-    endif
-
-    return newbufnr
-endfunc
-
-let g:modal_windows = []
-
-function! OpenModalWindow(bufnr)
-    let width = &columns - 10 - 5
-    let height = &lines - 10 - 3
-
-    let window_options = {
-        \ 'relative': 'editor',
-        \ 'height': height,
-        \ 'width': width,
-        \ 'row': 6,
-        \ 'col': 9
-    \ }
-
-    let g:ignore_modal_focus = v:true
-
-    let newwinnr = nvim_open_win(a:bufnr, v:true, window_options)
-    call insert(g:modal_windows, newwinnr)
-
-    unlet g:ignore_modal_focus
-
-    return newwinnr
-endfunc
-
-" Check if a modal window is opened, and if so, focus it when switching
-" buffers
-function! FocusModalWindow()
-    if exists('g:ignore_modal_focus') || !exists('g:modal_windows[0]')
-        return
-    endif
-
-    let current_modal = g:modal_windows[0]
-    echo current_modal
-    let current_winnr = nvim_get_current_win()
-    echo current_winnr
-
-    if current_modal != current_winnr
-        call nvim_set_current_win(current_modal)
-    else
-
-    endif
-endfunc
-
-augroup manageModalWindows
-    autocmd!
-
-  " autocmd BufEnter * call FocusModalWindow()
-augroup END
-
-" Remind me to update my plugins every so often. Run a function at startup
-" that checks when they were last updated.
-let g:plug_update_file = '~/dotfiles/nvim/nvim.symlink/plugged-update'
-" Update every two weeks
-let g:plug_update_timeout = 60 * 60 * 24 * 14
-
-function! NeedsUpdate(update_file)
-    let now = system('date +%s')
-
-    if !filereadable(a:update_file)
-        return v:true
-    endif
-
-    let contents = readfile(a:update_file)
-    if !exists('contents[0]')
-        return v:true
-    endif
-
-    let updated_at = contents[0]
-    let updated_threshold = now - g:plug_update_timeout
-
-    if updated_at == '' || updated_at < updated_threshold
-        return v:true
-    endif
-
-    return v:false
-endfunc
-
-function! UpdatePlugReminder()
-    let file = expand(g:plug_update_file)
-    let now = system('date +%s')
-    if NeedsUpdate(file)
-        let msg = "Your plugins haven't been updated for over two weeks."
-        let msg .= "\n" . "Update plugins now? : "
-        if input(msg, "Y") == "Y"
-            PlugUpdate
-            call writefile([now], file)
-        endif
-    endif
-endfunc
 
 function! StartUp()
     call UpdatePlugReminder()

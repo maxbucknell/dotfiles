@@ -1,8 +1,13 @@
 {
+    "diagnostic.warningSign": "  ",
+    "diagnostic.hintSign": "  ",
+    "diagnostic.errorSign": "  ",
+    "diagnostic.infoSign": "  ",
     "tslint.configFile": "config/tslint.json",
     "coc.preferences.formatOnSaveFiletypes": ["javascript", "typescript", "typescript.tsx"],
+    "diagnostic.virtualText": true,
     "coc.preferences.useQuickfixForLocations": true,
-    "codeLens.enable": true,
+    "codeLens.enable": false,
     "languageserver": {
         "golang": {
             "command": "gopls",
