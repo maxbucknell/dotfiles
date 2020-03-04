@@ -9,7 +9,7 @@
   email = me@maxbucknell.com
 
 [alias]
-  dc = diff --cached
+  dc = diff --staged
   di = diff
   amend = commit --amend
   aa = add --all
@@ -23,7 +23,9 @@
   current-branch = rev-parse --abbrev-ref HEAD
   cl = clone
   ll = !max-git-log
+  uu = !max-set-upstream
   whodunnit = blame
+  peek = log -1
 
 [color]
   ui = auto
@@ -38,3 +40,8 @@
   user = maxbucknell
 [credential]
   helper = osxkeychain
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
