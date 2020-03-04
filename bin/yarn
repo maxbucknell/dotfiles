@@ -1,0 +1,14 @@
+#! /usr/bin/env bash
+
+set -euo pipefail
+
+function main {
+    if findup "WORKSPACE"
+    then
+        bazelisk run @nodejs//:yarn -- "$@"
+    else
+        yarn "$@"
+    fi
+}
+
+main "$@"
