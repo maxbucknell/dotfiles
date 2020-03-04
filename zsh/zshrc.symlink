@@ -16,9 +16,6 @@ PATH="/usr/bin:$PATH"
 PATH="/usr/local/sbin:$PATH"
 PATH="/usr/local/bin:$PATH"
 
-# Local path
-PATH="$HOME/dotfiles/bin:$PATH"
-
 # Composer (PHP)
 PATH="$HOME/.composer/vendor/bin:$PATH"
 export COMPOSER_HOME="$HOME/.composer"
@@ -39,6 +36,11 @@ PATH="$GOBIN:$PATH"
 
 # Yarn ffs
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+
+# Local path
+PATH="$HOME/dotfiles/bin/misc:$PATH"
+PATH="$HOME/dotfiles/bin:$PATH"
+PATH="$HOME/bin:$PATH"
 
 ## Completion
 
