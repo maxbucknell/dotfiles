@@ -31,8 +31,8 @@ call plug#begin()
     " CSS Colour previews
     Plug 'maxbucknell/Colorizer', { 'branch': 'neovim-virtual-text' }
 
-    " Statusline
-    Plug 'vim-airline/vim-airline'
+    " JSON with comments, just for TypeScript
+    Plug 'kevinoid/vim-jsonc'
 call plug#end()
 
 " I have a true colour terminal, and I will have true colours in my Vim
