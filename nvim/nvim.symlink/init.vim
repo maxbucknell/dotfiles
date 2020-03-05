@@ -47,6 +47,7 @@ set termguicolors
 set nobackup
 set nowritebackup
 set noswapfile
+set colorcolumn=80
 
 " Show things faster, particularly error messages
 set updatetime=300
@@ -62,19 +63,10 @@ set laststatus=2
 set statusline=—[%.30t]—%y—
 set fillchars=stl:—
 set fillchars+=stlnc:—
+set fillchars+=eob:\ 
 
-function! ShowMiniPath(timer)
-    set statusline=-[%.30t]-%y-
-endfunction
-
-function! ShowFullPath()
-    echo ''
-    set statusline=-[%f]-%y-
-
-    call timer_start(6000, 'ShowMiniPath')
-endfunction
-
-nnoremap <leader>f :call ShowFullPath()<cr>
+" Don't show that annoying intro message when Vim starts
+set shortmess=I
 
 " Wrap lines
 "
@@ -151,7 +143,6 @@ set shiftwidth=4
 set softtabstop=4
 set autoindent
 
-
 " Enable highlighting for syntax
 syntax on
 
@@ -159,7 +150,7 @@ syntax on
 filetype plugin indent on
 
 " Theme configuration
-
+" Should make this a plugin that detects file changes somehow
 let g:is_dark_mode = system("isdark")
 
 if g:is_dark_mode == "true\n"
@@ -354,12 +345,4 @@ augroup END
 nnoremap <leader>\ <Plug>SynStack
 
 
-function! StartUp()
-    call UpdatePlugReminder()
-endfunc
 
-augroup startUp
-    autocmd!
-
-    autocmd VimEnter * call StartUp()
-augroup END

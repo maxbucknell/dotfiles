@@ -76,7 +76,7 @@ if ($TERM =~ '256' || &t_Co >= 256) || has("gui_running")
     hi SpellCap ctermbg=NONE ctermfg=NONE cterm=NONE guibg=NONE guifg=NONE gui=NONE
     hi SpellLocal ctermbg=NONE ctermfg=NONE cterm=NONE guibg=NONE guifg=NONE gui=NONE
     hi SpellRare ctermbg=NONE ctermfg=NONE cterm=NONE guibg=NONE guifg=NONE gui=NONE
-    hi ColorColumn ctermbg=NONE ctermfg=NONE cterm=NONE guibg=NONE guifg=NONE gui=NONE
+    hi ColorColumn ctermbg=15 ctermfg=NONE cterm=NONE guibg=#d3d3d3 guifg=NONE gui=NONE
     hi SignColumn ctermbg=15 ctermfg=NONE cterm=NONE guibg=#d3d3d3 guifg=NONE gui=NONE
     hi ErrorMsg ctermbg=NONE ctermfg=NONE cterm=NONE guibg=NONE guifg=NONE gui=NONE
     hi ModeMsg ctermbg=NONE ctermfg=NONE cterm=NONE guibg=NONE guifg=NONE gui=NONE
@@ -156,7 +156,7 @@ elseif &t_Co == 8 || $TERM !~# '^linux' || &t_Co == 16
     hi SpellCap ctermbg=NONE ctermfg=NONE cterm=NONE
     hi SpellLocal ctermbg=NONE ctermfg=NONE cterm=NONE
     hi SpellRare ctermbg=NONE ctermfg=NONE cterm=NONE
-    hi ColorColumn ctermbg=NONE ctermfg=NONE cterm=NONE
+    hi ColorColumn ctermbg=white ctermfg=NONE cterm=NONE
     hi SignColumn ctermbg=white ctermfg=NONE cterm=NONE
     hi ErrorMsg ctermbg=NONE ctermfg=NONE cterm=NONE
     hi ModeMsg ctermbg=NONE ctermfg=NONE cterm=NONE
