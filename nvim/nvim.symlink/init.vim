@@ -152,17 +152,7 @@ syntax on
 " Enable file type detection.
 filetype plugin indent on
 
-" Theme configuration
-" Should make this a plugin that detects file changes somehow
-let g:is_dark_mode = system("isdark")
-
-if g:is_dark_mode == "true\n"
-    set background=dark
-    colorscheme maxbucknell_dark
-else
-    set background=light
-    colorscheme maxbucknell_neo
-endif
+call darkmodesocket#updateTheme()
 
 let g:go_def_mapping_enabled = 0
 
