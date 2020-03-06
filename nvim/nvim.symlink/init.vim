@@ -72,7 +72,7 @@ set fillchars+=stlnc:—
 set fillchars+=eob:\ 
 
 " Don't show that annoying intro message when Vim starts
-set shortmess=I
+set shortmess+=I
 
 " Wrap lines
 "
