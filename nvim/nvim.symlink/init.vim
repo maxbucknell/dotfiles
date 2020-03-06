@@ -10,6 +10,9 @@ call plug#begin()
     " Snippets
     Plug 'SirVer/ultisnips'
 
+    " Repeating custom motions
+    Plug 'tpope/vim-repeat'
+
     " Surround
     Plug 'tpope/vim-surround'
 
