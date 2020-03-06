@@ -33,6 +33,9 @@ call plug#begin()
 
     " JSON with comments, just for TypeScript
     Plug 'kevinoid/vim-jsonc'
+
+    " I can't believe I'm doing this.
+    Plug 'camspiers/animate.vim'
 call plug#end()
 
 " I have a true colour terminal, and I will have true colours in my Vim
