@@ -5,8 +5,8 @@
   fileMode = false
 
 [user]
-  name = Max Bucknell
-  email = me@maxbucknell.com
+	name = Max Bucknell
+	email = me@maxbucknell.com
 
 [alias]
   dc = diff --staged
@@ -26,6 +26,7 @@
   uu = !max-set-upstream
   whodunnit = blame
   peek = log -1
+  wip = commit -m 'wip' --no-verify
 
 [color]
   ui = auto

@@ -15,6 +15,7 @@
 *.swp
 GoToFile
 
+
 .idea
 
 .pick_index

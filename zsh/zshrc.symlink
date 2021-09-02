@@ -21,7 +21,7 @@ PATH="$HOME/.composer/vendor/bin:$PATH"
 export COMPOSER_HOME="$HOME/.composer"
 
 # Ruby
-PATH="/usr/local/opt/ruby/bin:/usr/local/lib/ruby/gems/2.6.0/bin:$PATH"
+PATH="/usr/local/opt/ruby/bin:/usr/local/lib/ruby/gems/2.7.0/bin:$PATH"
 
 # Python
 export PYTHONPATH="$PYTHONPATH:$HOME/dotfiles/lib/python"
@@ -41,6 +41,12 @@ export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 PATH="$HOME/dotfiles/bin/misc:$PATH"
 PATH="$HOME/dotfiles/bin:$PATH"
 PATH="$HOME/bin:$PATH"
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/maxbucknell/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/maxbucknell/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/maxbucknell/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/maxbucknell/google-cloud-sdk/completion.zsh.inc'; fi
 
 ## Completion
 
@@ -87,7 +93,7 @@ ZSH_HIGHLIGHT_STYLES[assign]='none'
 ZSH_HIGHLIGHT_STYLES[default]='none'
 
 # Set editor
-export EDITOR="/usr/local/bin/nvim"
+export EDITOR="/usr/local/bin/nova"
 
 # Get the first part of the hostname
 #
@@ -168,7 +174,7 @@ setopt extended_history
 setopt hist_lex_words
 
 # Liquid Prompt!
-source "$HOME/.zsh/liquidprompt/liquidprompt"
+[[ $- = *i* ]] && source "$HOME/.zsh/liquidprompt/liquidprompt"
 
 # Vim!
 alias vim=nvim
@@ -181,6 +187,9 @@ alias ls=exa
 
 # Bat!
 alias cat='bat --theme=GitHub'
+
+# Bazel -__-
+alias bazel='bazelisk'
 
 # Use fzf to select a running tmux session to attach to
 function select_session_interactive {
@@ -219,9 +228,4 @@ function select_session {
 
 # select_session
 
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/maxbucknell/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/maxbucknell/google-cloud-sdk/path.zsh.inc'; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/Users/maxbucknell/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/maxbucknell/google-cloud-sdk/completion.zsh.inc'; fi
 

@@ -3,11 +3,14 @@
 set -euo pipefail
 
 function main {
-    if findup "WORKSPACE"
+    local w=$(dirname $(findup WORKSPACE))
+    local p=$(dirname $(findup package.json))
+
+    if [ "$w" == "$p" ]
     then
         bazelisk run @nodejs//:yarn -- "$@"
     else
-        yarn "$@"
+        /usr/local/bin/yarn "$@"
     fi
 }
 

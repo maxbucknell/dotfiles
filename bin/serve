@@ -4,7 +4,7 @@ function main {
   local arg="${1:-.}"
   local path="$(cd $arg;pwd)"
 
-  docker run --rm -v "$path:/usr/share/nginx/html" -p "80:80" nginx:alpine
+  docker run --rm -v "$path:/usr/share/nginx/html" -p "1337:80" nginx:alpine
 }
 
 main $1
