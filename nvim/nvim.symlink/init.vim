@@ -1,48 +1,10 @@
-" Let's get the plugins out of the way first, shall we?
-call plug#begin()
-    " Fuzzy finding
-    Plug '/usr/local/opt/fzf'
-    Plug 'junegunn/fzf.vim'
-
-    " Completion
-    Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
-
-    " Snippets
-    Plug 'SirVer/ultisnips'
-
-    " Repeating custom motions
-    Plug 'tpope/vim-repeat'
-
-    " Surround
-    Plug 'tpope/vim-surround'
-
-    " Git integration
-    Plug 'tpope/vim-fugitive'
-
-    " Comments
-    Plug 'tpope/vim-commentary'
-
-    " (Java|Type)Script
-    Plug 'HerringtonDarkholme/yats.vim'
-
-    " Go
-    Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
-
-    " Rust
-    Plug 'rust-lang/rust.vim'
-
-    " CSS Colour previews
-    Plug 'maxbucknell/Colorizer', { 'branch': 'neovim-virtual-text' }
-
-    " JSON with comments, just for TypeScript
-    Plug 'kevinoid/vim-jsonc'
-
-    " I can't believe I'm doing this.
-    Plug 'camspiers/animate.vim'
-call plug#end()
-
 " I have a true colour terminal, and I will have true colours in my Vim
-set termguicolors
+"
+" UPDATE: While true, I actually wnat to use only basic colours for Vim. I
+" want it to inherit styles from my terminal, so I don't need to worry about
+" changing the colorscheme when my system appearance transitions. Too much
+" hassle.
+" set termguicolors
 
 " Disable creation of swap files.
 "
@@ -59,7 +21,8 @@ set colorcolumn=80
 set updatetime=300
 
 " I always want a sign column
-set signcolumn=yes
+" I am not using Vim as my main editor (now), so I am disabling this
+" set signcolumn=yes
 
 " Trying this bizarre method of self location again.
 set cursorline
@@ -150,14 +113,13 @@ set softtabstop=4
 set autoindent
 
 " Enable highlighting for syntax
-syntax on
+syntax off
+hi LineNr ctermfg=4
+hi CursorLineNr ctermfg=7 ctermbg=0
+hi Search ctermfg=7 ctermbg=8
 
 " Enable file type detection.
 filetype plugin indent on
-
-call darkmodesocket#updateTheme()
-
-let g:go_def_mapping_enabled = 0
 
 " Lead with the biggest button on the motherfucking keyboard
 let mapleader = "\<space>"
@@ -179,44 +141,21 @@ let localmapleader = "\\"
 "
 " To encourage me to adopt the new style, I disable escape. That one is
 " sure to mess up someone not familiar with my setup.
-inoremap hh <esc>
-inoremap hhh h<esc>
+"
+" UPDATE: As a Qwerty user (now), I can use jk
+inoremap jk <esc>
 
 " Terminal mode setting
-tnoremap hh <C-\><C-n>
-tnoremap hhh h<C-\><C-n>
+tnoremap jk <C-\><C-n>
 
 " Visual mode setting
-vnoremap hh <esc>
-vnoremap hhh h<esc>
+vnoremap jk <esc>
 
 " Go to most recently edited file
 nnoremap <leader><leader> <c-^>
 
 " Insert new lines
 nnoremap <cr> i<cr><esc>
-
-" Ultisnips, y'all
-" I previously configured tab as a trigger here, but now I just
-" use CoC
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<tab>"
-let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
-
-" Colorizer adds little colour swatches next to CSS colours
-let g:colorizer_auto_filetype='css,less,scss,sass'
-let g:colorizer_colornames = 0
-let g:colorizer_use_virtual_text = 1
-
-" Coc
-"
-" I'm not sure that I like Coc, its configuration feels very "unvimmy", but it
-" is the only completion engine that integrates well with language servers and
-" handles other language server tasks, like linting.
-"
-" The alternative would be to use some completion plugin (like deoplete), and
-" then a whole separate process for linting, when both require the same
-" inputs. Waste of energy.
 
 " Remap semi-colon to colon.
 "
@@ -249,49 +188,11 @@ augroup END
 " Focus mode
 nmap <leader>z <Plug>ZoomOrUnzoom
 
-" And make moving around splits just a little bit sane.
+" And make moving around splits just a little bit easier
 nnoremap <c-j> <c-w><c-j>
 nnoremap <c-k> <c-w><c-k>
 nnoremap <c-h> <c-w><c-h>
 nnoremap <c-l> <c-w><c-l>
-
-" A load of default file runners. These need to be refactored, so that they
-" are in filetype plugins, and would probably be better served by being bound
-" to the localleader.
-function! RunTypeScript()
-    silent !clear
-    execute "!$(findroot package.json)/node_modules/.bin/mocha -r ts-node/register -R dot %"
-endfunction
-
-function! RunJavaScript()
-    silent !clear
-    execute "!$(findroot package.json)/node_modules/.bin/mocha -R dot %"
-endfunction
-
-function! RunPython()
-    silent !clear
-    execute "!python %"
-endfunction
-
-function! RunRust()
-    silent !clear
-    execute "!cargo run"
-endfunction
-
-function! OpenInMarked()
-    silent !clear
-    execute '!open "x-marked://open?file=%:p"'
-endfunction
-
-augroup runFiles
-    autocmd!
-
-    autocmd FileType typescript nnoremap <localleader>r :call RunTypeScript()<cr>
-    autocmd FileType javascript nnoremap <localleader>r :call RunJavaScript()<cr>
-    autocmd FileType python nnoremap <localleader>r :call RunPython()<cr>
-    autocmd FileType rust nnoremap <localleader>r :call RunRust()<cr>
-    autocmd FileType markdown nnoremap <localleader>r :call OpenInMarked()<cr>
-augroup END
 
 " Text formatting rules for various files.
 augroup textFormatting
@@ -329,13 +230,6 @@ augroup END
 augroup terminalInsert
     " Automatically enter terminal mode when summoning a terminal
     autocmd TermOpen term://* startinsert
-augroup END
-
-augroup WindowManagement
-    autocmd!
-
-    autocmd WinEnter * setl rnu cul syntax=on
-    autocmd WinLeave * setl nornu nocul syntax=off
 augroup END
 
 nnoremap <leader>\ <Plug>SynStack

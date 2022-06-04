@@ -1,6 +1,4 @@
 function! StartUp()
-    call darkmodesocket#listenForLights()
-    call UpdatePlugReminder()
 endfunc
 
 augroup startUp
