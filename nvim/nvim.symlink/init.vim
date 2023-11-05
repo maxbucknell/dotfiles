@@ -144,12 +144,12 @@ let localmapleader = "\\"
 "
 " UPDATE: As a Qwerty user (now), I can use jk
 inoremap jk <esc>
-
-" Terminal mode setting
 tnoremap jk <C-\><C-n>
-
-" Visual mode setting
 vnoremap jk <esc>
+
+inoremap <esc> <nop>
+tnoremap <esc> <nop>
+vnoremap <esc> <nop>
 
 " Go to most recently edited file
 nnoremap <leader><leader> <c-^>
