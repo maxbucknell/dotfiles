@@ -20,6 +20,7 @@ PATH="/usr/local/bin:$PATH"
 export HOMEBREW_PREFIX="/opt/homebrew"
 export HOMEBREW_CELLAR="/opt/homebrew/Cellar"
 export HOMEBREW_REPOSITORY="/opt/homebrew"
+export HOMEBREW_NO_ENV_HINTS=1
 
 export MANPATH="/opt/homebrew/share/man${MANPATH+:$MANPATH}:"
 export INFOPATH="/opt/homebrew/share/info:${INFOPATH:-}"
@@ -30,33 +31,31 @@ PATH="/opt/homebrew/bin:/opt/homebrew/sbin:$PATH}"
 PATH="$HOME/.composer/vendor/bin:$PATH"
 export COMPOSER_HOME="$HOME/.composer"
 
-# Ruby
-PATH="/usr/local/opt/ruby/bin:/usr/local/lib/ruby/gems/2.7.0/bin:$PATH"
-
 # Python
 export PYTHONPATH="$PYTHONPATH:$HOME/dotfiles/lib/python"
 
 # Rust
-# source $HOME/.cargo/env
+source $HOME/.cargo/env
+
+# Ruby (2.7)
+export PATH="/opt/homebrew/lib/ruby/gems/2.7.0/bin:$PATH"
 
 # Go
 export GOPATH="$HOME/go"
 export GOBIN="$GOPATH/bin"
 PATH="$GOBIN:$PATH"
 
-# Yarn ffs
+# JS stuff
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+export PATH="$HOME/.rover/bin:$PATH"
 
 # Local path
 PATH="$HOME/dotfiles/bin/misc:$PATH"
 PATH="$HOME/dotfiles/bin:$PATH"
 PATH="$HOME/bin:$PATH"
 
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/maxbucknell/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/maxbucknell/google-cloud-sdk/path.zsh.inc'; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/Users/maxbucknell/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/maxbucknell/google-cloud-sdk/completion.zsh.inc'; fi
+# Playdate!
+export PLAYDATE_SDK_PATH="$HOME/Developer/PlaydateSDK"
 
 ## Completion
 
@@ -237,3 +236,9 @@ function select_session {
 # fi
 
 # select_session
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/opt/max/google-cloud-sdk/path.zsh.inc' ]; then . '/opt/max/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/opt/max/google-cloud-sdk/completion.zsh.inc' ]; then . '/opt/max/google-cloud-sdk/completion.zsh.inc'; fi
