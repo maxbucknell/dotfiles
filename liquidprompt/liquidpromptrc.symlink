@@ -93,7 +93,7 @@ LP_ENABLE_VCS_ROOT=0
 
 # Enable the Git special features.
 # Recommended value is 1
-LP_ENABLE_GIT=0
+LP_ENABLE_GIT=1
 
 # Enable the Subversion special features.
 # Recommended value is 1
@@ -164,7 +164,7 @@ LP_DISABLED_VCS_PATH=""
 
 LP_COLOR_MARK=""
 LP_COLOR_USER_LOGGED=""
-LP_COLOR_TIME=""
+LP_COLOR_RUNTIME="$MAGENTA"
 
 LP_COLOR_WRITE="$GREEN"
 LP_COLOR_NOWRITE="$RED"
