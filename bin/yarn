@@ -8,7 +8,7 @@ function main {
 
     if [ "$w" == "$p" ]
     then
-        bazelisk run @nodejs//:yarn -- "$@"
+        bazelisk run @yarn//:yarn -- "$@"
     else
         /usr/local/bin/yarn "$@"
     fi
