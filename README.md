@@ -7,7 +7,6 @@ maintaining:
 
 + zsh
 + git
-+ bin
 
 In addition to this, you can find a few little scripts I use in the `bin`
 directory.

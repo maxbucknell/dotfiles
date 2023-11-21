@@ -3,7 +3,7 @@ source /etc/zshrc
 # Secret stuff
 source $HOME/.zsh/secret
 
-# Fuzzy finder! 
+# Fuzzy finder!
 source $HOME/.zsh/fzf.zsh
 export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.git/*"'
 
@@ -192,10 +192,10 @@ alias vi=nvim
 alias v=nvim
 
 # Exa!
-alias ls=exa
+alias ls=eza
 
 # Bat!
-alias cat='bat --theme=GitHub'
+alias cat="bat --color never"
 
 # Bazel -__-
 alias bazel='bazelisk'

@@ -59,7 +59,7 @@ LP_USER_ALWAYS=1
 # Display the percentages of load/batteries along with their
 # corresponding marks. Set to 0 to only print the colored marks.
 # Defaults to 1 (display percentages)
-LP_PERCENTS_ALWAYS=0
+LP_ALWAYS_DISPLAY_VALUES=0
 
 # Use the permissions feature and display a red ':' before the prompt to show
 # when you don't have write permission to the current directory.
