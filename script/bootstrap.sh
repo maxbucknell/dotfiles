@@ -109,8 +109,14 @@ install_dotfiles () {
 
   for src in $(find "$DOTFILES_ROOT" -maxdepth 2 -name '*.symlink')
   do
-    dst="$HOME/.$(basename "${src%.*}")"
-    link_file "$src" "$dst"
+    if [[ "$src" == *.xdg.symlink ]]
+    then
+      dst="$HOME/.config/$(basename "${src%.xdg.symlink}")"
+      link_file "$src" "$dst"
+    else
+      dst="$HOME/.$(basename "${src%.symlink}")"
+      link_file "$src" "$dst"
+    fi
   done
 }
 
