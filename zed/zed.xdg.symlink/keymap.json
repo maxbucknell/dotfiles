@@ -1,0 +1,45 @@
+[
+    {
+        "bindings": {
+            "cmd-o": "file_finder::Toggle"
+        }
+    },
+    {
+        "context": "Pane",
+        "bindings": {
+            "ctrl-h": ["workspace::ActivatePaneInDirection", "Left"],
+            "ctrl-j": ["workspace::ActivatePaneInDirection", "Right"],
+            "ctrl-k": ["workspace::ActivatePaneInDirection", "Up"],
+            "ctrl-l": ["workspace::ActivatePaneInDirection", "Down"]
+        }
+    },
+    {
+        "context": "Editor",
+        "bindings": {
+            "ctrl-h": ["workspace::ActivatePaneInDirection", "Left"],
+            "ctrl-j": ["workspace::ActivatePaneInDirection", "Down"],
+            "ctrl-k": ["workspace::ActivatePaneInDirection", "Up"],
+            "ctrl-l": ["workspace::ActivatePaneInDirection", "Right"]
+        }
+    },
+    {
+        "context": "Editor && VimControl && !VimWaiting && !menu",
+        "bindings": {
+            ";": "command_palette::Toggle",
+            "ctrl-h": ["workspace::ActivatePaneInDirection", "Left"],
+            "ctrl-j": ["workspace::ActivatePaneInDirection", "Down"],
+            "ctrl-k": ["workspace::ActivatePaneInDirection", "Up"],
+            "ctrl-l": ["workspace::ActivatePaneInDirection", "Right"]
+        }
+    },
+    {
+        "context": "Editor && vim_mode == insert",
+        "bindings": {
+            "j k": "vim::NormalBefore",
+            "left": null,
+            "down": null,
+            "up": null,
+            "right": null
+        }
+    }
+]
