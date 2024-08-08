@@ -29,6 +29,8 @@
     peek = log -1
     wip = commit -m 'wip' --no-verify
     unwip = reset --soft HEAD~1
+    s = switch
+    b = switch -c
 
 [color]
     ui = auto
