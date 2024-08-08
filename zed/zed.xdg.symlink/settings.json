@@ -7,45 +7,66 @@
 // custom settings, run the `open default settings` command
 // from the command palette or from `Zed` application menu.
 {
-    "theme": {
-        "dark": "Github Dark",
-        "light": "Github Light"
-    },
-    "git": {
-        "inline_blame": {
-            "enabled": true
-        }
-    },
-    "vim_mode": true,
-    "relative_line_numbers": true,
-    "buffer_font_size": 12,
-    "buffer_font_family": "Input Mono",
-    "ui_font_family": "SF Pro",
-    "ui_font_size": 15,
-    "project_panel": {
-        "dock": "right"
-    },
-    "file_types": {
-        "Python": ["bazel", "WORKSPACE"]
-    },
-    "languages": {
-        "TypeScript": {
-            "tab_size": 4
-        },
-        "JavaScript": {
-            "tab_size": 4
-        },
-        "TSX": {
-            "tab_size": 4
-        },
-        "Markdown": {
-            "tab_size": 4
-        },
-        "JSON": {
-            "tab_size": 4
-        },
-        "Make": {
-            "tab_size": 8
-        }
+  "theme": {
+    "dark": "Github Dark",
+    "light": "Github Light"
+  },
+  "git": {
+    "inline_blame": {
+      "enabled": true
     }
+  },
+  "vim_mode": true,
+  "vim": {
+    "use_system_clipboard": "never"
+  },
+  "relative_line_numbers": true,
+  "buffer_font_size": 12,
+  "buffer_font_family": "Input Mono",
+  "buffer_font_weight": 400,
+  "buffer_font_features": {
+    "calt": false,
+    "liga": false
+  },
+  "ui_font_family": "SF Pro",
+  "ui_font_size": 15,
+  "project_panel": {
+    "dock": "right"
+  },
+  "collaboration_panel": {
+    "button": false
+  },
+  "chat_panel": {
+    "button": false
+  },
+  "assistant": {
+    "version": "2",
+    "button": false
+  },
+  "notification_panel": {
+    "button": false
+  },
+  "languages": {
+    "TypeScript": {
+      "tab_size": 4
+    },
+    "JavaScript": {
+      "tab_size": 4
+    },
+    "TSX": {
+      "tab_size": 4
+    },
+    "Markdown": {
+      "tab_size": 4
+    },
+    "JSON": {
+      "tab_size": 4
+    },
+    "Make": {
+      "tab_size": 8
+    }
+  },
+  "features": {
+    "copilot": false
+  }
 }
