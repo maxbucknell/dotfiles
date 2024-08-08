@@ -9,7 +9,7 @@
     "bindings": {
       "shift-cmd-n": "project_panel::NewDirectory",
       "cmd-n": "project_panel::NewFile",
-      "enter": "project_panel::Rename"
+      "enter": "project_panel::Rename",
       "cmd-o": "project_panel::OpenPermanent"
     }
   },

@@ -21,3 +21,4 @@ __pycache__
 *.pyc
 
 *.mdb
+zed/zed.xdg.symlink/prompts/index.json
