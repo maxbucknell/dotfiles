@@ -48,6 +48,7 @@ PATH="$GOBIN:$PATH"
 # JS stuff
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 export PATH="$HOME/.rover/bin:$PATH"
+export PATH="$PATH:/opt/homebrew/Cellar/node@18/18.20.4/bin"
 
 # Local path
 PATH="$HOME/dotfiles/bin/misc:$PATH"
@@ -56,6 +57,14 @@ PATH="$HOME/bin:$PATH"
 
 # Playdate!
 export PLAYDATE_SDK_PATH="$HOME/Developer/PlaydateSDK"
+
+# Android
+export ANDROID_HOME="$HOME/Library/Android/sdk"
+export PATH="$ANDROID_HOME/emulator:$ANDROID_HOME/platform-tools:$PATH"
+
+# Library Stuff
+export CPATH="$HOMEBREW_PREFIX/include:$CPATH"
+export LIBRARY_PATH="$HOMEBREW_PREFIX/lib:$LIBRARY_PATH"
 
 ## Completion
 
