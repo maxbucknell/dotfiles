@@ -50,6 +50,10 @@ export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 export PATH="$HOME/.rover/bin:$PATH"
 export PATH="$PATH:/opt/homebrew/Cellar/node@18/18.20.4/bin"
 
+export NPM_PACKAGES="$HOME/.config/npm/node_modules"
+export PATH="$PATH:$NPM_PACKAGES/bin"
+
+
 # Local path
 PATH="$HOME/dotfiles/bin/misc:$PATH"
 PATH="$HOME/dotfiles/bin:$PATH"
@@ -250,3 +254,6 @@ case ":$PATH:" in
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 # pnpm end
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
