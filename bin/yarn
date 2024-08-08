@@ -10,7 +10,7 @@ function main {
     then
         bazelisk run @yarn//:yarn -- "$@"
     else
-        /usr/local/bin/yarn "$@"
+        /opt/homebrew/bin/yarn "$@"
     fi
 }
 
