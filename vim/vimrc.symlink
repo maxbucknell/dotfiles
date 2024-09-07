@@ -1,7 +1,29 @@
+" vim: set ft=vim
 set nocompatible
 
 set encoding=utf-8
 scriptencoding utf-8
+
+" Plugins
+
+call plug#begin()
+
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-surround'
+
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+
+Plug 'jayli/vim-easycomplete'
+Plug 'SirVer/ultisnips'
+
+call plug#end()
+
+" Plugin configuration
+
+" Get AI out of here
+let g:easycomplete_tabnine_enable = 0
 
 " Syntax and colors and things
 filetype plugin indent on
@@ -55,7 +77,6 @@ set scrolloff=5
 " I think left to write, top to bottom
 set splitright splitbelow
 
-
 " Basic whitespace
 set nojoinspaces
 set expandtab
@@ -85,7 +106,6 @@ nnoremap <leader><leader> <c-^>
 
 " Fix shift-semicolon to write
 noremap ; :
-noremap ;; ;
 
 " I should map these to something useful
 inoremap <up> <nop>
@@ -125,7 +145,7 @@ nnoremap <c-l> <c-w><c-l>
 
 " Focus mode
 
-function Zoom()
+function! Zoom()
     if exists('g:is_zoomed')
         unlet g:is_zoomed
         execute "wincmd ="
@@ -177,6 +197,8 @@ function! <SID>SynStack()
   endif
   echo map(synstack(line('.'), col('.')), 'synIDattr(v:val,"name")')
 endfunc
+
+" Open syntax file for current
 
 " Syntax highlighting
 colorscheme mpwb

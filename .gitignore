@@ -6,10 +6,11 @@ configstore
 hub
 
 vim/vim.symlink/.netrwhist
-vim/vim.symlink/bundle
+vim/vim.symlink/plugged
+vim/vim.symlink/plugged-update
 
-nvim/nvim.symlink/plugged
 nvim/nvim.symlink/.netrwhist
+nvim/nvim.symlink/plugged
 nvim/nvim.symlink/plugged-update
 
 zsh/zsh.symlink/liquidprompt

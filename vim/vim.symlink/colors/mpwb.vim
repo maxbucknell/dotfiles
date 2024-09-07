@@ -34,6 +34,7 @@ hi Constant cterm=NONE ctermfg=NONE ctermbg=NONE
 hi Define cterm=NONE ctermfg=NONE ctermbg=NONE
 hi Include cterm=NONE ctermfg=NONE ctermbg=NONE
 hi Macro cterm=NONE ctermfg=NONE ctermbg=NONE
+hi PreProc cterm=NONE ctermfg=NONE ctermbg=NONE
 
 hi VimHiAttrib cterm=NONE ctermfg=NONE ctermbg=NONE
 hi VimOption cterm=NONE ctermfg=NONE ctermbg=NONE
