@@ -114,9 +114,6 @@ ZSH_HIGHLIGHT_STYLES[back-double-quoted-argument]='none'
 ZSH_HIGHLIGHT_STYLES[assign]='none'
 ZSH_HIGHLIGHT_STYLES[default]='none'
 
-# Set editor
-export EDITOR="/usr/local/bin/nova"
-
 # Get the first part of the hostname
 #
 # Sometimes they have dots in them, I'm not partial to that.
@@ -199,10 +196,9 @@ setopt hist_lex_words
 source /opt/homebrew/share/liquidprompt
 
 # Vim!
-alias vim=nvim
 # I made this typo once and never again.
-alias vi=nvim
-alias v=nvim
+alias vi=vim
+alias v=vim
 
 # Bazel -__-
 alias bazel='bazelisk'
@@ -256,4 +252,3 @@ esac
 # pnpm end
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-

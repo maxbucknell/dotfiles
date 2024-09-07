@@ -1,1 +1,182 @@
+set nocompatible
 
+set encoding=utf-8
+scriptencoding utf-8
+
+" Syntax and colors and things
+filetype plugin indent on
+syntax on
+syntax manual
+
+" Disable Swapping
+set nobackup nowritebackup noswapfile
+
+" Statusline
+" e.g. - [foobar.rs] - [rust] ----
+set laststatus=2
+set statusline=-[%.30t]-%y-
+set fillchars=stl:—,eob:\ 
+set fillchars+=stlnc:—
+set fillchars+=vert:\|
+
+" Hide intro message
+set shortmess+=
+
+set nowrap
+
+" Relative numbering with absolute anchor
+set number relativenumber
+
+" Keep buffers open in memory when not visible
+set hidden
+
+" Keep buffers up to date with external changes
+set autoread
+
+set backspace=indent,eol,start
+
+" Show invisibles
+set list
+set listchars=tab:‣\ ,trail:·,extends:◣,precedes:◢,nbsp:○
+
+" Disable folding
+set foldmethod=manual
+set nofoldenable
+
+" Search fixes
+set ignorecase smartcase incsearch hlsearch gdefault
+
+" Show incomplete command-based changes in realtime
+set showcmd
+
+" And breathe...
+set scrolloff=5
+
+" I think left to write, top to bottom
+set splitright splitbelow
+
+
+" Basic whitespace
+set nojoinspaces
+set expandtab
+set shiftwidth=4
+set softtabstop=4
+set autoindent
+
+" Show me when my lines are too long
+"
+" I wish to limit my lines to 80 characters long. However, Vim creates
+" the n+1th character when you have n characters in a line. Hence, when
+" my line is 80 characters long, I see the red line. So, this is set to
+" 82, meaning that I only see the line when my lines actually are too long.
+call matchadd('ColorColumn', '\%82v', 100)
+
+" Mappings etc
+let mapleader = "\<space>"
+let localmapleader = "\\"
+
+" Use jk to escape back to normal
+inoremap jk <esc>
+tnoremap jk <C-\><C-n>
+inoremap <esc> <nop>
+
+" Switch between recent buffers
+nnoremap <leader><leader> <c-^>
+
+" Fix shift-semicolon to write
+noremap ; :
+noremap ;; ;
+
+" I should map these to something useful
+inoremap <up> <nop>
+inoremap <down> <nop>
+inoremap <left> <nop>
+inoremap <right> <nop>
+noremap <up> <nop>
+noremap <down> <nop>
+noremap <left> <nop>
+noremap <right> <nop>
+
+" Case control
+nnoremap <leader>u viwU
+nnoremap <leader>l viwu
+
+" Pretend ex mode doesn't exist
+nnoremap Q <nop>
+
+" Moving lines around
+nnoremap - ddp==
+nnoremap _ :-1d<cr>pk==
+
+" Quick access vimrc
+nnoremap <leader>ev :tabedit $MYVIMRC<cr>
+
+augroup updateVimrc
+    autocmd!
+
+    autocmd BufWritePost $MYVIMRC :source $MYVIMRC<cr>
+augroup END
+
+" Pane management
+nnoremap <c-j> <c-w><c-j>
+nnoremap <c-k> <c-w><c-k>
+nnoremap <c-h> <c-w><c-h>
+nnoremap <c-l> <c-w><c-l>
+
+" Focus mode
+
+function Zoom()
+    if exists('g:is_zoomed')
+        unlet g:is_zoomed
+        execute "wincmd ="
+    else
+        let g:is_zoomed = 'true'
+        execute "wincmd _"
+        execute "wincmd \|"
+    endif
+endfunc
+
+nnoremap <leader>z :call Zoom()<cr>
+
+" Show nice things on active pane only
+augroup activePaneManagement
+    autocmd!
+
+    autocmd WinEnter,VimEnter,BufWinEnter * setl rnu cul syntax=ON
+    autocmd WinLeave,BufWinLeave,BufLeave * setl nornu nocul syntax=OFF
+augroup END
+
+" Make directories in a filename if they don't exist.
+
+function! EnsureDirExists ()
+    let required_dir = expand("%:h")
+    if !isdirectory(required_dir)
+        try
+            call mkdir( required_dir, 'p' )
+        catch
+          echom "Could not create directory"
+          exit
+        endtry
+    endif
+endfunction
+
+augroup AutoMkdir
+    autocmd!
+    autocmd  BufNewFile  *  :call EnsureDirExists()
+augroup END
+
+
+" Show syntax highlighting groups for word under cursor
+"
+" This is useful for finding rogue elements I forgot in my colour
+" scheme.
+nnoremap <leader>\ :call <SID>SynStack()<CR>
+function! <SID>SynStack()
+  if !exists("*synstack")
+    return
+  endif
+  echo map(synstack(line('.'), col('.')), 'synIDattr(v:val,"name")')
+endfunc
+
+" Syntax highlighting
+colorscheme mpwb
