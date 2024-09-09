@@ -18,6 +18,8 @@ zsh/zsh.symlink/zsh-completions
 zsh/zsh.symlink/zsh-syntax-highlighting
 zsh/zsh.symlink/secret
 
+python/venv
+
 __pycache__
 *.pyc
 

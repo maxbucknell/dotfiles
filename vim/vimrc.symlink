@@ -11,24 +11,29 @@ call plug#begin()
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
+Plug 'tpope/vim-repeat'
 
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug '/opt/homebrew/opt/fzf'
 Plug 'junegunn/fzf.vim'
 
-Plug 'jayli/vim-easycomplete'
 Plug 'SirVer/ultisnips'
+
+Plug 'yegappan/lsp'
+
+Plug 'vim-pandoc/vim-pandoc-syntax'
+Plug 'quarto-dev/quarto-vim'
+
+Plug 'HerringtonDarkholme/yats.vim'
 
 call plug#end()
 
-" Plugin configuration
-
-" Get AI out of here
-let g:easycomplete_tabnine_enable = 0
+" Language config
+let g:pandoc#syntax#conceal#use = 0
+let g:r_indent_align_args = 0
 
 " Syntax and colors and things
 filetype plugin indent on
 syntax on
-syntax manual
 
 " Disable Swapping
 set nobackup nowritebackup noswapfile
@@ -48,6 +53,8 @@ set nowrap
 
 " Relative numbering with absolute anchor
 set number relativenumber
+set signcolumn=number
+set cursorline cursorlineopt=both
 
 " Keep buffers open in memory when not visible
 set hidden
@@ -98,8 +105,11 @@ let localmapleader = "\\"
 
 " Use jk to escape back to normal
 inoremap jk <esc>
-tnoremap jk <C-\><C-n>
 inoremap <esc> <nop>
+
+" Hide search highlights
+nnoremap <esc> :noh<cr>
+nnoremap <leader>/ :noh<cr>
 
 " Switch between recent buffers
 nnoremap <leader><leader> <c-^>
@@ -130,18 +140,32 @@ nnoremap _ :-1d<cr>pk==
 
 " Quick access vimrc
 nnoremap <leader>ev :tabedit $MYVIMRC<cr>
-
-augroup updateVimrc
-    autocmd!
-
-    autocmd BufWritePost $MYVIMRC :source $MYVIMRC<cr>
-augroup END
+nnoremap <leader>es :so $MYVIMRC<cr>
 
 " Pane management
 nnoremap <c-j> <c-w><c-j>
 nnoremap <c-k> <c-w><c-k>
 nnoremap <c-h> <c-w><c-h>
 nnoremap <c-l> <c-w><c-l>
+inoremap <c-j> <esc><c-w><c-j>
+inoremap <c-k> <esc><c-w><c-k>
+inoremap <c-h> <esc><c-w><c-h>
+inoremap <c-l> <esc><c-w><c-l>
+
+" FZF
+nnoremap <leader>o :Files<cr>
+nnoremap <leader>b :Buffers<cr>
+nnoremap <leader>f :Rg<cr>
+nnoremap <leader>g :RG<cr>
+
+let g:fzf_vim = {}
+let g:fzf_vim.preview_window = []
+
+augroup FZF
+    autocmd!
+
+    autocmd FileType fzf tmap <buffer> jk <c-c>
+augroup END
 
 " Focus mode
 
@@ -157,14 +181,6 @@ function! Zoom()
 endfunc
 
 nnoremap <leader>z :call Zoom()<cr>
-
-" Show nice things on active pane only
-augroup activePaneManagement
-    autocmd!
-
-    autocmd WinEnter,VimEnter,BufWinEnter * setl rnu cul syntax=ON
-    autocmd WinLeave,BufWinLeave,BufLeave * setl nornu nocul syntax=OFF
-augroup END
 
 " Make directories in a filename if they don't exist.
 
@@ -185,6 +201,64 @@ augroup AutoMkdir
     autocmd  BufNewFile  *  :call EnsureDirExists()
 augroup END
 
+" LSP and other completion
+
+nnoremap aa :LspDiag current<cr>
+nnoremap ga :LspDiag nextWrap<cr>
+nnoremap gA :LspDiag prevWrap<cr>
+
+augroup Lsp
+    autocmd!
+
+    let lspOptions = #{ ultisnips: v:true }
+    autocmd User LspSetup call LspOptionsSet(lspOptions)
+
+    let lspServers = [#{
+                \   name: 'r',
+                \   filetype: ['r', 'rmd', 'quarto'],
+                \   path: '/usr/local/bin/R',
+                \   args: ['-s', '-e languageserver::run()']
+                \ }]
+
+    autocmd User LspSetup call LspAddServer(lspServers)
+augroup END
+
+" File Running
+
+function! PreviewQuarto()
+    call ClosePreview()
+
+    echom 'Starting preview job'
+    let b:file = expand('%')
+    let b:preview_job = job_start(
+                \   ['quarto', 'preview', b:file],
+                \ )
+endfunc
+
+function! ClosePreview()
+    if exists("b:preview_job")
+        echo 'Killing existing job...'
+        call job_stop(b:preview_job)
+    endif
+endfunc
+
+nnoremap <leader>r :echo 'No preview configured'<cr>
+nmap <F5> <leader>r
+
+augroup Previews
+    autocmd!
+
+    autocmd Filetype quarto nnoremap <buffer> <leader>r :call PreviewQuarto()<cr>
+augroup END
+
+
+augroup TextFormatting
+    autocmd!
+
+    autocmd FileType make,go setl noet sw=8 sts=8 ts=8
+
+    autocmd FileType r,quarto,rmd setl et sw=2 sts=2 ts=2
+augroup END
 
 " Show syntax highlighting groups for word under cursor
 "
@@ -192,10 +266,10 @@ augroup END
 " scheme.
 nnoremap <leader>\ :call <SID>SynStack()<CR>
 function! <SID>SynStack()
-  if !exists("*synstack")
-    return
-  endif
-  echo map(synstack(line('.'), col('.')), 'synIDattr(v:val,"name")')
+    if !exists("*synstack")
+        return
+    endif
+    echo map(synstack(line('.'), col('.')), 'synIDattr(v:val,"name")')
 endfunc
 
 " Open syntax file for current

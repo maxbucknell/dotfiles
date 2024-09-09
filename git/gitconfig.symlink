@@ -1,6 +1,6 @@
 [core]
     excludesfile = ~/.gitignore
-    editor = nvim
+    editor = vim
     pager = delta
     autocrlf = input
     fileMode = false

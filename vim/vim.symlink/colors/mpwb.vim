@@ -16,6 +16,8 @@ endif
 "  5: magenta
 "  6: cyan
 "  7: background
+"  8: black
+" 15: white
 "
 " +8 for bright colours.
 "
@@ -35,6 +37,7 @@ hi Define cterm=NONE ctermfg=NONE ctermbg=NONE
 hi Include cterm=NONE ctermfg=NONE ctermbg=NONE
 hi Macro cterm=NONE ctermfg=NONE ctermbg=NONE
 hi PreProc cterm=NONE ctermfg=NONE ctermbg=NONE
+hi Title cterm=NONE ctermfg=NONE ctermbg=NONE
 
 hi VimHiAttrib cterm=NONE ctermfg=NONE ctermbg=NONE
 hi VimOption cterm=NONE ctermfg=NONE ctermbg=NONE
@@ -48,22 +51,32 @@ hi Boolean cterm=NONE ctermfg=4 ctermbg=NONE
 hi Comment cterm=NONE ctermfg=2 ctermbg=NONE
 hi Todo cterm=bold ctermbg=2 ctermfg=7
 
-hi CursorLine cterm=bold
+" Search is bright blue
+hi Search ctermfg=0 ctermbg=14
 
-hi Search ctermfg=0 ctermbg=3
-
+" Chrome is magenta
 hi VertSplit ctermfg=5 ctermbg=NONE cterm=NONE
 hi StatusLine ctermfg=5 ctermbg=NONE cterm=bold
 hi StatusLineNC ctermfg=5 ctermbg=NONE cterm=NONE
 
-hi Visual ctermfg=7 ctermbg=0
+hi Visual ctermfg=15 ctermbg=0
 
-if &background == 'dark'
-    hi LineNr cterm=NONE ctermfg=15 ctermbg=NONE
-    hi CursorLineNr cterm=bold ctermfg=15 ctermbg=0
-endif
+hi LineNr cterm=NONE ctermfg=5 ctermbg=NONE
+hi CursorLine cterm=bold
+hi CursorLineNr cterm=bold ctermfg=15 ctermbg=5
 
-if &background == 'light'
-    hi LineNr cterm=NONE ctermfg=0 ctermbg=NONE
-    hi CursorLineNr cterm=bold ctermfg=0 ctermbg=NONE
-endif
+" LSP hints
+hi ErrorMsg cterm=NONE ctermfg=7 ctermbg=1
+hi Question cterm=NONE ctermfg=7 ctermbg=4
+hi SpellLocal cterm=NONE ctermfg=3 ctermbg=NONE
+hi SpellRare cterm=NONE ctermfg=3 ctermbg=NONE
+hi SpellCap cterm=NONE ctermfg=0 ctermbg=3
+
+hi link LspDiagSignInfoText Question
+hi link LspDiagSignWarningText Question
+
+hi PMenu cterm=NONE ctermfg=8 ctermbg=5
+hi PMenuSel cterm=bold ctermfg=8 ctermbg=3
+
+" Misc cleanup
+hi pandocBlockQuote cterm=NONE ctermfg=0 ctermbg=NONE
