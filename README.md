@@ -7,6 +7,9 @@ maintaining:
 
 + zsh
 + git
++ vim
++ bat
++ iterm
 
 In addition to this, you can find a few little scripts I use in the `bin`
 directory.
