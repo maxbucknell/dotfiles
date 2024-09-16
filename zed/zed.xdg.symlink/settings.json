@@ -12,7 +12,15 @@
     "dark": "Github Dark",
     "light": "Github Light"
   },
+  "scrollbar": {
+    "cursors": false,
+    "git_diff": false,
+    "search_results": false,
+    "selected_symbol": false,
+    "diagnostics": false
+  },
   "git": {
+    "git_gutter": "hide",
     "inline_blame": {
       "enabled": true
     }
