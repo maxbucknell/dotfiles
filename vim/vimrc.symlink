@@ -117,6 +117,9 @@ nnoremap <leader><leader> <c-^>
 " Fix shift-semicolon to write
 noremap ; :
 
+" Make it easier to use registers
+nnoremap ' "
+
 " I should map these to something useful
 inoremap <up> <nop>
 inoremap <down> <nop>
@@ -130,9 +133,6 @@ noremap <right> <nop>
 " Case control
 nnoremap <leader>u viwU
 nnoremap <leader>l viwu
-
-" Pretend ex mode doesn't exist
-nnoremap Q <nop>
 
 " Moving lines around
 nnoremap - ddp==
@@ -160,6 +160,18 @@ nnoremap <leader>g :RG<cr>
 
 let g:fzf_vim = {}
 let g:fzf_vim.preview_window = []
+
+function! s:build_quickfix_list(lines)
+  call setqflist(map(copy(a:lines), '{ "filename": v:val, "lnum": 1 }'))
+  copen
+  cc
+endfunction
+
+let g:fzf_action = {
+  \ 'ctrl-q': function('s:build_quickfix_list'),
+  \ 'ctrl-t': 'tab split',
+  \ 'ctrl-x': 'split',
+  \ 'ctrl-v': 'vsplit' }
 
 augroup FZF
     autocmd!
