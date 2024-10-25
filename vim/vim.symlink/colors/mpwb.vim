@@ -76,7 +76,7 @@ hi SpellBad cterm=NONE ctermfg=7 ctermbg=1
 hi link LspDiagSignInfoText Question
 hi link LspDiagSignWarningText Question
 
-hi PMenu cterm=NONE ctermfg=8 ctermbg=5
+hi PMenu cterm=NONE ctermfg=7 ctermbg=5
 hi PMenuSel cterm=bold ctermfg=8 ctermbg=3
 
 " Misc cleanup
