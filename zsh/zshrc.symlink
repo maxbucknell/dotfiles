@@ -48,6 +48,10 @@ export GOPATH="$HOME/go"
 export GOBIN="$GOPATH/bin"
 PATH="$GOBIN:$PATH"
 
+# NodeJS
+export NODEPATH="$(brew --prefix node@20)"
+export PATH="$NODEPATH/bin:$PATH"
+
 # Local path
 PATH="$HOME/dotfiles/bin/misc:$PATH"
 PATH="$HOME/dotfiles/bin:$PATH"
