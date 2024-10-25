@@ -215,9 +215,9 @@ augroup END
 
 " LSP and other completion
 
-nnoremap aa :LspDiag current<cr>
-nnoremap ga :LspDiag nextWrap<cr>
-nnoremap gA :LspDiag prevWrap<cr>
+nnoremap za :LspDiag current<cr>
+nnoremap zn :LspDiag nextWrap<cr>
+nnoremap zN :LspDiag prevWrap<cr>
 
 augroup Lsp
     autocmd!
