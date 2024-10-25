@@ -52,6 +52,10 @@ PATH="$GOBIN:$PATH"
 export NODEPATH="$(brew --prefix node@20)"
 export PATH="$NODEPATH/bin:$PATH"
 
+# Java
+export JAVAPATH="$(brew --prefix openjdk@21)"
+export PATH="$JAVAPATH/bin:$PATH"
+
 # Local path
 PATH="$HOME/dotfiles/bin/misc:$PATH"
 PATH="$HOME/dotfiles/bin:$PATH"
