@@ -230,6 +230,11 @@ augroup Lsp
                 \   filetype: ['r', 'rmd', 'quarto'],
                 \   path: '/usr/local/bin/R',
                 \   args: ['-s', '-e languageserver::run()']
+                \ }, #{
+                \   name: 'ts',
+                \   filetype: ['javascript', 'typescript', 'javascriptreact', 'typescriptreact'],
+                \   path: '/opt/homebrew/bin/typescript-language-server',
+                \   args: ['--stdio']
                 \ }]
 
     autocmd User LspSetup call LspAddServer(lspServers)
