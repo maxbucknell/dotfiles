@@ -25,6 +25,8 @@ Plug 'quarto-dev/quarto-vim'
 
 Plug 'HerringtonDarkholme/yats.vim'
 
+Plug 'elixir-editors/vim-elixir'
+
 call plug#end()
 
 " Language config
@@ -235,6 +237,10 @@ augroup Lsp
                 \   filetype: ['javascript', 'typescript', 'javascriptreact', 'typescriptreact'],
                 \   path: '/opt/homebrew/bin/typescript-language-server',
                 \   args: ['--stdio']
+                \ }, #{
+                \   name: 'elixir',
+                \   filetype: ['elixir'],
+                \   path: '/opt/homebrew/bin/elixir-ls'
                 \ }]
 
     autocmd User LspSetup call LspAddServer(lspServers)
