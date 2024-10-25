@@ -71,6 +71,7 @@ hi Question cterm=NONE ctermfg=7 ctermbg=4
 hi SpellLocal cterm=NONE ctermfg=3 ctermbg=NONE
 hi SpellRare cterm=NONE ctermfg=3 ctermbg=NONE
 hi SpellCap cterm=NONE ctermfg=0 ctermbg=3
+hi SpellBad cterm=NONE ctermfg=7 ctermbg=1
 
 hi link LspDiagSignInfoText Question
 hi link LspDiagSignWarningText Question
