@@ -12,6 +12,7 @@ I am most maintaining are:
 + vim
 + bat
 + iterm
++ liquidprompt
 
 In addition to this, you can find a few little scripts I use in the `bin`
-directory, and some Python scripts to support those.
+directory, and some Python scripts to support those in lib.
