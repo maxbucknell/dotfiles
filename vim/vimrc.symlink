@@ -154,6 +154,13 @@ inoremap <c-k> <esc><c-w><c-k>
 inoremap <c-h> <esc><c-w><c-h>
 inoremap <c-l> <esc><c-w><c-l>
 
+" I'm getting back into visual mode
+" And I'm cycling the modes
+nnoremap v <c-v>
+nnoremap V v
+nnoremap <c-v> V
+
+
 " FZF
 nnoremap <leader>o :Files<cr>
 nnoremap <leader>b :Buffers<cr>
@@ -280,7 +287,7 @@ augroup TextFormatting
 
     autocmd FileType make,go setl noet sw=8 sts=8 ts=8
 
-    autocmd FileType r,quarto,rmd setl et sw=2 sts=2 ts=2
+    autocmd FileType r,quarto,rmd,elixir setl et sw=2 sts=2 ts=2
 augroup END
 
 " Show syntax highlighting groups for word under cursor

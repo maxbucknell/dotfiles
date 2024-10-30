@@ -52,14 +52,15 @@ hi Comment cterm=NONE ctermfg=2 ctermbg=NONE
 hi Todo cterm=bold ctermbg=2 ctermfg=7
 
 " Search is bright blue
-hi Search ctermfg=0 ctermbg=14
+hi Search ctermfg=8 ctermbg=14
+hi! link MatchParen Search
 
 " Chrome is magenta
 hi VertSplit ctermfg=5 ctermbg=NONE cterm=NONE
 hi StatusLine ctermfg=5 ctermbg=NONE cterm=bold
 hi StatusLineNC ctermfg=5 ctermbg=NONE cterm=NONE
 
-hi Visual ctermfg=15 ctermbg=0
+hi Visual ctermfg=8 ctermbg=0
 
 hi LineNr cterm=NONE ctermfg=5 ctermbg=NONE
 hi CursorLine cterm=bold
@@ -78,6 +79,10 @@ hi link LspDiagSignWarningText Question
 
 hi PMenu cterm=NONE ctermfg=7 ctermbg=5
 hi PMenuSel cterm=bold ctermfg=8 ctermbg=3
+hi LspDiagVirtualText cterm=bold ctermfg=0 ctermbg=13
+hi LspSigActiveParameter cterm=bold ctermfg=7 ctermbg=13
 
 " Misc cleanup
 hi pandocBlockQuote cterm=NONE ctermfg=0 ctermbg=NONE
+" hi! elixirUnusedVariable cterm=NONE ctermfg=NONE ctermbg=NONE
+hi link elixirUnusedVariable Normal
