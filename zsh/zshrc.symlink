@@ -83,6 +83,12 @@ compinit
 source "$HOME/.zsh/_bazel"
 
 
+# Git config
+# Git separates committer and author, and I don't care for that.
+# Author details are set in secret.
+export GIT_COMMITTER_NAME="$GIT_AUTHOR_NAME"
+export GIT_COMMITTER_EMAIL="$GIT_AUTHOR_EMAIL"
+
 # Get the first part of the hostname
 #
 # Sometimes they have dots in them, I'm not partial to that.
