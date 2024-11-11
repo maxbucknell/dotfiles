@@ -17,7 +17,6 @@ Plug '/opt/homebrew/opt/fzf'
 Plug 'junegunn/fzf.vim'
 
 Plug 'SirVer/ultisnips'
-
 Plug 'dense-analysis/ale'
 
 Plug 'vim-pandoc/vim-pandoc-syntax'
@@ -227,6 +226,26 @@ augroup END
 " LSP and other completion
 
 let g:ale_completion_enabled = 1
+let g:ale_elixir_elixir_ls_release = '/opt/homebrew/opt/elixir-ls/libexec'
+let g:ale_fix_on_save = 1
+
+let g:ale_fixers = {
+            \   'css': ['prettier'],
+            \   'elixir': ['mix_format'],
+            \   'html': ['prettier'],
+            \   'javascript': ['prettier'],
+            \   'javascriptreact': ['prettier'],
+            \   'md': ['prettier'],
+            \   'typescript': ['prettier'],
+            \   'typescriptreact': ['prettier'],
+            \   'yaml': ['prettier'],
+            \ }
+
+let g:ale_linters = {
+            \   'elixir': ['elixir-ls'],
+            \   'javascript': ['eslint'],
+            \ }
+
 
 nnoremap za :ALEFirst<cr>
 nnoremap zn :ALENextWrap<cr>
