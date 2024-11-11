@@ -79,7 +79,8 @@ hi link LspDiagSignWarningText Question
 
 hi PMenu cterm=NONE ctermfg=7 ctermbg=5
 hi PMenuSel cterm=bold ctermfg=8 ctermbg=3
-hi LspDiagVirtualText cterm=bold ctermfg=0 ctermbg=13
+hi ALEVirtualTextError cterm=bold ctermfg=0 ctermbg=11
+hi ALEVirtualTextWarning cterm=bold ctermfg=0 ctermbg=11
 hi LspSigActiveParameter cterm=bold ctermfg=7 ctermbg=13
 
 " Misc cleanup

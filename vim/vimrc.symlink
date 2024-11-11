@@ -18,7 +18,7 @@ Plug 'junegunn/fzf.vim'
 
 Plug 'SirVer/ultisnips'
 
-Plug 'yegappan/lsp'
+Plug 'dense-analysis/ale'
 
 Plug 'vim-pandoc/vim-pandoc-syntax'
 Plug 'quarto-dev/quarto-vim'
@@ -224,34 +224,11 @@ augroup END
 
 " LSP and other completion
 
-nnoremap za :LspDiag current<cr>
-nnoremap zn :LspDiag nextWrap<cr>
-nnoremap zN :LspDiag prevWrap<cr>
+let g:ale_completion_enabled = 1
 
-augroup Lsp
-    autocmd!
-
-    let lspOptions = #{ ultisnips: v:true }
-    autocmd User LspSetup call LspOptionsSet(lspOptions)
-
-    let lspServers = [#{
-                \   name: 'r',
-                \   filetype: ['r', 'rmd', 'quarto'],
-                \   path: '/usr/local/bin/R',
-                \   args: ['-s', '-e languageserver::run()']
-                \ }, #{
-                \   name: 'ts',
-                \   filetype: ['javascript', 'typescript', 'javascriptreact', 'typescriptreact'],
-                \   path: '/opt/homebrew/bin/typescript-language-server',
-                \   args: ['--stdio']
-                \ }, #{
-                \   name: 'elixir',
-                \   filetype: ['elixir'],
-                \   path: '/opt/homebrew/bin/elixir-ls'
-                \ }]
-
-    autocmd User LspSetup call LspAddServer(lspServers)
-augroup END
+nnoremap za :ALEFirst<cr>
+nnoremap zn :ALENextWrap<cr>
+nnoremap zN :ALEPreviousWrap<cr>
 
 " File Running
 
