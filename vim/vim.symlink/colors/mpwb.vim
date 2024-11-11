@@ -60,7 +60,7 @@ hi VertSplit ctermfg=5 ctermbg=NONE cterm=NONE
 hi StatusLine ctermfg=5 ctermbg=NONE cterm=bold
 hi StatusLineNC ctermfg=5 ctermbg=NONE cterm=NONE
 
-hi Visual ctermfg=8 ctermbg=0
+hi Visual ctermbg=0 ctermfg=7
 
 hi LineNr cterm=NONE ctermfg=5 ctermbg=NONE
 hi CursorLine cterm=bold
@@ -85,5 +85,4 @@ hi LspSigActiveParameter cterm=bold ctermfg=7 ctermbg=13
 
 " Misc cleanup
 hi pandocBlockQuote cterm=NONE ctermfg=0 ctermbg=NONE
-" hi! elixirUnusedVariable cterm=NONE ctermfg=NONE ctermbg=NONE
 hi link elixirUnusedVariable Normal
