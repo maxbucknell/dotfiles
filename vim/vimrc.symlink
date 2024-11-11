@@ -160,7 +160,6 @@ nnoremap v <c-v>
 nnoremap V v
 nnoremap <c-v> V
 
-
 " FZF
 nnoremap <leader>o :Files<cr>
 nnoremap <leader>b :Buffers<cr>
@@ -202,6 +201,9 @@ function! Zoom()
 endfunc
 
 nnoremap <leader>z :call Zoom()<cr>
+
+" Git blame
+nnoremap <leader>a :call Zoom()<cr>:Git blame<cr>
 
 " Make directories in a filename if they don't exist.
 
