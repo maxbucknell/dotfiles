@@ -40,15 +40,14 @@ syntax on
 set nobackup nowritebackup noswapfile
 
 " Statusline
-" e.g. - [foobar.rs] - [rust] ----
 set laststatus=2
-set statusline=-[%.30t]-%y-
+set statusline=—[%n\:\ %t]—%=—%y—[%l/%L,\ %c]—%m%r—
 set fillchars=stl:—,eob:\ 
 set fillchars+=stlnc:—
 set fillchars+=vert:\|
 
 " Hide intro message
-set shortmess+=
+set shortmess=I
 
 set nowrap
 
