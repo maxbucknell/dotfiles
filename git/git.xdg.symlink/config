@@ -78,3 +78,6 @@
 [commit]
     gpgsign = true
 
+[bash]
+    showInformativeStatus = 1
+    showDirtyState = 1

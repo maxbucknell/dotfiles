@@ -1,8 +1,7 @@
 bin/misc
-fish/fish_history
-fish/fish_read_history
-fish/fishd*
 configstore
+
+fish/fish.xdg.symlink/conf.d/secret.fish
 
 vim/vim.xdg.symlink/.netrwhist
 vim/vim.xdg.symlink/plugged
