@@ -1,5 +1,5 @@
 [core]
-    excludesfile = ~/.gitignore
+    excludesfile = ~/.config/git/gitignore
     editor = vim
     pager = delta
     autocrlf = input

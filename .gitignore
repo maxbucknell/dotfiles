@@ -3,15 +3,10 @@ fish/fish_history
 fish/fish_read_history
 fish/fishd*
 configstore
-hub
 
-vim/vim.symlink/.netrwhist
-vim/vim.symlink/plugged
-vim/vim.symlink/plugged-update
-
-nvim/nvim.symlink/.netrwhist
-nvim/nvim.symlink/plugged
-nvim/nvim.symlink/plugged-update
+vim/vim.xdg.symlink/.netrwhist
+vim/vim.xdg.symlink/plugged
+vim/vim.xdg.symlink/plugged-update
 
 zsh/zsh.symlink/liquidprompt
 zsh/zsh.symlink/zsh-completions
@@ -24,4 +19,3 @@ __pycache__
 *.pyc
 
 *.mdb
-zed/zed.xdg.symlink/prompts/index.json
