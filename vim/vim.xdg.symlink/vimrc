@@ -187,21 +187,10 @@ augroup END
 
 " Focus mode
 
-function! Zoom()
-    if exists('g:is_zoomed')
-        unlet g:is_zoomed
-        execute "wincmd ="
-    else
-        let g:is_zoomed = 'true'
-        execute "wincmd _"
-        execute "wincmd \|"
-    endif
-endfunc
-
-nnoremap <leader>z :call Zoom()<cr>
+nnoremap <leader>z :tabe %<cr>
 
 " Git blame
-nnoremap <leader>a :call Zoom()<cr>:Git blame<cr>
+nnoremap <leader>a :Git blame<cr>
 
 " Make directories in a filename if they don't exist.
 
