@@ -239,6 +239,12 @@ nnoremap za :ALEFirst<cr>
 nnoremap zn :ALENextWrap<cr>
 nnoremap zN :ALEPreviousWrap<cr>
 
+nnoremap <leader>d :ALEGoToDefinition<cr>
+nnoremap <leader>de :ALEGoToDefinition<cr>
+nnoremap <leader>dx :ALEGoToDefinition -split<cr>
+nnoremap <leader>dv :ALEGoToDefinition -vsplit<cr>
+nnoremap <leader>dt :ALEGoToDefinition -tab<cr>
+
 " File Running
 
 function! PreviewQuarto()
