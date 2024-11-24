@@ -28,7 +28,7 @@ set -gx GOBIN "$GOPATH/bin"
 fish_add_path --global "$GOBIN"
 
 # Node.js
-set -gx NODEPATH "$HOMEBREW_PREFIX/node@20"
+set -gx NODEPATH "$HOMEBREW_PREFIX/node@$NODE_VERSION"
 fish_add_path --global "$NODEPATH/bin"
 
 # pnpm
