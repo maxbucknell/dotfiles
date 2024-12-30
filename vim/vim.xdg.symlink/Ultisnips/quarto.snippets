@@ -1,0 +1,30 @@
+snippet :::n "Callout: Note" b
+::: {.callout-note}
+${0:${VISUAL:text...}}
+:::
+endsnippet
+
+snippet :::t "Callout: Tip" b
+::: {.callout-tip}
+${0:${VISUAL:text...}}
+:::
+endsnippet
+
+snippet :::w "Callout: Warning" b
+::: {.callout-warning}
+${0:${VISUAL:text...}}
+:::
+endsnippet
+
+snippet :::i "Callout: Important" b
+::: {.callout-important}
+${0:${VISUAL:text...}}
+:::
+endsnippet
+
+snippet `r "R Code Block" b
+\`\`\`{r}
+${1:#| output: ${2:false}}
+${0:${VISUAL:# code...}}
+\`\`\`
+endsnippet

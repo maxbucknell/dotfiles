@@ -1,12 +1,16 @@
 " vim: set ft=vim
 set nocompatible
 
+set termguicolors
+
 set encoding=utf-8
 scriptencoding utf-8
 
 " Plugins
 
 call plug#begin()
+
+Plug 'vimpostor/vim-lumen'
 
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
@@ -25,6 +29,8 @@ Plug 'quarto-dev/quarto-vim'
 Plug 'HerringtonDarkholme/yats.vim'
 
 Plug 'elixir-editors/vim-elixir'
+
+Plug 'bullets-vim/bullets.vim'
 
 call plug#end()
 
@@ -89,6 +95,7 @@ set nojoinspaces
 set expandtab
 set shiftwidth=4
 set softtabstop=4
+set textwidth=79
 set autoindent
 
 " Show me when my lines are too long
@@ -154,9 +161,9 @@ inoremap <c-l> <esc><c-w><c-l>
 
 " I'm getting back into visual mode
 " And I'm cycling the modes
-nnoremap v <c-v>
-nnoremap V v
-nnoremap <c-v> V
+nnoremap v V
+nnoremap V <c-v>
+nnoremap <c-v> v
 
 " FZF
 nnoremap <leader>o :Files<cr>
@@ -211,8 +218,146 @@ augroup AutoMkdir
     autocmd  BufNewFile  *  :call EnsureDirExists()
 augroup END
 
-" LSP and other completion
+" Use tab for UltiSnips expansion, navigation, and 
+let g:ulti_expand_or_jump_res = 0
+let g:UltiSnipsExpandOrJumpTrigger = '<tab>'
 
+function! Ulti_ExpandOrJump_and_getRes()
+    call UltiSnips#ExpandSnippetOrJump()
+    return g:ulti_expand_or_jump_res
+endfunction
+
+inoremap <tab> <c-r>=(Ulti_ExpandOrJump_and_getRes() > 0)?"":"\<tab>"<cr>
+
+" Notes config
+
+let g:markdown_fenced_languages = ['r', 'elixir', 'python', 'html', 'rust']
+let g:pandoc#syntax#codeblocks#embeds#langs = ['r', 'elixir', 'python', 'html', 'rust']
+
+" Enable bullets.vim in Quarto files
+let g:bullets_enabled_file_types = ['markdown', 'text', 'gitcommit', 'quarto']
+" Disable the bullet changing on indents (for now)
+let g:bullets_outline_levels = ['num', 'std-']
+
+def EditCodeBlock()
+    var b = bufnr("%")
+    var name = b .. ".codeblock"
+
+    # We only create one code block buffer per buffer. So if it already
+    # exists, we will empty it out. If it doesn't already exist, we
+    # create it.
+    #
+    # If it exists and has unsaved changes, we exit and warn.
+    var code_buffer = bufnr(name, 1)
+    if getbufvar(code_buffer, "&modified")
+        echom "Unsaved changes in existing code block for this file."
+        return
+    endif
+
+    # Store current cursor position for state restoration later.
+    var p = getpos(".")
+
+    # Set bottom mark for code block
+    execute "silent normal! /^```\rmb"
+
+    # Set top mark for code block
+    execute "silent normal! ?^```\rmt"
+
+    # Yank contents to source register
+    execute "silent normal! j\"cy`b"
+
+    # Yank filetype to type register, and reset position to top
+    execute "silent normal! `t3l\"fy$`t"
+
+    # Find offset position of cursor so the new buffer is in the
+    # correct place
+    var line = p[1]
+    var col = p[2]
+    var s = getpos("'t")
+    var start_line = s[1]
+
+    line = line - start_line
+
+    # If code block buffer is visible, go there. If it is not visible,
+    # then we should show it below.
+
+    var window = bufwinnr(code_buffer)
+    if window == -1
+        execute "below sbuffer " .. code_buffer
+    else
+        execute ":" .. window .. "windo :"
+        execute "buffer " .. code_buffer
+    endif
+
+    set buftype=acwrite
+
+    # Clear buffer and fill with new code
+    silent :%d "
+    silent :0put c
+    normal! G"_dd
+
+    # Position cursor correctly, and mark
+    setpos(".", [0, line, col, 0])
+
+    # Link back to the original buffer for saving
+    b:original_buffer = b
+
+    # Set file type, if it is correctly annotated
+    if @f != '`'
+        execute 'set filetype=' .. @f
+    endif
+
+    set nomodified
+enddef
+
+def SaveCodeBlock()
+    var b = bufnr("%")
+    silent :%yank c
+    normal! mc
+    silent execute "buffer " .. b:original_buffer
+    silent execute "normal! `tjd`b`t\"cp"
+    silent execute "buffer " .. b
+    set nomodified
+    normal! `c
+    echom "Code block updated"
+enddef
+
+augroup CodeBlocks
+    autocmd!
+
+    autocmd BufWriteCmd *.codeblock call SaveCodeBlock()
+augroup END
+
+augroup Notes
+    autocmd Filetype quarto setl tw=80 fo+=croqt ts=4 sts=4 sw=4 comments=n:>
+
+    " Surround mappings for Quarto callouts
+    autocmd FileType quarto let b:surround_110 = "::: {.callout-note}\n\r\n:::"
+    autocmd FileType quarto let b:surround_116 = "::: {.callout-tip}\n\r\n:::"
+    autocmd FileType quarto let b:surround_119 = "::: {.callout-warning}\n\r\n:::"
+    autocmd FileType quarto let b:surround_105 = "::: {.callout-important}\n\r\n:::"
+
+    autocmd FileType quarto imap <tab> <c-r>=(Ulti_ExpandOrJump_and_getRes() > 0)?"":"\<c-t>"<cr>
+    autocmd FileType quarto imap <s-tab> <c-d>
+
+    autocmd FileType quarto onoremap cb :<c-u>execute "normal! /^```\rk$ms?^```\rj:noh\rv`s"<cr>
+    autocmd FileType quarto nnoremap <leader>ec :call EditCodeBlock()<cr>
+    autocmd FileType quarto inoremap <c-e> <esc>:call EditCodeBlock()<cr>
+augroup END
+
+def StartUp()
+    if @% == ""
+        edit ~/tmp/testing.qmd
+    endif
+enddef
+
+augroup StartUp
+    autocmd!
+    autocmd VimEnter * ++nested call StartUp()
+augroup END
+
+
+" LSP and other completion
 let g:ale_completion_enabled = 1
 let g:ale_elixir_elixir_ls_release = '/opt/homebrew/opt/elixir-ls/libexec'
 let g:ale_fix_on_save = 1
@@ -279,7 +424,7 @@ augroup TextFormatting
 
     autocmd FileType make,go setl noet sw=8 sts=8 ts=8
 
-    autocmd FileType r,quarto,rmd,elixir setl et sw=2 sts=2 ts=2
+    autocmd FileType r,elixir setl et sw=2 sts=2 ts=2
 augroup END
 
 " Show syntax highlighting groups for word under cursor
