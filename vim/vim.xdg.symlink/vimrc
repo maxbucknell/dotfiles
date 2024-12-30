@@ -1,4 +1,5 @@
-" vim: set ft=vim
+vim9script
+
 set nocompatible
 
 set termguicolors
@@ -6,9 +7,9 @@ set termguicolors
 set encoding=utf-8
 scriptencoding utf-8
 
-" Plugins
+# Plugins
 
-call plug#begin()
+plug#begin()
 
 Plug 'vimpostor/vim-lumen'
 
@@ -32,65 +33,65 @@ Plug 'elixir-editors/vim-elixir'
 
 Plug 'bullets-vim/bullets.vim'
 
-call plug#end()
+plug#end()
 
-" Language config
-let g:pandoc#syntax#conceal#use = 0
-let g:r_indent_align_args = 0
+# Language config
+g:pandoc#syntax#conceal#use = 0
+g:r_indent_align_args = 0
 
-" Syntax and colors and things
+# Syntax and colors and things
 filetype plugin indent on
 syntax on
 
-" Disable Swapping
+# Disable Swapping
 set nobackup nowritebackup noswapfile
 
-" Statusline
+# Statusline
 set laststatus=2
 set statusline=—[%n\:\ %t]—%=—%y—[%l/%L,\ %c]—%m%r—
 set fillchars=stl:—,eob:\ 
 set fillchars+=stlnc:—
 set fillchars+=vert:\|
 
-" Hide intro message
+# Hide intro message
 set shortmess=I
 
 set nowrap
 
-" Relative numbering with absolute anchor
+# Relative numbering with absolute anchor
 set number relativenumber
 set signcolumn=number
 set cursorline cursorlineopt=both
 
-" Keep buffers open in memory when not visible
+# Keep buffers open in memory when not visible
 set hidden
 
-" Keep buffers up to date with external changes
+# Keep buffers up to date with external changes
 set autoread
 
 set backspace=indent,eol,start
 
-" Show invisibles
+# Show invisibles
 set list
 set listchars=tab:‣\ ,trail:·,extends:◣,precedes:◢,nbsp:○
 
-" Disable folding
+# Disable folding
 set foldmethod=manual
 set nofoldenable
 
-" Search fixes
+# Search fixes
 set ignorecase smartcase incsearch hlsearch gdefault
 
-" Show incomplete command-based changes in realtime
+# Show incomplete command-based changes in realtime
 set showcmd
 
-" And breathe...
+# And breathe...
 set scrolloff=5
 
-" I think left to write, top to bottom
+# I think left to write, top to bottom
 set splitright splitbelow
 
-" Basic whitespace
+# Basic whitespace
 set nojoinspaces
 set expandtab
 set shiftwidth=4
@@ -98,36 +99,36 @@ set softtabstop=4
 set textwidth=79
 set autoindent
 
-" Show me when my lines are too long
-"
-" I wish to limit my lines to 80 characters long. However, Vim creates
-" the n+1th character when you have n characters in a line. Hence, when
-" my line is 80 characters long, I see the red line. So, this is set to
-" 82, meaning that I only see the line when my lines actually are too long.
-call matchadd('ColorColumn', '\%82v', 100)
+# Show me when my lines are too long
+#
+# I wish to limit my lines to 80 characters long. However, Vim creates
+# the n+1th character when you have n characters in a line. Hence, when
+# my line is 80 characters long, I see the red line. So, this is set to
+# 82, meaning that I only see the line when my lines actually are too long.
+matchadd('ColorColumn', '\%82v', 100)
 
-" Mappings etc
-let mapleader = "\<space>"
-let localmapleader = "\\"
+# Mappings etc
+g:mapleader = "\<space>"
+g:localmapleader = "\\"
 
-" Use jk to escape back to normal
+# Use jk to escape back to normal
 inoremap jk <esc>
 inoremap <esc> <nop>
 
-" Hide search highlights
+# Hide search highlights
 nnoremap <esc> :noh<cr>
 nnoremap <leader>/ :noh<cr>
 
-" Switch between recent buffers
+# Switch between recent buffers
 nnoremap <leader><leader> <c-^>
 
-" Fix shift-semicolon to write
+# Fix shift-semicolon to write
 noremap ; :
 
-" Make it easier to use registers
+# Make it easier to use registers
 nnoremap ' "
 
-" I should map these to something useful
+# I should map these to something useful
 inoremap <up> <nop>
 inoremap <down> <nop>
 inoremap <left> <nop>
@@ -137,19 +138,19 @@ noremap <down> <nop>
 noremap <left> <nop>
 noremap <right> <nop>
 
-" Case control
+# Case control
 nnoremap <leader>u viwU
 nnoremap <leader>l viwu
 
-" Moving lines around
+# Moving lines around
 nnoremap - ddp==
 nnoremap _ :-1d<cr>pk==
 
-" Quick access vimrc
+# Quick access vimrc
 nnoremap <leader>ev :tabedit $MYVIMRC<cr>
 nnoremap <leader>es :so $MYVIMRC<cr>
 
-" Pane management
+# Pane management
 nnoremap <c-j> <c-w><c-j>
 nnoremap <c-k> <c-w><c-k>
 nnoremap <c-h> <c-w><c-h>
@@ -159,29 +160,29 @@ inoremap <c-k> <esc><c-w><c-k>
 inoremap <c-h> <esc><c-w><c-h>
 inoremap <c-l> <esc><c-w><c-l>
 
-" I'm getting back into visual mode
-" And I'm cycling the modes
+# I'm getting back into visual mode
+# And I'm cycling the modes
 nnoremap v V
 nnoremap V <c-v>
 nnoremap <c-v> v
 
-" FZF
+# FZF
 nnoremap <leader>o :Files<cr>
 nnoremap <leader>b :Buffers<cr>
 nnoremap <leader>f :Rg<cr>
 nnoremap <leader>g :RG<cr>
 
-let g:fzf_vim = {}
-let g:fzf_vim.preview_window = []
+g:fzf_vim = {}
+g:fzf_vim.preview_window = []
 
-function! s:build_quickfix_list(lines)
-  call setqflist(map(copy(a:lines), '{ "filename": v:val, "lnum": 1 }'))
+def BuildQuickfixList(lines: list<string>)
+  setqflist(map(copy(a:lines), '{ "filename": v:val, "lnum": 1 }'))
   copen
   cc
-endfunction
+enddef
 
-let g:fzf_action = {
-  \ 'ctrl-q': function('s:build_quickfix_list'),
+g:fzf_action = {
+  \ 'ctrl-q': function('BuildQuickfixList'),
   \ 'ctrl-t': 'tab split',
   \ 'ctrl-x': 'split',
   \ 'ctrl-v': 'vsplit' }
@@ -192,52 +193,68 @@ augroup FZF
     autocmd FileType fzf tmap <buffer> jk <c-c>
 augroup END
 
-" Focus mode
+# Focus mode
 
-nnoremap <leader>z :tabe %<cr>
+g:is_zoomed = false
 
-" Git blame
-nnoremap <leader>a :Git blame<cr>
+def Zoom()
+    if g:is_zoomed
+        g:is_zoomed = false
+        wincmd =
+    else
+        g:is_zoomed = true
+        wincmd _
+        wincmd |
+    endif
+enddef
 
-" Make directories in a filename if they don't exist.
+# Git blame
+nnoremap <leader>a <ScriptCmd>Zoom()<cr>:Git blame<cr>
 
-function! EnsureDirExists ()
-    let required_dir = expand("%:h")
+# Make directories in a filename if they don't exist.
+
+def EnsureDirExists()
+    var required_dir = expand("%:h")
     if !isdirectory(required_dir)
         try
-            call mkdir( required_dir, 'p' )
+            mkdir(required_dir, 'p')
         catch
           echom "Could not create directory"
           exit
         endtry
     endif
-endfunction
+enddef
 
 augroup AutoMkdir
     autocmd!
-    autocmd  BufNewFile  *  :call EnsureDirExists()
+    autocmd BufNewFile * <ScriptCmd>EnsureDirExists()
 augroup END
 
-" Use tab for UltiSnips expansion, navigation, and 
-let g:ulti_expand_or_jump_res = 0
-let g:UltiSnipsExpandOrJumpTrigger = '<tab>'
+# Use tab for UltiSnips expansion, navigation, and 
+g:ulti_expand_or_jump_res = 0
+g:UltiSnipsExpandOrJumpTrigger = '<tab>'
 
-function! Ulti_ExpandOrJump_and_getRes()
-    call UltiSnips#ExpandSnippetOrJump()
-    return g:ulti_expand_or_jump_res
-endfunction
+export def Ulti_ExpandOrJump_and_getRes(default: string): string
+    UltiSnips#ExpandSnippetOrJump()
 
-inoremap <tab> <c-r>=(Ulti_ExpandOrJump_and_getRes() > 0)?"":"\<tab>"<cr>
+    if g:ulti_expand_or_jump_res == 0
+        return default
+    else
+        return ""
+    endif
+enddef
 
-" Notes config
+inoremap <tab> <c-r>=<ScriptCmd>Ulti_ExpandOrJump_and_getRes("\<tab>")<cr>
 
-let g:markdown_fenced_languages = ['r', 'elixir', 'python', 'html', 'rust']
-let g:pandoc#syntax#codeblocks#embeds#langs = ['r', 'elixir', 'python', 'html', 'rust']
+# Notes config
 
-" Enable bullets.vim in Quarto files
-let g:bullets_enabled_file_types = ['markdown', 'text', 'gitcommit', 'quarto']
-" Disable the bullet changing on indents (for now)
-let g:bullets_outline_levels = ['num', 'std-']
+g:markdown_fenced_languages = ['r', 'elixir', 'python', 'html', 'rust']
+g:pandoc#syntax#codeblocks#embeds#langs = ['r', 'elixir', 'python', 'html', 'rust']
+
+# Enable bullets.vim in Quarto files
+g:bullets_enabled_file_types = ['markdown', 'text', 'gitcommit', 'quarto']
+# Disable the bullet changing on indents (for now)
+g:bullets_outline_levels = ['num', 'std-']
 
 def EditCodeBlock()
     var b = bufnr("%")
@@ -325,25 +342,32 @@ enddef
 augroup CodeBlocks
     autocmd!
 
-    autocmd BufWriteCmd *.codeblock call SaveCodeBlock()
+    autocmd BufWriteCmd *.codeblock <ScriptCmd>SaveCodeBlock()
 augroup END
 
 augroup Notes
     autocmd Filetype quarto setl tw=80 fo+=croqt ts=4 sts=4 sw=4 comments=n:>
 
-    " Surround mappings for Quarto callouts
-    autocmd FileType quarto let b:surround_110 = "::: {.callout-note}\n\r\n:::"
-    autocmd FileType quarto let b:surround_116 = "::: {.callout-tip}\n\r\n:::"
-    autocmd FileType quarto let b:surround_119 = "::: {.callout-warning}\n\r\n:::"
-    autocmd FileType quarto let b:surround_105 = "::: {.callout-important}\n\r\n:::"
+    # Surround mappings for Quarto callouts
+    autocmd FileType quarto b:surround_110 = "::: {.callout-note}\n\r\n:::"
+    autocmd FileType quarto b:surround_116 = "::: {.callout-tip}\n\r\n:::"
+    autocmd FileType quarto b:surround_119 = "::: {.callout-warning}\n\r\n:::"
+    autocmd FileType quarto b:surround_105 = "::: {.callout-important}\n\r\n:::"
 
-    autocmd FileType quarto imap <tab> <c-r>=(Ulti_ExpandOrJump_and_getRes() > 0)?"":"\<c-t>"<cr>
+    # autocmd FileType quarto imap <tab> <c-r>=<ScriptCmd>Ulti_ExpandOrJump_and_getRes("\<c-t>")<cr>
+    autocmd FileType quarto imap <expr> <tab> Ulti_ExpandOrJump_and_getRes("\<c-t>")
     autocmd FileType quarto imap <s-tab> <c-d>
 
     autocmd FileType quarto onoremap cb :<c-u>execute "normal! /^```\rk$ms?^```\rj:noh\rv`s"<cr>
-    autocmd FileType quarto nnoremap <leader>ec :call EditCodeBlock()<cr>
-    autocmd FileType quarto inoremap <c-e> <esc>:call EditCodeBlock()<cr>
+    autocmd FileType quarto nnoremap <leader>ec <ScriptCmd>EditCodeBlock()<cr>
+    autocmd FileType quarto inoremap <c-e> <esc><ScriptCmd>EditCodeBlock()<cr>
 augroup END
+
+# Daily notes
+def OpenDailyNote(offset: number)
+
+enddef
+
 
 def StartUp()
     if @% == ""
@@ -353,16 +377,16 @@ enddef
 
 augroup StartUp
     autocmd!
-    autocmd VimEnter * ++nested call StartUp()
+    autocmd VimEnter * ++nested StartUp()
 augroup END
 
 
-" LSP and other completion
-let g:ale_completion_enabled = 1
-let g:ale_elixir_elixir_ls_release = '/opt/homebrew/opt/elixir-ls/libexec'
-let g:ale_fix_on_save = 1
+# LSP and other completion
+g:ale_completion_enabled = 1
+g:ale_elixir_elixir_ls_release = '/opt/homebrew/opt/elixir-ls/libexec'
+g:ale_fix_on_save = 1
 
-let g:ale_fixers = {
+g:ale_fixers = {
             \   'css': ['prettier'],
             \   'elixir': ['mix_format'],
             \   'html': ['prettier'],
@@ -374,7 +398,7 @@ let g:ale_fixers = {
             \   'yaml': ['prettier'],
             \ }
 
-let g:ale_linters = {
+g:ale_linters = {
             \   'elixir': ['elixir-ls'],
             \   'javascript': ['eslint'],
             \ }
@@ -390,24 +414,24 @@ nnoremap <leader>dx :ALEGoToDefinition -split<cr>
 nnoremap <leader>dv :ALEGoToDefinition -vsplit<cr>
 nnoremap <leader>dt :ALEGoToDefinition -tab<cr>
 
-" File Running
+# File Running
 
-function! PreviewQuarto()
-    call ClosePreview()
+def PreviewQuarto()
+    ClosePreview()
 
     echom 'Starting preview job'
-    let b:file = expand('%')
-    let b:preview_job = job_start(
+    b:file = expand('%')
+    b:preview_job = job_start(
                 \   ['quarto', 'preview', b:file],
                 \ )
-endfunc
+enddef
 
-function! ClosePreview()
+def ClosePreview()
     if exists("b:preview_job")
         echo 'Killing existing job...'
-        call job_stop(b:preview_job)
+        job_stop(b:preview_job)
     endif
-endfunc
+enddef
 
 nnoremap <leader>r :echo 'No preview configured'<cr>
 nmap <F5> <leader>r
@@ -415,7 +439,7 @@ nmap <F5> <leader>r
 augroup Previews
     autocmd!
 
-    autocmd Filetype quarto nnoremap <buffer> <leader>r :call PreviewQuarto()<cr>
+    autocmd Filetype quarto nnoremap <buffer> <leader>r <ScriptCmd>PreviewQuarto()<cr>
 augroup END
 
 
@@ -427,19 +451,19 @@ augroup TextFormatting
     autocmd FileType r,elixir setl et sw=2 sts=2 ts=2
 augroup END
 
-" Show syntax highlighting groups for word under cursor
-"
-" This is useful for finding rogue elements I forgot in my colour
-" scheme.
-nnoremap <leader>\ :call <SID>SynStack()<CR>
-function! <SID>SynStack()
+# Show syntax highlighting groups for word under cursor
+#
+# This is useful for finding rogue elements I forgot in my colour
+# scheme.
+def SynStack()
     if !exists("*synstack")
         return
     endif
     echo map(synstack(line('.'), col('.')), 'synIDattr(v:val,"name")')
-endfunc
+enddef
 
-" Open syntax file for current
+nnoremap <leader>\ <ScriptCmd>SynStack()<cr>
+# Open syntax file for current
 
-" Syntax highlighting
+# Syntax highlighting
 colorscheme mpwb
