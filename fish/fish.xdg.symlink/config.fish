@@ -91,5 +91,5 @@ set -g fish_color_valid_path --bold
 set -g fish_color_command --bold
 set -g fish_color_time magenta
 
-# Greeting
-set -g fish_greeting "You look nice today :-)"
+# Greeting. I don't need a repeating message.
+set -g fish_greeting
