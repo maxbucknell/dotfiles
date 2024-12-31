@@ -227,14 +227,14 @@ enddef
 
 augroup AutoMkdir
     autocmd!
-    autocmd BufNewFile * <ScriptCmd>EnsureDirExists()
+    autocmd BufNewFile * EnsureDirExists()
 augroup END
 
 # Use tab for UltiSnips expansion, navigation, and 
 g:ulti_expand_or_jump_res = 0
 g:UltiSnipsExpandOrJumpTrigger = '<tab>'
 
-export def Ulti_ExpandOrJump_and_getRes(default: string): string
+def g:Ultisnips_expand(default: string): string
     UltiSnips#ExpandSnippetOrJump()
 
     if g:ulti_expand_or_jump_res == 0
@@ -244,7 +244,7 @@ export def Ulti_ExpandOrJump_and_getRes(default: string): string
     endif
 enddef
 
-inoremap <tab> <c-r>=<ScriptCmd>Ulti_ExpandOrJump_and_getRes("\<tab>")<cr>
+# inoremap <expr> <tab> <ScriptCmd>Ulti_ExpandOrJump_and_getRes("\<tab>")
 
 # Notes config
 
@@ -346,7 +346,7 @@ augroup CodeBlocks
 augroup END
 
 augroup Notes
-    autocmd Filetype quarto setl tw=80 fo+=croqt ts=4 sts=4 sw=4 comments=n:>
+    # autocmd Filetype quarto setl tw=80 fo+=croqt ts=4 sts=4 sw=4 comments=n:>
 
     # Surround mappings for Quarto callouts
     autocmd FileType quarto b:surround_110 = "::: {.callout-note}\n\r\n:::"
@@ -354,24 +354,47 @@ augroup Notes
     autocmd FileType quarto b:surround_119 = "::: {.callout-warning}\n\r\n:::"
     autocmd FileType quarto b:surround_105 = "::: {.callout-important}\n\r\n:::"
 
-    # autocmd FileType quarto imap <tab> <c-r>=<ScriptCmd>Ulti_ExpandOrJump_and_getRes("\<c-t>")<cr>
-    autocmd FileType quarto imap <expr> <tab> Ulti_ExpandOrJump_and_getRes("\<c-t>")
-    autocmd FileType quarto imap <s-tab> <c-d>
+    autocmd FileType quarto imap <buffer> <tab> <c-r>=g:Ultisnips_expand("\<c-t>")<cr>
+    autocmd FileType quarto imap <buffer> <s-tab> <c-d>
 
-    autocmd FileType quarto onoremap cb :<c-u>execute "normal! /^```\rk$ms?^```\rj:noh\rv`s"<cr>
-    autocmd FileType quarto nnoremap <leader>ec <ScriptCmd>EditCodeBlock()<cr>
-    autocmd FileType quarto inoremap <c-e> <esc><ScriptCmd>EditCodeBlock()<cr>
+    autocmd FileType quarto onoremap <expr> cb :<c-u>execute "normal! /^```\rk$ms?^```\rj:noh\rv`s"<cr>
+    autocmd FileType quarto nnoremap <expr> <leader>ec <ScriptCmd>EditCodeBlock()<cr>
+    autocmd FileType quarto inoremap <expr> <c-e> <esc><ScriptCmd>EditCodeBlock()<cr>
 augroup END
 
-# Daily notes
-def OpenDailyNote(offset: number)
+nnoremap <leader>x :silent keepp s/^- \[ \]/- [o]/e<cr>:silent keepp s/^- \[x\]/- [ ]/e<cr>:silent keepp s/^- \[o\]/- [x]/e<cr>
 
+# Daily notes
+def FormatOffset(offset: number): string
+    if offset == 0
+        return ""
+    elseif offset > 0
+        return "-v+" .. offset .. "d "
+    else
+        return "-v" .. offset .. "d "
+    endif
+enddef
+
+def OpenDailyNote(offset = 0)
+    var command = "date -v-4H " .. FormatOffset(offset) .. "\"+%Y-%m-%d\""
+    var date = trim(system(command))
+    var filename = $DAILY_NOTES_PATH .. "/" .. date .. "-daily.qmd"
+
+    if !filereadable(filename)
+        var template = $DAILY_NOTES_PATH .. "/template.py"
+
+        system(shellescape(template) .. " " .. shellescape(date) .. " > " .. shellescape(filename))
+    endif
+
+    execute "edit " .. filename
 enddef
 
 
+command -nargs=? Daily OpenDailyNote(<args>)
+
 def StartUp()
     if @% == ""
-        edit ~/tmp/testing.qmd
+        OpenDailyNote()
     endif
 enddef
 
