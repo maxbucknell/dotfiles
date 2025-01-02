@@ -27,6 +27,17 @@ set -gx GOPATH "$HOME/go"
 set -gx GOBIN "$GOPATH/bin"
 fish_add_path --global "$GOBIN"
 
+# Python
+
+set -gx VIRTUAL_ENV_DISABLE_PROMPT 1
+
+if ! test -f "$HOME/dotfiles/python/venv/bin/activate.fish"
+    python3 -m venv "$HOME/dotfiles/python/venv"
+end
+
+source "$HOME/dotfiles/python/venv/bin/activate.fish"
+set -gx PYTHONPATH "$PYTHONPATH:$HOME/dotfiles/lib/python"
+
 # Node.js
 set -gx NODEPATH "$HOMEBREW_PREFIX/node@$NODE_VERSION"
 fish_add_path --global "$NODEPATH/bin"

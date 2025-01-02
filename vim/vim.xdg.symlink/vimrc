@@ -14,15 +14,17 @@ plug#begin()
 Plug 'vimpostor/vim-lumen'
 
 Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-surround'
 
 Plug '/opt/homebrew/opt/fzf'
 Plug 'junegunn/fzf.vim'
 
 Plug 'SirVer/ultisnips'
 Plug 'dense-analysis/ale'
+Plug 'prabirshrestha/asyncomplete.vim'
 
 Plug 'vim-pandoc/vim-pandoc-syntax'
 Plug 'quarto-dev/quarto-vim'
@@ -210,6 +212,7 @@ enddef
 
 # Git blame
 nnoremap <leader>a <ScriptCmd>Zoom()<cr>:Git blame<cr>
+nnoremap <leader>z <ScriptCmd>Zoom()<cr>
 
 # Make directories in a filename if they don't exist.
 
@@ -386,7 +389,7 @@ def OpenDailyNote(offset = 0)
         system(shellescape(template) .. " " .. shellescape(date) .. " > " .. shellescape(filename))
     endif
 
-    execute "edit " .. filename
+    execute "silent edit " .. filename
 enddef
 
 
@@ -400,12 +403,14 @@ enddef
 
 augroup StartUp
     autocmd!
+
     autocmd VimEnter * ++nested StartUp()
+
+    autocmd VimResized * wincmd =
 augroup END
 
 
 # LSP and other completion
-g:ale_completion_enabled = 1
 g:ale_elixir_elixir_ls_release = '/opt/homebrew/opt/elixir-ls/libexec'
 g:ale_fix_on_save = 1
 
@@ -436,6 +441,26 @@ nnoremap <leader>de :ALEGoToDefinition<cr>
 nnoremap <leader>dx :ALEGoToDefinition -split<cr>
 nnoremap <leader>dv :ALEGoToDefinition -vsplit<cr>
 nnoremap <leader>dt :ALEGoToDefinition -tab<cr>
+
+  # au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#ale#get_source_options({
+  #     \ 'priority': 10, " Provide your own overrides here
+  #     \ }))
+
+inoremap <expr> <cr> pumvisible() ? asyncomplete#close_popup() : "\<cr>"
+
+augroup Completion
+    autocmd!
+
+    autocmd User asyncomplete_setup {
+        asyncomplete#register_source(
+            asyncomplete#sources#ale#get_source_options({ 'priority': 10 })
+        )
+
+        asyncomplete#register_source(
+            asyncomplete#sources#ultisnips#get_source_options({ 'priority': 11 })
+        )
+    }
+augroup END
 
 # File Running
 
@@ -482,7 +507,7 @@ def SynStack()
     if !exists("*synstack")
         return
     endif
-    echo map(synstack(line('.'), col('.')), 'synIDattr(v:val,"name")')
+    echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
 enddef
 
 nnoremap <leader>\ <ScriptCmd>SynStack()<cr>

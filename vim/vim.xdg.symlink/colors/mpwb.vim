@@ -129,6 +129,7 @@ hi link pandocAtxStart Title
 hi link pandocNoFormatted Keyword
 hi link pandocDelimitedCodeBlockLanguage Normal
 hi pandocBlockQuote cterm=italic
+hi pandocHRule guibg=mpwb_tintbg
 
 hi quartoCalloutNote guibg=mpwb_callout_note
 hi quartoCalloutWarning guibg=mpwb_callout_warning

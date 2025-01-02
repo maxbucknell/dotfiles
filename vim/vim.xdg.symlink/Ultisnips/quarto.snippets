@@ -1,3 +1,33 @@
+snippet note "Note Front Matter" b
+---
+title: "${1:Title}"
+author: "${2:Max Bucknell}"
+date: "${3:`date "+%A, %e, %B %Y"`}"
+format:
+    html:
+        embed-resources: true
+        html-math-method: katex
+        mainfont: Lato
+        monofont: Input
+        theme:
+            light: flatly
+            dark: darkly
+    pdf:
+        documentclass: article
+        mainfont: Lato
+        monofont: Input
+        geometry:
+            - top=30mm
+            - left=20mm
+            - heightrounded
+        number-sections: true
+---
+
+# $1
+
+$0
+endsnippet
+
 snippet :::n "Callout: Note" b
 ::: {.callout-note}
 ${0:${VISUAL:text...}}
@@ -29,6 +59,26 @@ ${0:${VISUAL:# code...}}
 \`\`\`
 endsnippet
 
+snippet `py "Python Code Block" b
+\`\`\`{python}
+${1:#| output: ${2:false}}
+${0:${VISUAL:# code...}}
+\`\`\`
+endsnippet
+
+snippet `ju "Julia Code Block" b
+\`\`\`{julia}
+${1:#| output: ${2:false}}
+${0:${VISUAL:# code...}}
+\`\`\`
+endsnippet
+
 snippet todo "Make a To-Do List!" b
 - [ ] ${0:What would you like to do..?}
+endsnippet
+
+snippet --- "Horizontal Rule" b
+--------------------------------------------------------------------------------
+
+$0
 endsnippet
