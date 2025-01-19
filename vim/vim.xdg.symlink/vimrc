@@ -19,12 +19,10 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 
+Plug 'arthurxavierx/vim-caser'
+
 Plug '/opt/homebrew/opt/fzf'
 Plug 'junegunn/fzf.vim'
-
-Plug 'SirVer/ultisnips'
-Plug 'dense-analysis/ale'
-Plug 'prabirshrestha/asyncomplete.vim'
 
 Plug 'vim-pandoc/vim-pandoc-syntax'
 Plug 'quarto-dev/quarto-vim'
@@ -34,6 +32,12 @@ Plug 'HerringtonDarkholme/yats.vim'
 Plug 'elixir-editors/vim-elixir'
 
 Plug 'bullets-vim/bullets.vim'
+
+Plug 'maxbucknell/vim-mbnotes'
+
+Plug 'SirVer/ultisnips'
+Plug 'dense-analysis/ale'
+Plug 'prabirshrestha/asyncomplete.vim'
 
 plug#end()
 
@@ -251,11 +255,23 @@ enddef
 
 # Notes config
 
+g:mbnotes_dir = $HOME .. "/Dropbox (Maestral)/Notes"
+g:mbnotes_out_dir = g:mbnotes_dir .. "/_output"
+g:mbnotes_open_daily_on_startup = true
+g:mbnotes_renderer_show = true
+g:mbnotes_renderer_close_on_end = true
+
+nnoremap <leader>t :MBNotesDaily<cr>
+nnoremap <leader>n :MBNotes<cr>
+nnoremap <c-n> :MBNotesNew<cr>
+nnoremap <c-x> :MBNotesNewSplit<cr>
+nnoremap <c-v> :vertical MBNotesNewSplit<cr>
+
 g:markdown_fenced_languages = ['r', 'elixir', 'python', 'html', 'rust']
 g:pandoc#syntax#codeblocks#embeds#langs = ['r', 'elixir', 'python', 'html', 'rust']
 
 # Enable bullets.vim in Quarto files
-g:bullets_enabled_file_types = ['markdown', 'text', 'gitcommit', 'quarto']
+g:bullets_enabled_file_types = ['markdown', 'text', 'gitcommit', 'quarto', 'mbnotes', 'mbnotes.quarto']
 # Disable the bullet changing on indents (for now)
 g:bullets_outline_levels = ['num', 'std-']
 
@@ -324,13 +340,16 @@ def EditCodeBlock()
 
     # Set file type, if it is correctly annotated
     if @f != '`'
-        execute 'set filetype=' .. @f
+        @f = substitute(@f, "[\{\}]", "", "g")
+        execute 'setf=' .. @f
     endif
 
     set nomodified
 enddef
 
-def SaveCodeBlock()
+command -nargs=0 EditCodeBlock EditCodeBlock()
+
+def g:SaveCodeBlock()
     var b = bufnr("%")
     silent :%yank c
     normal! mc
@@ -345,66 +364,24 @@ enddef
 augroup CodeBlocks
     autocmd!
 
-    autocmd BufWriteCmd *.codeblock <ScriptCmd>SaveCodeBlock()
+    autocmd BufWriteCmd *.codeblock g:SaveCodeBlock()
 augroup END
 
 augroup Notes
-    # autocmd Filetype quarto setl tw=80 fo+=croqt ts=4 sts=4 sw=4 comments=n:>
+    autocmd!
 
-    # Surround mappings for Quarto callouts
-    autocmd FileType quarto b:surround_110 = "::: {.callout-note}\n\r\n:::"
-    autocmd FileType quarto b:surround_116 = "::: {.callout-tip}\n\r\n:::"
-    autocmd FileType quarto b:surround_119 = "::: {.callout-warning}\n\r\n:::"
-    autocmd FileType quarto b:surround_105 = "::: {.callout-important}\n\r\n:::"
+    autocmd FileType mbnotes imap <buffer> <tab> <c-r>=g:Ultisnips_expand("\<c-t>")<cr>
+    autocmd FileType mbnotes imap <buffer> <s-tab> <c-d>
 
-    autocmd FileType quarto imap <buffer> <tab> <c-r>=g:Ultisnips_expand("\<c-t>")<cr>
-    autocmd FileType quarto imap <buffer> <s-tab> <c-d>
-
-    autocmd FileType quarto onoremap <expr> cb :<c-u>execute "normal! /^```\rk$ms?^```\rj:noh\rv`s"<cr>
-    autocmd FileType quarto nnoremap <expr> <leader>ec <ScriptCmd>EditCodeBlock()<cr>
-    autocmd FileType quarto inoremap <expr> <c-e> <esc><ScriptCmd>EditCodeBlock()<cr>
+    autocmd FileType mbnotes onoremap <expr> cb :<c-u>execute "normal! /^```\rk$ms?^```\rj:noh\rv`s"<cr>
+    autocmd FileType mbnotes nnoremap <leader>ec :EditCodeBlock<cr>
+    autocmd FileType mbnotes inoremap <c-e> <esc>:EditCodeBlock<cr>
 augroup END
 
 nnoremap <leader>x :silent keepp s/^- \[ \]/- [o]/e<cr>:silent keepp s/^- \[x\]/- [ ]/e<cr>:silent keepp s/^- \[o\]/- [x]/e<cr>
 
-# Daily notes
-def FormatOffset(offset: number): string
-    if offset == 0
-        return ""
-    elseif offset > 0
-        return "-v+" .. offset .. "d "
-    else
-        return "-v" .. offset .. "d "
-    endif
-enddef
-
-def OpenDailyNote(offset = 0)
-    var command = "date -v-4H " .. FormatOffset(offset) .. "\"+%Y-%m-%d\""
-    var date = trim(system(command))
-    var filename = $DAILY_NOTES_PATH .. "/" .. date .. "-daily.qmd"
-
-    if !filereadable(filename)
-        var template = $DAILY_NOTES_PATH .. "/template.py"
-
-        system(shellescape(template) .. " " .. shellescape(date) .. " > " .. shellescape(filename))
-    endif
-
-    execute "silent edit " .. filename
-enddef
-
-
-command -nargs=? Daily OpenDailyNote(<args>)
-
-def StartUp()
-    if @% == ""
-        OpenDailyNote()
-    endif
-enddef
-
 augroup StartUp
     autocmd!
-
-    autocmd VimEnter * ++nested StartUp()
 
     autocmd VimResized * wincmd =
 augroup END
@@ -453,6 +430,10 @@ augroup Completion
 
     autocmd User asyncomplete_setup {
         asyncomplete#register_source(
+            asyncomplete#sources#mbnotes#get_source_options({ 'priority': 9 })
+        )
+
+        asyncomplete#register_source(
             asyncomplete#sources#ale#get_source_options({ 'priority': 10 })
         )
 
@@ -468,10 +449,11 @@ def PreviewQuarto()
     ClosePreview()
 
     echom 'Starting preview job'
-    b:file = expand('%')
-    b:preview_job = job_start(
-                \   ['quarto', 'preview', b:file],
-                \ )
+    b:preview_job = job_start([
+        'quarto',
+        'preview',
+        expand('%')
+    ])
 enddef
 
 def ClosePreview()

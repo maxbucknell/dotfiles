@@ -29,34 +29,36 @@ let s:is_dark=(&background == 'dark')
 
 " \ 'mpwb_green': '#20A92E',
 call extend(v:colornames, {
-            \ 'mpwb_fg': '#201C22',
-            \ 'mpwb_bg': '#E7E3E9',
-            \ 'mpwb_tintbg': '#FCF7FE',
-            \ 'mpwb_red': '#AD1C22',
-            \ 'mpwb_orange': '#AF5F27',
-            \ 'mpwb_yellow': '#AD9622',
-            \ 'mpwb_green': '#20A951',
-            \ 'mpwb_cyan': '#20A9AE',
-            \ 'mpwb_blue': '#2059AF',
-            \ 'mpwb_purple': '#721CAF',
-            \ 'mpwb_magenta': '#AB177B',
-            \ 'mpwb_callout_note': '#CCD7E8',
-            \ 'mpwb_callout_tip': '#D2E8CC',
-            \ 'mpwb_callout_important': '#E8CCCC',
-            \ 'mpwb_callout_warning': '#E8E3CC',
+            \ 'mpwb_light': '#e7e3e9',
+            \ 'mpwb_dark': '#201c22',
+            \ 'mpwb_fg': '#201c22',
+            \ 'mpwb_bg': '#e7e3e9',
+            \ 'mpwb_tintbg': '#fcf7fe',
+            \ 'mpwb_red': '#ad1c22',
+            \ 'mpwb_orange': '#af5f27',
+            \ 'mpwb_yellow': '#ad9622',
+            \ 'mpwb_green': '#20a951',
+            \ 'mpwb_cyan': '#20a9ae',
+            \ 'mpwb_blue': '#2059af',
+            \ 'mpwb_purple': '#721caf',
+            \ 'mpwb_magenta': '#ab177b',
+            \ 'mpwb_callout_note': '#ccd7e8',
+            \ 'mpwb_callout_tip': '#d2e8cc',
+            \ 'mpwb_callout_important': '#e8cccc',
+            \ 'mpwb_callout_warning': '#e8e3cc',
             \ 'mpwb_cursorline': '#c6c2c8'
             \ }, 'force')
 
 if s:is_dark
     call extend(v:colornames, {
-                \ 'mpwb_fg': '#E7E3E9',
-                \ 'mpwb_bg': '#201C22',
-                \ 'mpwb_tintbg': '#3B3440',
-                \ 'mpwb_callout_note': '#002A68',
+                \ 'mpwb_fg': '#e7e3e9',
+                \ 'mpwb_bg': '#201c22',
+                \ 'mpwb_tintbg': '#3b3440',
+                \ 'mpwb_callout_note': '#002a68',
                 \ 'mpwb_callout_tip': '#156800',
                 \ 'mpwb_callout_important': '#680000',
                 \ 'mpwb_callout_warning': '#685700',
-                \ 'mpwb_cursorline': '#29242C',
+                \ 'mpwb_cursorline': '#29242c',
                 \ }, 'force')
 endif
 
@@ -91,8 +93,12 @@ hi! link MatchParen Search
 
 " Chrome is purple
 hi VertSplit guifg=mpwb_purple cterm=NONE
-hi StatusLine guifg=mpwb_purple cterm=bold
+hi StatusLine guibg=mpwb_light guifg=mpwb_purple
 hi StatusLineNC guifg=mpwb_purple cterm=NONE
+
+hi TabLine guifg=mpwb_purple guibg=mpwb_bg
+hi TabLineFill guibg=mpwb_bg guifg=mpwb_purple cterm=underline
+hi TabLinesel guibg=mpwb_purple guifg=mpwb_light
 
 hi Visual guibg=mpwb_fg guifg=mpwb_bg
 
@@ -121,7 +127,7 @@ hi LspSigActiveParameter cterm=bold guifg=mpwb_bg guibg=mpwb_purple
 hi pandocBlockQuote cterm=NONE guifg=mpwb_fg
 hi link elixirUnusedVariable Normal
 
-" Notes in Quarto
+" Notes
 
 hi Title cterm=bold guifg=mpwb_fg
 hi link pandocAtxHeaderMark Title
@@ -131,9 +137,9 @@ hi link pandocDelimitedCodeBlockLanguage Normal
 hi pandocBlockQuote cterm=italic
 hi pandocHRule guibg=mpwb_tintbg
 
-hi quartoCalloutNote guibg=mpwb_callout_note
-hi quartoCalloutWarning guibg=mpwb_callout_warning
-hi quartoCalloutImportant guibg=mpwb_callout_important
-hi quartoCalloutTip guibg=mpwb_callout_tip
-hi quartoCalloutCaution guibg=mpwb_callout_warning
+hi mbnCalloutNote guibg=mpwb_callout_note
+hi mbnCalloutWarning guibg=mpwb_callout_warning
+hi mbnCalloutImportant guibg=mpwb_callout_important
+hi mbnCalloutTip guibg=mpwb_callout_tip
+hi mbnCalloutCaution guibg=mpwb_callout_warning
 
