@@ -38,7 +38,7 @@
     ui = auto
 
 [help]
-    autocorrect = 1
+    autocorrect = prompt
 
 [push]
     default = current
