@@ -115,34 +115,33 @@ matchadd('ColorColumn', '\%82v', 100)
 
 # Mappings etc
 g:mapleader = "\<space>"
-g:localmapleader = "\\"
+g:maplocalleader = ","
 
 # Use jk to escape back to normal
 inoremap jk <esc>
 inoremap <esc> <nop>
 
 # Hide search highlights
-nnoremap <esc> :noh<cr>
-nnoremap <leader>/ :noh<cr>
+nnoremap <bs> :noh<cr>
 
 # Switch between recent buffers
 nnoremap <leader><leader> <c-^>
 
-# Fix shift-semicolon to write
+# Fix shift-semicolon to colon
 noremap ; :
-
-# Make it easier to use registers
-nnoremap ' "
 
 # I should map these to something useful
 inoremap <up> <nop>
 inoremap <down> <nop>
 inoremap <left> <nop>
 inoremap <right> <nop>
+
 noremap <up> <nop>
 noremap <down> <nop>
-noremap <left> <nop>
-noremap <right> <nop>
+
+# Update almost a decade later: I mapped these to something useful!
+noremap <left> :cprev<cr>
+noremap <right> :cnext<cr>
 
 # Case control
 nnoremap <leader>u viwU
@@ -240,6 +239,8 @@ augroup END
 # Use tab for UltiSnips expansion, navigation, and 
 g:ulti_expand_or_jump_res = 0
 g:UltiSnipsExpandOrJumpTrigger = '<tab>'
+g:UltiSnipsSnippetStorageDirectoryForUltiSnipsEdit = $DOTFILES_PATH .. "/vim/vim.xdg.symlink/Ultisnips"
+
 
 def g:Ultisnips_expand(default: string): string
     UltiSnips#ExpandSnippetOrJump()
