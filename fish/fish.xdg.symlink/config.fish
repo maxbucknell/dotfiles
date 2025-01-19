@@ -17,15 +17,15 @@ if not contains "/opt/homebrew/share/info" $INFOPATH
 end
 
 # Rust
-fish_add_path --global "$HOME/.cargo/bin"
+fish_add_path --global --move --path "$HOME/.cargo/bin"
 
 # Ruby
-fish_add_path --global "$HOMEBREW_PREFIX/ruby/bin"
+fish_add_path --global --move --path "$(brew --prefix ruby)/bin"
 
 # Go
 set -gx GOPATH "$HOME/go"
 set -gx GOBIN "$GOPATH/bin"
-fish_add_path --global "$GOBIN"
+fish_add_path --global --move --path "$GOBIN"
 
 # Python
 
@@ -39,23 +39,31 @@ source "$HOME/dotfiles/python/venv/bin/activate.fish"
 set -gx PYTHONPATH "$PYTHONPATH:$HOME/dotfiles/lib/python"
 
 # Node.js
-set -gx NODEPATH "$HOMEBREW_PREFIX/node@$NODE_VERSION"
-fish_add_path --global "$NODEPATH/bin"
+set -gx NODEPATH "$(brew --prefix node@$NODE_VERSION)"
+fish_add_path --global --move --path "$NODEPATH/bin"
 
 # pnpm
 set -gx PNPM_HOME "$HOME/Library/pnpm"
-fish_add_path --global "$PNPM_HOME"
+fish_add_path --global --move --path "$PNPM_HOME"
 
 # Java
-set -gx JAVAPATH "$HOMEBREW_PREFIX/openjdk@21"
-fish_add_path --global "$JAVAPATH/bin"
+set -gx JAVAPATH "$(brew --prefix openjdk@21)"
+fish_add_path --global --move --path "$JAVAPATH/bin"
 
 # Android
 set -gx ANDROID_HOME "$HOME/Library/Android/sdk"
-fish_add_path --global "$ANDROID_HOME/emulator" "$ANDROID_HOME/platform-tools"
+fish_add_path --global --move --path "$ANDROID_HOME/emulator" "$ANDROID_HOME/platform-tools"
+
+# Python
+source "$HOME/dotfiles/python/venv/bin/activate.fish"
+set -gx PYTHONPATH "$PYTHONPATH:$DOTFILES_PATH/lib/python"
 
 # Local path
-fish_add_path --global "$DOTFILES_PATH/bin" "$DOTFILES_PATH/bin/misc"
+fish_add_path --global --move --path "$DOTFILES_PATH/bin" "$DOTFILES_PATH/bin/misc"
+
+# FZF
+
+set -gx FZF_DEFAULT_COMMAND 'rg --files --hidden --follow --glob "!.git/*"'
 
 # Git
 

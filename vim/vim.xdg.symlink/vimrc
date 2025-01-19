@@ -124,6 +124,9 @@ inoremap <esc> <nop>
 # Hide search highlights
 nnoremap <bs> :noh<cr>
 
+" Hide warning about exiting vim when I type ctrl-c to edit windows
+nnoremap <C-c> <silent> <C-c>
+
 # Switch between recent buffers
 nnoremap <leader><leader> <c-^>
 
