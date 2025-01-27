@@ -7,12 +7,11 @@ macOS and a little bit of Fedora.
 Everything in here certainly was used at some point, but right now, the things
 I am most maintaining are:
 
-+ zsh
++ fish
 + git
 + vim
 + bat
 + iterm
-+ liquidprompt
 
 In addition to this, you can find a few little scripts I use in the `bin`
 directory, and some Python scripts to support those in lib.
