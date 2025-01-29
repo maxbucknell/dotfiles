@@ -54,10 +54,10 @@ set nobackup nowritebackup noswapfile
 
 # Statusline
 set laststatus=2
-set statusline=—[%n\:\ %t]—%=—%y—[%l/%L,\ %c]—%m%r—
-set fillchars=stl:—,eob:\ 
-set fillchars+=stlnc:—
-set fillchars+=vert:\|
+set statusline=─[%n\:\ %t]─%=─%y─[%l/%L,\ %c]─%m%r─
+set fillchars=stl:─,eob:\ 
+set fillchars+=stlnc:─
+set fillchars+=vert:\│
 
 # Hide intro message
 set shortmess=I
@@ -417,7 +417,7 @@ nnoremap za :ALEFirst<cr>
 nnoremap zn :ALENextWrap<cr>
 nnoremap zN :ALEPreviousWrap<cr>
 
-nnoremap <leader>d :ALEGoToDefinition<cr>
+nnoremap <leader>dd :ALEGoToDefinition<cr>
 nnoremap <leader>de :ALEGoToDefinition<cr>
 nnoremap <leader>dx :ALEGoToDefinition -split<cr>
 nnoremap <leader>dv :ALEGoToDefinition -vsplit<cr>
