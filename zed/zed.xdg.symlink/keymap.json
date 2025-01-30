@@ -1,0 +1,67 @@
+[
+  {
+    "bindings": {
+      "cmd-o": "file_finder::Toggle"
+    }
+  },
+  {
+    "context": "ProjectPanel && not_editing",
+    "bindings": {
+      "shift-cmd-n": "project_panel::NewDirectory",
+      "cmd-n": "project_panel::NewFile",
+      "enter": "project_panel::Rename",
+      "cmd-o": "project_panel::OpenPermanent"
+    }
+  },
+  {
+    "context": "Pane",
+    "bindings": {
+      "ctrl-h": ["workspace::ActivatePaneInDirection", "Left"],
+      "ctrl-j": ["workspace::ActivatePaneInDirection", "Right"],
+      "ctrl-k": ["workspace::ActivatePaneInDirection", "Up"],
+      "ctrl-l": ["workspace::ActivatePaneInDirection", "Down"],
+      "cmd-shift-g": "pane::RevealInProjectPanel"
+    }
+  },
+  {
+    "context": "Editor",
+    "bindings": {
+      "ctrl-h": ["workspace::ActivatePaneInDirection", "Left"],
+      "ctrl-j": ["workspace::ActivatePaneInDirection", "Down"],
+      "ctrl-k": ["workspace::ActivatePaneInDirection", "Up"],
+      "ctrl-l": ["workspace::ActivatePaneInDirection", "Right"],
+      "cmd-enter": "repl::Run"
+    }
+  },
+  {
+    "context": "vim_mode == normal",
+    "bindings": {
+      "shift-d": ["workspace::SendKeystrokes", "d d"],
+      "-": ["workspace::SendKeystrokes", "d d p"],
+      "_": ["workspace::SendKeystrokes", "d d k P"],
+      "escape": "repl::ClearOutputs",
+      "backspace": "buffer_search::Dismiss"
+    }
+  },
+  {
+    "context": "VimControl && !menu",
+    "bindings": {
+      ";": "command_palette::Toggle",
+      ":": "vim::RepeatFind",
+      "ctrl-h": ["workspace::ActivatePaneInDirection", "Left"],
+      "ctrl-j": ["workspace::ActivatePaneInDirection", "Down"],
+      "ctrl-k": ["workspace::ActivatePaneInDirection", "Up"],
+      "ctrl-l": ["workspace::ActivatePaneInDirection", "Right"]
+    }
+  },
+  {
+    "context": "Editor && vim_mode == insert",
+    "bindings": {
+      "j k": "vim::NormalBefore",
+      "left": null,
+      "down": null,
+      "up": null,
+      "right": null
+    }
+  }
+]
