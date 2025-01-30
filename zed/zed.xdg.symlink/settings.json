@@ -7,65 +7,91 @@
 // custom settings, run the `open default settings` command
 // from the command palette or from `Zed` application menu.
 {
-  "assistant": {
-    "default_model": {
-      "provider": "zed.dev",
-      "model": "claude-3-5-sonnet-latest"
+    "assistant": {
+        "default_model": {
+            "provider": "zed.dev",
+            "model": "claude-3-5-sonnet-latest"
+        },
+        "version": "2"
     },
-    "version": "2"
-  },
-  "auto_update": false,
-  "theme": {
-    "dark": "mpwb dark",
-    "light": "mpwb light"
-  },
-  "scrollbar": {
-    "cursors": false,
-    "git_diff": false,
-    "search_results": false,
-    "selected_symbol": false
-  },
-  "git": {
-    "git_gutter": "hide",
-    "inline_blame": {
-      "enabled": true
+    "theme": {
+        "dark": "mpwb dark",
+        "light": "mpwb light"
+    },
+    "scrollbar": {
+        "cursors": false,
+        "git_diff": false,
+        "search_results": false,
+        "selected_symbol": false
+    },
+    "git": {
+        "git_gutter": "hide",
+        "inline_blame": {
+            "enabled": true
+        }
+    },
+    "cursor_blink": false,
+    "vim_mode": true,
+    "vim": {
+        "use_system_clipboard": "never"
+    },
+    "relative_line_numbers": true,
+    "buffer_font_size": 12,
+    "buffer_font_family": "Input",
+    "buffer_font_features": {
+        "calt": false,
+        "liga": false
+    },
+    "ui_font_family": "SF Pro",
+    "ui_font_size": 15,
+    "project_panel": {
+        "dock": "right"
+    },
+    "languages": {
+        "JavaScript": {
+            "tab_size": 4,
+            "formatter": {
+                "external": {
+                    "command": "prettier",
+                    "arguments": ["--stdin-filepath", "{buffer_path}"]
+                }
+            },
+            "code_actions_on_format": {
+                "source.fixAll.eslint": true
+            }
+        },
+        "TypeScript": {},
+        "TSX": {},
+        "Markdown": {
+            "tab_size": 4
+        },
+        "JSON": {
+            "tab_size": 4
+        },
+        "JSONC": {
+            "tab_size": 4
+        },
+        "Go": {
+            "hard_tabs": true,
+            "tab_size": 8
+        },
+        "Make": {
+            "hard_tabs": true,
+            "tab_size": 8
+        }
+    },
+    "auto_install_extensions": {
+        "dockerfile": true,
+        "git-firefly": true,
+        "graphql": true,
+        "html": true,
+        "make": true,
+        "proto": true,
+        "ruby": true,
+        "sql": true,
+        "terraform": true,
+        "toml": true,
+        "erlang": true,
+        "elixir": true
     }
-  },
-  "cursor_blink": false,
-  "vim_mode": true,
-  "vim": {
-    "use_system_clipboard": "never"
-  },
-  "relative_line_numbers": true,
-  "buffer_font_size": 12,
-  "buffer_font_family": "Input",
-  "buffer_font_features": {
-    "calt": false,
-    "liga": false
-  },
-  "ui_font_family": "SF Pro",
-  "ui_font_size": 15,
-  "project_panel": {
-    "dock": "right"
-  },
-  "languages": {
-    "TypeScript": {
-      "tab_size": 4
-    },
-    "JavaScript": {
-      "tab_size": 4
-    },
-    "TSX": {
-      "tab_size": 4
-    },
-    "Markdown": {
-      "tab_size": 4
-    },
-    "JSON": {
-      "tab_size": 4
-    },
-    "Make": {
-      "tab_size": 8
-    }
-  }
 }
