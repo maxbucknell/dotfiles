@@ -2,6 +2,7 @@ bin/misc
 configstore
 
 fish/fish.xdg.symlink/conf.d/secret.fish
+fish/fish.xdg.symlink/fish_variables
 
 vim/vim.xdg.symlink/.netrwhist
 vim/vim.xdg.symlink/plugged
