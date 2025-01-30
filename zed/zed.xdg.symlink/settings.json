@@ -7,6 +7,9 @@
 // custom settings, run the `open default settings` command
 // from the command palette or from `Zed` application menu.
 {
+    "features": {
+        "inline_completion_provider": "none"
+    },
     "assistant": {
         "default_model": {
             "provider": "zed.dev",
@@ -18,16 +21,39 @@
         "dark": "mpwb dark",
         "light": "mpwb light"
     },
+    "restore_on_startup": "none",
     "scrollbar": {
         "cursors": false,
         "git_diff": false,
         "search_results": false,
-        "selected_symbol": false
+        "selected_symbol": false,
+        "diagnostics": "none"
+    },
+    "tabs": {
+        "close_position": "left",
+        "activate_on_close": "left_neighbour"
+    },
+    "toolbar": {
+        "breadcrumbs": false,
+        "quick_actions": false
     },
     "git": {
         "git_gutter": "hide",
         "inline_blame": {
-            "enabled": true
+            "enabled": true,
+            "delay_ms": 600,
+            "show_commit_summary": true,
+            "min_column": 40
+        }
+    },
+    "inlay_hints": {
+        "enabled": true
+    },
+    "wrap_guides": [80],
+    "use_smartcase_search": true,
+    "terminal": {
+        "toolbar": {
+            "breadcrumbs": false
         }
     },
     "cursor_blink": false,
@@ -60,8 +86,19 @@
                 "source.fixAll.eslint": true
             }
         },
-        "TypeScript": {},
-        "TSX": {},
+        "Elixir": {
+            "format_on_save": {
+                "external": {
+                    "command": "mix",
+                    "arguments": [
+                        "format",
+                        "--stdin-filename",
+                        "{buffer_path}",
+                        "-"
+                    ]
+                }
+            }
+        },
         "Markdown": {
             "tab_size": 4
         },
