@@ -39,7 +39,7 @@
         "bindings": {
             "shift-d": ["workspace::SendKeystrokes", "d d"],
             "-": ["workspace::SendKeystrokes", "d d p"],
-            "_": ["workspace::SendKeystrokes", "d d k P"],
+            "_": ["workspace::SendKeystrokes", "d d 2 k p"],
             "escape": "repl::ClearOutputs",
             "backspace": "buffer_search::Dismiss"
         }
