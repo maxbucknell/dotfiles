@@ -33,7 +33,7 @@ Plug 'elixir-editors/vim-elixir'
 
 Plug 'bullets-vim/bullets.vim'
 
-Plug 'maxbucknell/vim-mbnotes'
+Plug 'https://git.mpwb.xyz/mpwb/vim-mbnotes.git'
 
 Plug 'SirVer/ultisnips'
 Plug 'dense-analysis/ale'
