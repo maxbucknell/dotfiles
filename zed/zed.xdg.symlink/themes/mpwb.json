@@ -43,11 +43,11 @@
                 "scrollbar.track.border": "#ff00ff00",
                 "scrollbar.thumb.border": "#ff00ff00",
 
-                "search.match_background": "#20a9ae",
+                "search.match_background": "#ad962288",
                 "created": "#20a951ff",
                 "deleted": "#ad1c22ff",
                 "modified": "#2059afff",
-                "hint": "#20a951ff",
+                "hint": "#736E76",
 
                 "editor.foreground": "#e7e3e9ff",
                 "editor.background": "#201c22ff",
@@ -117,7 +117,7 @@
             "name": "mpwb light",
             "appearance": "light",
             "style": {
-                "border": "#f2f3f2",
+                "border": "#DBDCDC",
                 "border.variant": "#e0e0e0",
                 "border.focused": "#e0e0e0",
                 "border.disabled": "#e0e0e0",
@@ -151,11 +151,11 @@
 
                 "panel.background": "#dedfde",
 
-                "search.match_background": "#20a9ae",
+                "search.match_background": "#e2cb2280",
                 "created": "#20a951ff",
                 "deleted": "#ad1c22ff",
                 "modified": "#2059afff",
-                "hint": "#20a951ff",
+                "hint": "#98939B",
 
                 "editor.background": "#e7e3e9ff",
                 "editor.foreground": "#201c22ff",
