@@ -56,6 +56,7 @@
     "wrap_guides": [80],
     "use_smartcase_search": true,
     "terminal": {
+        "dock": "right",
         "toolbar": {
             "breadcrumbs": false
         }
@@ -78,6 +79,9 @@
         "dock": "right"
     },
     "languages": {
+        "C++": {
+            "format_on_save": "on"
+        },
         "JavaScript": {
             "tab_size": 4,
             "formatter": {
@@ -119,6 +123,10 @@
         "Make": {
             "hard_tabs": true,
             "tab_size": 8
+        },
+        "SQL": {
+            "format_on_save": "off",
+            "show_edit_predictions": false
         }
     },
     "auto_install_extensions": {
