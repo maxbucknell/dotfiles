@@ -8,18 +8,22 @@
 // from the command palette or from `Zed` application menu.
 {
     "features": {
-        "inline_completion_provider": "none"
+        "edit_prediction_provider": "zed"
     },
     "assistant": {
         "default_model": {
-            "provider": "openai",
-            "model": "gpt-4o"
+            "provider": "anthropic",
+            "model": "claude-3-5-sonnet-latest"
         },
         "version": "2"
     },
     "theme": {
         "dark": "mpwb dark",
         "light": "mpwb light"
+    },
+    "icon_theme": {
+        "dark": "Catppuccin Macchiato",
+        "light": "Catppuccin Latte"
     },
     "restore_on_startup": "none",
     "scrollbar": {
