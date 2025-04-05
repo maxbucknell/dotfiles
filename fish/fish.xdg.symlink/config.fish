@@ -73,6 +73,10 @@ set -gx GIT_COMMITTER_EMAIL "$GIT_AUTHOR_EMAIL"
 set -g __fish_git_prompt_show_informative_status true
 set -g __fish_git_prompt_showdirtystate true
 
+# JJ
+
+set -gx JJ_CONFIG "$HOME/.config/jj/config.toml"
+
 # Vim aliases
 set -gx EDITOR "vim"
 alias vi vim
