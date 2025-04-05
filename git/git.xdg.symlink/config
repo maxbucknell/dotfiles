@@ -23,6 +23,7 @@
     st = status
     ci = commit --verbose
     co = checkout
+    cp = cherry-pick
     current-branch = rev-parse --abbrev-ref HEAD
     cl = clone
     ll = !max-git-log
