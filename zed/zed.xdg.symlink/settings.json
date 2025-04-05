@@ -10,6 +10,9 @@
     "features": {
         "edit_prediction_provider": "zed"
     },
+    "edit_predictions": {
+        "mode": "subtle"
+    },
     "assistant": {
         "default_model": {
             "provider": "anthropic",
@@ -127,6 +130,9 @@
         "SQL": {
             "format_on_save": "off",
             "show_edit_predictions": false
+        },
+        "TSX": {
+            "tab_size": 4
         }
     },
     "auto_install_extensions": {
