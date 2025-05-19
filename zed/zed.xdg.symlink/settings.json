@@ -16,7 +16,7 @@
     "assistant": {
         "default_model": {
             "provider": "anthropic",
-            "model": "claude-3-5-sonnet-latest"
+            "model": "claude-3-7-sonnet-latest"
         },
         "version": "2"
     },
@@ -59,7 +59,7 @@
     "wrap_guides": [80],
     "use_smartcase_search": true,
     "terminal": {
-        "dock": "right",
+        "dock": "bottom",
         "toolbar": {
             "breadcrumbs": false
         }
