@@ -1,0 +1,35 @@
+{
+    "itesth": {
+        "prefix": "itesth",
+        "description": "Integration test header",
+        "body": [
+            "/* eslint-disable @typescript-eslint/no-unused-expressions */",
+            "import 'reflect-metadata'",
+            "",
+            "import { describe } from 'node:test'",
+            "",
+            "import { createDatabase, tearDown, withFixturesIt } from '@lib/database/test'",
+            "import { createTestContext } from 'baseup/services/internal/engine/context/test'",
+            "",
+            "import { expect, use } from 'chai'",
+            "import chaiAsPromised from 'chai-as-promised'",
+            "use(chaiAsPromised)",
+            "",
+            "$0"
+        ]
+    },
+    "itests": {
+        "prefix": "itests",
+        "description": "Integration test suite",
+        "body": ["describe('${1:Function name}', () => {", "    $0", "})"]
+    },
+    "itest": {
+        "prefix": "itest",
+        "description": "Integration test case",
+        "body": [
+            "withFixturesIt([${1:Fixtures...}], '${2:Should...}', async () => {",
+            "    $0",
+            "})"
+        ]
+    }
+}
