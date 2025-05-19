@@ -34,6 +34,7 @@
     unwip = reset --soft HEAD~1
     s = switch
     b = switch -c
+    lt = log --oneline -10
 
 [color]
     ui = auto
