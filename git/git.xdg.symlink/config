@@ -14,11 +14,8 @@
 [alias]
     dc = diff --staged
     di = diff
-    amend = commit --amend
-    aa = add --all
-    ff = merge --ff-only
-    noff = merge --no-ff
     pf = pull --ff-only
+    pr = pull --rebase
     fa = fetch --all
     st = status
     ci = commit --verbose
@@ -28,8 +25,6 @@
     cl = clone
     ll = !max-git-log
     uu = !max-set-upstream
-    whodunnit = blame
-    peek = log -1
     wip = commit -m 'wip' --no-verify
     unwip = reset --soft HEAD~1
     s = switch
