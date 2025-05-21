@@ -13,7 +13,7 @@
     "edit_predictions": {
         "mode": "subtle"
     },
-    "assistant": {
+    "agent": {
         "default_model": {
             "provider": "anthropic",
             "model": "claude-3-7-sonnet-latest"
