@@ -8,7 +8,7 @@
             "",
             "import { describe } from 'node:test'",
             "",
-            "import { createDatabase, tearDown, withFixturesIt } from '@lib/database/test'",
+            "import { withFixturesIt } from '@lib/database/test'",
             "import { createTestContext } from 'baseup/services/internal/engine/context/test'",
             "",
             "import { expect, use } from 'chai'",
@@ -30,6 +30,17 @@
             "withFixturesIt([${1:Fixtures...}], '${2:Should...}', async () => {",
             "    $0",
             "})"
+        ]
+    },
+    "grpcimpl": {
+        "prefix": "grpcimpl",
+        "description": "gRPC implementation function",
+        "body": [
+            "import type Context from 'baseup/services/internal/engine/context'",
+            "",
+            "export async function ${1:endpointName}(ctx: Context) {",
+            "    $0",
+            "}"
         ]
     }
 }
