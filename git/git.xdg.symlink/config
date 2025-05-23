@@ -69,12 +69,12 @@
 [gpg]
     format = ssh
 
-[gpg "ssh"]
-    program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
-
 [commit]
     gpgsign = true
 
 [bash]
     showInformativeStatus = 1
     showDirtyState = 1
+
+[include]
+    path = host.gitconfig

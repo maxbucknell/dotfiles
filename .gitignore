@@ -8,6 +8,8 @@ vim/vim.xdg.symlink/.netrwhist
 vim/vim.xdg.symlink/plugged
 vim/vim.xdg.symlink/plugged-update
 
+git/git.xdg.symlink/host.gitconfig
+
 zsh/zsh.symlink/liquidprompt
 zsh/zsh.symlink/zsh-completions
 zsh/zsh.symlink/zsh-syntax-highlighting
