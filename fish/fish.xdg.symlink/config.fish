@@ -50,16 +50,15 @@ alias v vim
 alias bazel bazelisk
 
 # Bat
-alias cat "bat --paging=never"
-set -gx MANPAGER "sh -c 'col -bx | bat -l man -p'"
+# alias cat "bat --paging=never"
+# set -gx MANPAGER "sh -c 'col -bx | bat -l man -p'"
 
 # Eza
-alias ls "eza --git --color=never"
+# alias ls "eza --git --color=never"
 
 # Vi bindings
-
+# Off for now...
 # fish_vi_key_bindings
-
 # bind -M insert -m default jk cancel repaint-mode
 # set -g fish_sequence_key_delay_ms 200
 
