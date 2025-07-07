@@ -1,7 +1,4 @@
 #!/usr/bin/env bash
-#
-# bootstrap installs things.
-# Shamelessly ripped from holman/dotfiles
 
 cd "$(dirname "$0")/.."
 DOTFILES_ROOT=$(pwd)
@@ -107,7 +104,7 @@ install_dotfiles () {
 
   mkdir -p "$HOME/.config"
 
-  local overwrite_all=false backup_all=false skip_all=false
+  local overwrite_all=true backup_all=false skip_all=false
 
   for src in $(find "$DOTFILES_ROOT" -maxdepth 2 -name '*.symlink')
   do
