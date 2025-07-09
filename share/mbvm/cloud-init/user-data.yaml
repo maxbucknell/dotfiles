@@ -1,0 +1,16 @@
+#cloud-config
+users:
+  - name: mpwb
+    primary_group: mpwb
+    groups: wheel
+    ssh-authorized-keys:
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIL/IcUBiUmraskwzMoI1uCbNWno5tziJ6bKDqE6z8CqF
+    shell: /bin/bash
+    lock_passwd: false
+chpasswd:
+  expire: false
+  users:
+    - name: mpwb
+      password: password
+      type: text
+ssh_pwauth: false

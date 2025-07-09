@@ -1,0 +1,234 @@
+#!/usr/bin/env bash
+set -euo pipefail
+IFS=$'\n\t'
+
+# === Configurable paths ===
+MBVM_ROOT="${MBVM_ROOT:-$HOME/vms}"
+IMAGE_DIR="$MBVM_ROOT/images"
+MACHINE_DIR="$MBVM_ROOT/machines"
+MBVM_CLOUD_INIT_TMPL="${MBVM_CLOUD_INIT_TMPL:-}"
+
+# Default specs
+MBVM_MEMORY=${MBVM_MEMORY:-4096}
+MBVM_VCPUS=${MBVM_VCPUS:-2}
+
+# === Utilities ===
+
+die() {
+    echo "error: $*" >&2
+    exit 1
+}
+
+usage() {
+    cat <<EOF
+Usage: mbvm <command> [args...] [-- extra virt-install flags]
+
+Commands:
+  img <os-variant> <name> <url>
+      Download a base qcow2 image and save it as images/<name>.qcow2
+
+  new [--user-data=<user-data>] <vmname> <imgname> [-- ...]
+      Create a new VM instance:
+        - Uses images/<imgname>.qcow2 as backing file
+        - Copies <user-data> for cloud-init purposes
+
+      Generates cloud-init ISO and launches VM
+      Extra arguments after "--" are passed directly to virt-install.
+
+  up <vmname>                Start a defined VM
+  down <vmname>              Shut down a running VM
+  destroy <vmname>           Shut down and delete the VM, disk, and ISO
+
+Environment variables:
+  MBVM_ROOT
+      Root directory for VM data (default: \$HOME/vms)
+
+  MBVM_MEMORY
+      Memory for VM in MiB (default: 4096)
+
+  MBVM_VCPUS
+      Number of virtual CPUs (default: 2)
+
+Examples:
+  mbvm img fedora-unknown fedora-cloud-42 https://download.fedoraproject.org/pub/fedora/linux/releases/42/Cloud/x86_64/images/Fedora-Cloud-Base-Generic-42-1.1.x86_64.qcow2
+  MBVM_MEMORY=8192 MBVM_VCPUS=4 mbvm new hello-world fedora-cloud-42
+  mbvm down hello-world
+  mbvm list
+  mbvm up hello-world
+  mbvm destroy hello-world
+
+EOF
+exit 1
+}
+
+require_args() {
+    local count="$1"
+    shift
+    if (( $# < count )); then
+        usage
+    fi
+}
+
+# === Commands ===
+
+cmd_list() {
+    if [[ -d "$MACHINE_DIR" ]]; then
+        for vm in "$MACHINE_DIR"/*; do
+            [[ -d "$vm" ]] && basename "$vm"
+        done
+    fi
+}
+
+cmd_list_images() {
+    if [[ -d "$IMAGE_DIR" ]]; then
+        for img_file in "$IMAGE_DIR"/*; do
+            local img=$(basename "$img_file" ".qcow2")
+            echo $img$'\t'$img_file
+        done
+        # find "$IMAGE_DIR" -type f -name '*.qcow2' -exec basename {} .qcow2 \;
+    fi
+}
+
+cmd_img() {
+    require_args 3 "$@"
+    local variant="$1"
+    local name="$2"
+    local url="$3"
+    local dest="$IMAGE_DIR/$name.qcow2"
+
+    echo "$variant" > "$IMAGE_DIR/.$name.os"
+
+    mkdir -p "$IMAGE_DIR"
+    echo "Downloading image to $dest..."
+    curl -L --fail --retry 3 -o "$dest" "$url"
+    chmod 644 "$dest"
+    echo "Downloaded image: $dest"
+}
+
+cmd_new() {
+    local user_data=
+    local memory="${MBVM_MEMORY:-4096}"
+    local vcpus="${MBVM_VCPUS:-2}"
+
+    while [[ $# -gt 0 ]]; do
+        case "$1" in
+            --user-data)
+                user_data="$2"
+                shift 2
+                ;;
+            --user-data=*)
+                user_data="${1#*=}"
+                shift
+                ;;
+            --)
+                shift
+                passthrough=("$@")
+                break
+                ;;
+            -*)
+                echo "Unknown flag to mbvm build: $1" >&2
+                exit 1
+                ;;
+            *)
+                positional+=("$1")
+                shift
+                ;;
+        esac
+    done
+
+    local vm="${positional[0]}"
+    local img="${positional[1]}"
+    local vm_path="$MACHINE_DIR/$vm"
+    local disk="$vm_path/os.qcow2"
+    local base="$IMAGE_DIR/$img.qcow2"
+
+    local ostype=$(cat "$IMAGE_DIR/.$img.os")
+
+    [[ -f "$base" ]] || die "Image not found: $base"
+    [[ -n "$MBVM_CLOUD_INIT_TMPL" ]] || die "MBVM_CLOUD_INIT_TMPL not set"
+    [[ -f "$MBVM_CLOUD_INIT_TMPL/user-data.yaml" || -f "$MBVM_CLOUD_INIT_TMPL/user-data" ]] || \
+        die "user-data(.yaml) not found in MBVM_CLOUD_INIT_TMPL"
+    [[ -f "$MBVM_CLOUD_INIT_TMPL/meta-data.yaml" || -f "$MBVM_CLOUD_INIT_TMPL/meta-data" ]] || \
+        die "meta-data(.yaml) not found in MBVM_CLOUD_INIT_TMPL"
+
+    mkdir "$vm_path"
+
+    if [ -f "$user_data" ]
+    then
+        cp "$user_data" "$vm_path/user-data"
+    else
+        echo "#cloud-config" > "$vm_path/user-data"
+    fi
+
+    echo "instance-id: $vm" > "$vm_path/meta-data"
+    echo "local-hostname: $vm.$(hostname)" >> "$vm_path/meta-data"
+
+    mkdir -p "$vm_path"
+    echo "Creating overlay disk for $vm..."
+    qemu-img create -f qcow2 -F qcow2 -b "$base" "$disk"
+
+
+    cloud-localds "$vm_path/cloud-init.iso" "$vm_path/user-data" "$vm_path/meta-data"
+
+    echo "Launching VM $vm..."
+
+    virt-install \
+        --name "$vm" \
+        --memory "$memory" \
+        --vcpus "$vcpus" \
+        --disk path="$disk",format=qcow2,bus=virtio \
+        --disk path="$vm_path/cloud-init.iso",device=cdrom \
+        --network network=default,model=virtio \
+        --graphics none \
+        --import \
+        --os-variant "$ostype" \
+        --connect=qemu:///system \
+        "${passthrough[@]}"
+    }
+
+cmd_up() {
+    require_args 1 "$@"
+    local vm="$1"
+    echo "Starting VM $vm..."
+    virsh --connect=qemu:///system start "$vm"
+}
+
+cmd_down() {
+    require_args 1 "$@"
+    local vm="$1"
+    echo "Shutting down VM $vm..."
+    virsh --connect=qemu:///system shutdown "$vm"
+}
+
+cmd_destroy() {
+    require_args 1 "$@"
+    local vm="$1"
+    local vm_path="$MACHINE_DIR/$vm"
+    echo "Destroying VM $vm..."
+    virsh --connect=qemu:///system destroy "$vm" || true
+    virsh --connect=qemu:///system undefine "$vm" --remove-all-storage || true
+
+    rm -rf "$vm_path"
+}
+
+# === Dispatcher ===
+
+main() {
+    local cmd="${1:-}"
+    shift || true
+
+    case "$cmd" in
+        list)     cmd_list "$@" ;;
+        list-img) cmd_list_images "$@" ;;
+        img)      cmd_img "$@" ;;
+        new)      cmd_new "$@" ;;
+        build)    cmd_build "$@" ;;
+        up)       cmd_up "$@" ;;
+        down)     cmd_down "$@" ;;
+        destroy)  cmd_destroy "$@" ;;
+        ""|help|-h|--help) usage ;;
+        *) die "Unknown command: $cmd" ;;
+    esac
+}
+
+main "$@"
